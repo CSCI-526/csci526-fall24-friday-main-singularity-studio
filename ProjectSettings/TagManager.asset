@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WinTrigger
   - Spike
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

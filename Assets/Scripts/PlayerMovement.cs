@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// ⁠ https://www.youtube.com/watch?v=mldjoVDhKc4 ⁠ Reference
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
-    public SceneRotation sceneRotation;
     private float speed = 5f;
     private float jumpForceLandscape = 6.0f; 
     private float fallSpeedLandscape = 0.09f; 
@@ -15,14 +15,43 @@ public class PlayerMovement : MonoBehaviour
     private float normalFallSpeed = 0.05f; 
     private Rigidbody2D rb;
     private bool useJet;
+
+    private bool isGameStarted = false;
+
+    public Transform initialCheckpoint;
+    private Vector3 checkpointPosition; 
     public CameraMovement cameraMovement;
+    public GameObject gameOverPanel;
+    public SceneRotation sceneRotation;
+
+    public GameObject mainMenuUI;
+    public GameObject winPanel;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        //set initial checkpoint
+        isGameStarted = false;
+        if (initialCheckpoint != null)
+        {
+            checkpointPosition = initialCheckpoint.position;
+        }
+        
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
     }
 
     void Update()
+    {
+        if (isGameStarted)
+        {
+            HandleMovement();
+        }
+    }
+    void HandleMovement()
     {
         float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
         Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
@@ -81,16 +110,59 @@ public class PlayerMovement : MonoBehaviour
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
         }
+        if (collision.gameObject.CompareTag("CheckPoint"))
+        {
+            SetCheckpoint(collision.transform);  // Update the checkpoint
+        }
     }
 
     void Die()
     {
-        Debug.Log("Player has died :("); //print death
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        Debug.Log("Player has died :(");
+
+        if (cameraMovement != null)
+        {
+            cameraMovement.StopCamera();
+        }
+        Time.timeScale = 0f;
+
+        gameOverPanel.SetActive(true);
+
     }
+
+    public void SetCheckpoint(Transform newCheckpoint)
+    {
+        checkpointPosition = newCheckpoint.position;
+        Debug.Log("Checkpoint updated to: " + checkpointPosition);
+    }
+
+
+    public void RestartFromCheckpoint()
+    {
+        Debug.Log("Player has died and the game will restart.");
+
+        gameOverPanel.SetActive(true);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    }
+
 
     void Win()
     {
-        Debug.Log("Winner Winner Chicken Dinner!"); //print win
+        Debug.Log("Player has won the game!");
+
+        // Show the Win Panel
+        MainMenu mainMenu = FindObjectOfType<MainMenu>();
+        if (mainMenu != null)
+        {
+            mainMenu.ShowWinPanel();
+        }
+    }
+
+    public void StartGame()
+    {
+        isGameStarted = true;
+        Debug.Log("Player can now move!");
     }
 }
