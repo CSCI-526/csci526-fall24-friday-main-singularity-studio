@@ -17,7 +17,6 @@ public class SceneRotation : MonoBehaviour
     {
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
-        shouldRotate = true;
     }
 
     // Update is called once per frame
@@ -63,6 +62,7 @@ public class SceneRotation : MonoBehaviour
         }
     }
 
+    
     public void StopRotation()
     {
         shouldRotate = false;
