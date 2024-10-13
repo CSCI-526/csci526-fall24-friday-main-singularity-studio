@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Win()
     {
-        Debug.Log("Player has won the game!");
+        Debug.Log("Winner Winner Chicken Dinner!");
         FindObjectOfType<EventControl>().ShowWinPanel();  // Notify EventControl
     }
 }
