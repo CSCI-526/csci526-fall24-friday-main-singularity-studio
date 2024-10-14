@@ -11,58 +11,165 @@ public class SceneRotation : MonoBehaviour
     private float nextRotateTime = 0.0f;
     private float rotationProgress;
     private bool shouldRotate = true;
-    
-    // Start is called before the first frame update
+
+    public GameObject leftWall;
+    public GameObject rightWall;
+    public GameObject topWall;
+    public GameObject bottomWall;
+
+    public Transform LeftBorder;
+    public Transform RightBorder;
+    public Transform TopBorder;
+    public Transform BottomBorder;
+
+  
+    public float wallThickness = 0.0f;
+    public float borderThickness = 0.0f;
+
     void Start()
     {
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
+
+        // Adjust walls based on border objects
+        AdjustCamera();
+
+        UpdateWalls();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // check if player reach finish line
         if (!shouldRotate) return;
 
-        // https://stackoverflow.com/questions/42658013/slowly-rotating-towards-angle-in-unity reference rotation
-
         float currentTime = Time.time;
-        //check if we have reach the rotation time
-        if(currentTime >= nextRotateTime){
+
+        // Check if it's time to rotate
+        if (currentTime >= nextRotateTime)
+        {
             isRotating = true;
 
-            //check if it currently rotation the scene
-            if(rotationProgress < 1 && rotationProgress >= 0){
+            if (rotationProgress < 1 && rotationProgress >= 0)
+            {
                 rotationProgress += Time.deltaTime;
-                if(isVertical){
-                    //rotate the scene from the center of the camera position
-                    // https://stackoverflow.com/questions/52737303/in-unity-script-how-to-rotate-and-rotate-to-around-pivot-position reference
+                
+                // Rotate
+                if (isVertical)
+                {
                     transform.RotateAround(cameraTransform.position, Vector3.forward, 90.0f * Time.deltaTime);
                 }
-                else{
+                else
+                {
                     transform.RotateAround(cameraTransform.position, Vector3.forward, -90.0f * Time.deltaTime);
                 }
             }
-            else{
-                //set the Scene to be 90 degree angle incase of rotation didn't make it perfect 90 degree angle.
-                if(isVertical){
+            else
+            {
+                if (isVertical)
+                {
                     transform.rotation = Quaternion.Euler(0, 0, 90.0f);
                 }
-                else{
+                else
+                {
                     transform.rotation = Quaternion.Euler(0, 0, 0.0f);
                 }
 
-                //set the next rotation time
                 nextRotateTime = Time.time + rotationPeriod;
                 isVertical = !isVertical;
                 rotationProgress = 0;
                 isRotating = false;
+
+                AdjustCamera();
+
+                
+                UpdateWalls();
             }
         }
     }
 
-    
+    void AdjustCamera()
+    {
+        Camera mainCamera = Camera.main;
+
+        // Adjust camera based on walls
+        if (mainCamera.orthographic)
+        {
+            float left = leftWall.transform.position.x;
+            float right = rightWall.transform.position.x;
+            float top = topWall.transform.position.y;
+            float bottom = bottomWall.transform.position.y;
+
+            left -= wallThickness;
+            right += wallThickness;
+            top += wallThickness;
+            bottom -= wallThickness;
+
+            float cameraBorderWidth = 0f;
+            float cameraBorderHeight = 0f;
+
+            // Adjust camera border based on border objects
+            if (LeftBorder != null && RightBorder != null)
+            {
+                SpriteRenderer leftRenderer = LeftBorder.GetComponent<SpriteRenderer>();
+                SpriteRenderer rightRenderer = RightBorder.GetComponent<SpriteRenderer>();
+                if (leftRenderer != null && rightRenderer != null)
+                {
+                    cameraBorderWidth = leftRenderer.bounds.size.x + rightRenderer.bounds.size.x + 2 * borderThickness;
+                }
+            }
+
+            if (TopBorder != null && BottomBorder != null)
+            {
+                SpriteRenderer topRenderer = TopBorder.GetComponent<SpriteRenderer>();
+                SpriteRenderer bottomRenderer = BottomBorder.GetComponent<SpriteRenderer>();
+                if (topRenderer != null && bottomRenderer != null)
+                {
+                    cameraBorderHeight = topRenderer.bounds.size.y + bottomRenderer.bounds.size.y + 2 * borderThickness;
+                }
+            }
+
+            float totalWidth = right - left + cameraBorderWidth;
+            float totalHeight = top - bottom + cameraBorderHeight;
+
+            float centerX = (left + right) / 2;
+            float centerY = (top + bottom) / 2;
+            mainCamera.transform.position = new Vector3(centerX, centerY, mainCamera.transform.position.z);
+
+          
+            if (isVertical)
+            {
+               
+                float aspectRatio = mainCamera.aspect;
+                mainCamera.orthographicSize = totalWidth / (2 * aspectRatio);
+            }
+            else
+            {
+            
+                mainCamera.orthographicSize = totalHeight / 2;
+            }
+        }
+        
+    }
+
+    void UpdateWalls()
+    {
+        if (isVertical)
+        {
+            
+            topWall.SetActive(true);
+            bottomWall.SetActive(true);
+            leftWall.SetActive(false);
+            rightWall.SetActive(false);
+        }
+        else
+        {
+            
+            topWall.SetActive(false);
+            bottomWall.SetActive(false);
+            leftWall.SetActive(true);
+            rightWall.SetActive(true);
+        }
+    }
+
     public void StopRotation()
     {
         shouldRotate = false;

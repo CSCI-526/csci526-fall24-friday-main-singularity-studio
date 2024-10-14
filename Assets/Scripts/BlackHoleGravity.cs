@@ -6,10 +6,8 @@ public class BlackHoleGravity : MonoBehaviour
     public Transform targetTransform;         // Reference to the target (player) transform
     public float gravityFieldRadius = 10f;    // Range for the gravitational field
     public float maxGravityForce = 150f;      // Maximum gravitational force applied
-    private float jumpForce = 6.0f;             // Force applied when the player jumps to escape
 
     private Rigidbody2D targetRb;             // Reference to the target's Rigidbody2D
-    private bool isJumping = false;           // To track whether the player is jumping
 
     void Start()
     {
@@ -21,23 +19,12 @@ public class BlackHoleGravity : MonoBehaviour
 
     void Update()
     {
-        // Check if the player presses the spacebar to jump
-        if (Input.GetButtonDown("Jump"))
-        {
-            isJumping = true;
-            // Apply an upward force to escape the black hole
-            targetRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-        else if (Input.GetButtonUp("Jump"))
-        {
-            // Once the player releases the jump key, stop jumping
-            isJumping = false;
-        }
+        
     }
 
     void FixedUpdate()
     {
-        if (targetTransform != null && !isJumping) // Only apply gravity when not jumping
+        if (targetTransform != null)
         {
             // Calculate direction and distance from target to the black hole
             Vector2 directionToBlackHole = (Vector2)transform.position - (Vector2)targetTransform.position;
