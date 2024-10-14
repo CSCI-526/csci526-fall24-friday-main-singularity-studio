@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject scene;
     public Vector3 sceneOriginalPosition; 
 
+    private bool isGameStated = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,47 +38,52 @@ public class PlayerMovement : MonoBehaviour
 
         scene = GameObject.Find("GameView");
         sceneOriginalPosition = scene.transform.position;
+
+        isGameStated = false;
     }
 
     void Update()
     {
-        float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-        Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
-        rb.velocity = vel;
+        if(isGameStated){
+            float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
+            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
+            rb.velocity = vel;
 
-        if (sceneRotation.isVertical) //Check vert
-        {
-            if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
+            if (sceneRotation.isVertical) //Check vert
             {
-                useJet = true;
-                rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
+                if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
+                {
+                    useJet = true;
+                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
+                }
+                else
+                {
+                    useJet = false;
+                }
+
+                if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
+                {
+                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
+                }
             }
             else
             {
+                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
+                {
+                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
+                    rb.velocity = spac;
+                }
+
+                if (rb.velocity.y < 0) // Slow landscape fall
+                {
+                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
+                    rb.velocity += slo;
+                }
+
                 useJet = false;
             }
-
-            if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
-            {
-                rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
-            }
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
-            {
-                Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
-                rb.velocity = spac;
-            }
-
-            if (rb.velocity.y < 0) // Slow landscape fall
-            {
-                Vector2 slo = new Vector2(0, -fallSpeedLandscape);
-                rb.velocity += slo;
-            }
-
-            useJet = false;
-        }
+        
     }
 
     
@@ -86,6 +93,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Die();
         }
+    }
+
+    public void StartGame(){
+        isGameStated = true;
     }
 
     

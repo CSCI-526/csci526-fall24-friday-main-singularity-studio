@@ -41,7 +41,9 @@ public class Health : MonoBehaviour
             currentHealth = 0;
             Debug.Log("YOU LOST!");
             PlayerPrefs.DeleteAll();
-            Time.timeScale = 0f; //Pause the game (for now)
+            // Time.timeScale = 0f; //Pause the game (for now)
+
+            FindObjectOfType<EventControl>().ShowGameOverPanel();
         }
         UpdateHearts();
     }
