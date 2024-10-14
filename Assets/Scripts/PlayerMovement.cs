@@ -8,18 +8,34 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
-    private float speed = 5f;
-    private float jumpForceLandscape = 6.0f; 
-    private float fallSpeedLandscape = 0.09f; 
-    private float jetpackForce = 3.0f; 
-    private float normalFallSpeed = 0.05f; 
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForceLandscape = 6.0f; 
+    [SerializeField] private float fallSpeedLandscape = 0.09f; 
+    [SerializeField] private float jetpackForce = 3.0f; 
+    [SerializeField] private float normalFallSpeed = 0.05f; 
     private Rigidbody2D rb;
     private bool useJet;
     public CameraMovement cameraMovement;
+    private Health health;
+    private int healthDamage = 1;
+    private Vector3 playerOriginalPosition;
+    public GameObject cam; 
+    public Vector3 CameraOriginalPosition;
+    public GameObject scene;
+    public Vector3 sceneOriginalPosition; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = GetComponent<Health>();
+
+        playerOriginalPosition = gameObject.transform.position;
+
+        cam = GameObject.Find("Main Camera");
+        CameraOriginalPosition = cam.transform.position;
+
+        scene = GameObject.Find("GameView");
+        sceneOriginalPosition = scene.transform.position;
     }
 
     void Update()
@@ -86,7 +102,16 @@ public class PlayerMovement : MonoBehaviour
     void Die()
     {
         Debug.Log("Player has died :("); //print death
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        health.TakeDamage(healthDamage);
+
+        // Position the player and camera and sceneView at the origial position instead of reloading the scene!
+        gameObject.transform.position = playerOriginalPosition;
+        cam.transform.position = CameraOriginalPosition;
+        scene.transform.position = sceneOriginalPosition;
+        scene.transform.rotation = Quaternion.identity;
+        sceneRotation.setCameraOrientation();
+
+        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     void Win()

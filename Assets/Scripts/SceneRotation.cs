@@ -67,4 +67,8 @@ public class SceneRotation : MonoBehaviour
     {
         shouldRotate = false;
     }
+
+    public void setCameraOrientation(){
+        isVertical = true;
+    }
 }
