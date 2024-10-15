@@ -31,10 +31,12 @@ public class MovingPlatform : MonoBehaviour
     {
         if (moveHorizontally)
         {
+            // print("move horizontaly");
             MoveHorizontally();
         }
         else
         {
+            // print("move vertically");
             MoveVertically();
         }
     }
