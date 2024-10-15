@@ -26,18 +26,20 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGameStated = false;
 
+    private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
 
-        playerOriginalPosition = gameObject.transform.position;
+        // playerOriginalPosition = gameObject.transform.position;
 
-        cam = GameObject.Find("Main Camera");
-        CameraOriginalPosition = cam.transform.position;
+        // cam = GameObject.Find("Main Camera");
+        // CameraOriginalPosition = cam.transform.position;
 
-        scene = GameObject.Find("GameView");
-        sceneOriginalPosition = scene.transform.position;
+        // scene = GameObject.Find("GameView");
+        // sceneOriginalPosition = scene.transform.position;
 
         isGameStated = false;
     }
@@ -89,9 +91,31 @@ public class PlayerMovement : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
-        if (collision.gameObject.CompareTag("Spike")) //check if it is spike
+        if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
         {
-            Die();
+            if (!damagedSpikes.Contains(collision.gameObject))
+            {
+                damagedSpikes.Add(collision.gameObject);
+
+                playerOriginalPosition = gameObject.transform.position;
+
+                cam = GameObject.Find("Main Camera");
+                CameraOriginalPosition = cam.transform.position;
+
+                scene = GameObject.Find("GameView");
+                sceneOriginalPosition = scene.transform.position;
+
+                Die();
+            }
+        }
+    }
+
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            damagedSpikes.Remove(collision.gameObject);
         }
     }
 
