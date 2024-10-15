@@ -28,18 +28,13 @@ public class PlayerMovement : MonoBehaviour
 
     private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
 
+    private bool isTouchWall = false;
+    private float stayOnWallTime = 0.0f;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
-
-        // playerOriginalPosition = gameObject.transform.position;
-
-        // cam = GameObject.Find("Main Camera");
-        // CameraOriginalPosition = cam.transform.position;
-
-        // scene = GameObject.Find("GameView");
-        // sceneOriginalPosition = scene.transform.position;
 
         isGameStated = false;
     }
@@ -91,6 +86,14 @@ public class PlayerMovement : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
+        if (collision.gameObject.CompareTag("Wall")){
+            Debug.Log("YOU LOST!");
+            PlayerPrefs.DeleteAll();
+            // Time.timeScale = 0f; //Pause the game (for now)
+
+            FindObjectOfType<EventControl>().ShowGameOverPanel();
+            isTouchWall = true;
+        }
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
         {
             if (!damagedSpikes.Contains(collision.gameObject))
@@ -108,14 +111,31 @@ public class PlayerMovement : MonoBehaviour
                 Die();
             }
         }
+        
     }
 
+    void OnCollisionStay2D(Collision2D collision){
+        print("in stay function");
+        if (collision.gameObject.CompareTag("Wall")){
+            print("on the wall");
+            stayOnWallTime += Time.deltaTime;
+
+            if(stayOnWallTime >= 1){
+                health.TakeDamage(healthDamage);
+                stayOnWallTime = 0.0f;
+            }
+        }
+    }
 
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
             damagedSpikes.Remove(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Wall")){
+            isTouchWall = false;
+            stayOnWallTime = 0.0f;
         }
     }
 
@@ -139,12 +159,12 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Player has died :("); //print death
         health.TakeDamage(healthDamage);
 
-        // Position the player and camera and sceneView at the origial position instead of reloading the scene!
-        gameObject.transform.position = playerOriginalPosition;
-        cam.transform.position = CameraOriginalPosition;
-        scene.transform.position = sceneOriginalPosition;
-        scene.transform.rotation = Quaternion.identity;
-        sceneRotation.setCameraOrientation();
+        // // Position the player and camera and sceneView at the origial position instead of reloading the scene!
+        // gameObject.transform.position = playerOriginalPosition;
+        // cam.transform.position = CameraOriginalPosition;
+        // scene.transform.position = sceneOriginalPosition;
+        // scene.transform.rotation = Quaternion.identity;
+        // sceneRotation.setCameraOrientation();
 
         // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }

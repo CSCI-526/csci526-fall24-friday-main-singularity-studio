@@ -12,19 +12,12 @@ public class SceneRotation : MonoBehaviour
     private float rotationProgress;
     private bool shouldRotate = true;
 
-
-    public GameObject leftWall;
-    public GameObject rightWall;
-    public GameObject topWall;
-    public GameObject bottomWall;
     
     // Start is called before the first frame update
     void Start()
     {
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
-
-        // UpdateWalls(false);
     }
 
 
@@ -72,28 +65,7 @@ public class SceneRotation : MonoBehaviour
                 isRotating = false;
 
 
-                // float currentZRotation = transform.eulerAngles.z;
 
-                // float targetZRotation = isVertical ? 90.0f : 0.0f;
-
-                // if (Mathf.Abs(currentZRotation - targetZRotation) > 0.1f)
-                // {
-                //     float angleDifference = Mathf.LerpAngle(currentZRotation, targetZRotation, Time.deltaTime * 5);
-                //     transform.RotateAround(cameraTransform.position, Vector3.forward, angleDifference - currentZRotation);
-                // }
-                // else
-                // {
-                //     transform.rotation = Quaternion.Euler(0, 0, targetZRotation);
-
-                //     transform.position = cameraTransform.position + (transform.position - cameraTransform.position).normalized * (transform.position - cameraTransform.position).magnitude;
-
-                //     nextRotateTime = Time.time + rotationPeriod;
-                //     isVertical = !isVertical;
-                //     rotationProgress = 0;
-                //     isRotating = false;
-                // }
-
-                // UpdateWalls(false);
             }
         }
     }
@@ -108,21 +80,5 @@ public class SceneRotation : MonoBehaviour
         isVertical = true;
     }
 
-    void UpdateWalls(bool isRotating)
-    {
-        if (isRotating)
-        {
-            topWall.SetActive(false);
-            bottomWall.SetActive(false);
-            leftWall.SetActive(false);
-            rightWall.SetActive(false);
-        }
-        else
-        {
-            topWall.SetActive(true);
-            bottomWall.SetActive(true);
-            leftWall.SetActive(true);
-            rightWall.SetActive(true);
-        }
-    }
+   
 }
