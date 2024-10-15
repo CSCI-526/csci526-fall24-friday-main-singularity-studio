@@ -115,9 +115,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void OnCollisionStay2D(Collision2D collision){
-        print("in stay function");
         if (collision.gameObject.CompareTag("Wall")){
-            print("on the wall");
             stayOnWallTime += Time.deltaTime;
 
             if(stayOnWallTime >= 1){
