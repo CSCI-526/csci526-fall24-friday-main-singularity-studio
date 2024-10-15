@@ -12,12 +12,15 @@ public class SceneRotation : MonoBehaviour
     private float rotationProgress;
     private bool shouldRotate = true;
 
+    private float relativePos = 0.0f;
+
     
     // Start is called before the first frame update
     void Start()
     {
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
+        relativePos = cameraTransform.position.x - transform.position.x;
     }
 
 
@@ -53,9 +56,15 @@ public class SceneRotation : MonoBehaviour
                 //set the Scene to be 90 degree angle incase of rotation didn't make it perfect 90 degree angle.
                 if(isVertical){
                     transform.rotation = Quaternion.Euler(0, 0, 90.0f);
+                    Vector3 adjustedPosition = transform.position;
+                    adjustedPosition.y = cameraTransform.position.y - relativePos;
+                    transform.position = adjustedPosition;
                 }
                 else{
                     transform.rotation = Quaternion.Euler(0, 0, 0.0f);
+                    Vector3 adjustedPosition = transform.position;
+                    adjustedPosition.x = cameraTransform.position.x - relativePos;
+                    transform.position = adjustedPosition;
                 }
 
                 // set the next rotation time
