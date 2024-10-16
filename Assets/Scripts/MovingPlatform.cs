@@ -4,36 +4,29 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    private GameObject go;
+    private SceneRotation sceneRotation;
     public float speed = 2f;  
-    public float distance = 3f;  
-    public bool Vertical = false;  
-
-    private float min;  
-    private float max;  
+    public float movingDistance = 2;
 
     void Start()
     {
-        if (Vertical)
-        {
-            min = transform.position.y;
-            max = transform.position.y + distance;
-        }
-        else
-        {
-            min = transform.position.x;
-            max = transform.position.x + distance;
-        }
+        go = GameObject.Find("GameView");
+        sceneRotation = go.GetComponent<SceneRotation>();
     }
 
     void Update()
     {
-        if (Vertical)
+        if (sceneRotation.isVertical)
         {
-            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time * speed, max - min) + min, transform.position.z);
+            
+            // transform.localPosition = new Vector3(Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.y, transform.localPosition.z);
+            transform.localPosition = new Vector3(Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.y, 0);
         }
         else
         {
-            transform.position = new Vector3(Mathf.PingPong(Time.time * speed, max - min) + min, transform.position.y, transform.position.z);
+            // transform.localPosition = new Vector3(transform.localPosition.x, Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.PingPong(Time.time * speed, movingDistance), 0);
         }
     }
 }
