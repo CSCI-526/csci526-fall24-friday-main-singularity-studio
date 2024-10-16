@@ -176,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Win()
     {
+        FindObjectOfType<EventControl>().ShowWinPanel();  // Notify EventControl
         Debug.Log("Winner Winner Chicken Dinner!"); //print win
     }
 }
