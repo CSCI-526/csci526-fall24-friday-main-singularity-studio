@@ -172,5 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  moveHorizontally: 1
-  moveDistance: 2
+  distance: 3
+  Vertical: 1
