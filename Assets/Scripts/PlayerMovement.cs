@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isTouchWall = false;
     private float stayOnWallTime = 0.0f;
+    
 
     void Start()
     {
@@ -86,14 +87,6 @@ public class PlayerMovement : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
-        if (collision.gameObject.CompareTag("Wall")){
-            Debug.Log("YOU LOST!");
-            PlayerPrefs.DeleteAll();
-            // Time.timeScale = 0f; //Pause the game (for now)
-
-            FindObjectOfType<EventControl>().ShowGameOverPanel();
-            isTouchWall = true;
-        }
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
         {
             if (!damagedSpikes.Contains(collision.gameObject))
@@ -114,26 +107,12 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    void OnCollisionStay2D(Collision2D collision){
-        if (collision.gameObject.CompareTag("Wall")){
-            stayOnWallTime += Time.deltaTime;
-
-            if(stayOnWallTime >= 1){
-                health.TakeDamage(healthDamage);
-                stayOnWallTime = 0.0f;
-            }
-        }
-    }
 
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
             damagedSpikes.Remove(collision.gameObject);
-        }
-        if (collision.gameObject.CompareTag("Wall")){
-            isTouchWall = false;
-            stayOnWallTime = 0.0f;
         }
     }
 
@@ -149,6 +128,34 @@ public class PlayerMovement : MonoBehaviour
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchWall = true;
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            stayOnWallTime += Time.deltaTime;
+
+            if (stayOnWallTime >= 1.0f)
+            {
+                health.TakeDamage(healthDamage);
+                stayOnWallTime = 0.0f;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchWall = false;
+            stayOnWallTime = 0.0f;
         }
     }
 
