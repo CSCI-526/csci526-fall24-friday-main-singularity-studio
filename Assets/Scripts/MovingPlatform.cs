@@ -5,27 +5,42 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     private GameObject go;
-    private SceneRotation sceneRotation;
+    private bool isVertical = true;
     public float speed = 2f;  
     public float movingDistance = 2;
 
     void Start()
     {
         go = GameObject.Find("GameView");
-        sceneRotation = go.GetComponent<SceneRotation>();
+
+        if (go == null)
+        {
+            Debug.LogError("GameObject 'GameView' not found in the scene!");
+            return;
+        }
+
+        if (go.TryGetComponent<SceneRotation>(out SceneRotation rotation))
+        {
+            isVertical = rotation.isVertical;
+        }
+        else if (go.TryGetComponent<SceneRotationSpeedrun>(out SceneRotationSpeedrun rotationSpeedrun))
+        {
+            isVertical = rotationSpeedrun.isVertical; 
+        }
+        else
+        {
+            Debug.LogError("Neither SceneRotation nor SceneRotationSpeedrun component found on GameView!");
+        }
     }
 
     void Update()
     {
-        if (sceneRotation.isVertical)
+        if (isVertical)
         {
-            
-            // transform.localPosition = new Vector3(Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.y, transform.localPosition.z);
             transform.localPosition = new Vector3(Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.y, 0);
         }
         else
         {
-            // transform.localPosition = new Vector3(transform.localPosition.x, Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.z);
             transform.localPosition = new Vector3(transform.localPosition.x, Mathf.PingPong(Time.time * speed, movingDistance), 0);
         }
     }

@@ -9,7 +9,7 @@ public class EventControl : MonoBehaviour
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;             // Win panel
-    public PlayerMovement playerMovement;  // Reference to PlayerMovement
+    private MonoBehaviour playerMovement;  // Reference to PlayerMovement
 
     void Start()
     {
@@ -27,9 +27,32 @@ public class EventControl : MonoBehaviour
         mainMenuUI.SetActive(false);
         Time.timeScale = 1f;  // Make sure time is resumed here
 
-        if (playerMovement != null)
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
         {
-            playerMovement.StartGame();
+            playerMovement = player.GetComponent<PlayerMovement>();
+            if (playerMovement == null)
+            {
+                playerMovement = player.GetComponent<PlayerMovementSpeedrun>();
+            }
+
+            // Check which type of playerMovement we have and call StartGame on it
+            if (playerMovement is PlayerMovement movement)
+            {
+                movement.StartGame();
+            }
+            else if (playerMovement is PlayerMovementSpeedrun speedrun)
+            {
+                speedrun.StartGame();
+            }
+            else
+            {
+                Debug.LogError("No valid player movement component found!");
+            }
+        }
+        else
+        {
+            Debug.LogError("Player GameObject not found!");
         }
     }
 
@@ -72,6 +95,7 @@ public class EventControl : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public void RestartGameBack()
     {
         instructionPanel.SetActive(false);
@@ -81,5 +105,4 @@ public class EventControl : MonoBehaviour
         winPanel.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
 }
