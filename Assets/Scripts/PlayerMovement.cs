@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isTouchWall = false;
     private float stayOnWallTime = 0.0f;
 
+    private float stayOnSpikeTime = 0.0f;
+
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
@@ -104,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
 
                 scene = GameObject.Find("GameView");
                 sceneOriginalPosition = scene.transform.position;
-
                 Die();
             }
         }
@@ -112,11 +113,22 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    void OnCollisionStay2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Spike")){
+            stayOnSpikeTime += Time.deltaTime;
+            if(stayOnSpikeTime >= damageCoolDown){
+                Die();
+                stayOnSpikeTime = 0.0f; 
+            }
+        }
+    }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
         {
             damagedSpikes.Remove(collision.gameObject);
+            stayOnSpikeTime = 0.0f;
         }
     }
 
