@@ -30,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isTouchWall = false;
     private float stayOnWallTime = 0.0f;
+
+    private bool isWallDamage = false;
+
+    private float damageCoolDown = 0.5f;
     
 
     void Start()
@@ -142,10 +146,14 @@ public class PlayerMovement : MonoBehaviour
         {
             stayOnWallTime += Time.deltaTime;
 
-            if (stayOnWallTime >= 1.0f)
+            if (stayOnWallTime < damageCoolDown && !isWallDamage)
             {
                 health.TakeDamage(healthDamage);
+                isWallDamage = true;
+            }
+            else if(stayOnWallTime >= damageCoolDown){
                 stayOnWallTime = 0.0f;
+                isWallDamage = false;
             }
         }
     }
