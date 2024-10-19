@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
+
+    private bool isPlayerTouchPlatform = false;
     
 
     void Start()
@@ -109,6 +111,11 @@ public class PlayerMovement : MonoBehaviour
                 Die();
             }
         }
+
+        if (collision.gameObject.tag == "Untagged" || collision.gameObject.CompareTag("Spike"))
+        {
+            isPlayerTouchPlatform = true;
+        }
         
     }
 
@@ -121,6 +128,10 @@ public class PlayerMovement : MonoBehaviour
                 stayOnSpikeTime = 0.0f; 
             }
         }
+
+        if(isPlayerTouchPlatform && isTouchWall){
+            FindObjectOfType<EventControl>().ShowGameOverPanel();
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -129,6 +140,10 @@ public class PlayerMovement : MonoBehaviour
         {
             damagedSpikes.Remove(collision.gameObject);
             stayOnSpikeTime = 0.0f;
+        }
+        if (collision.gameObject.tag == "Untagged" || collision.gameObject.CompareTag("Spike"))
+        {
+            isPlayerTouchPlatform = false;
         }
     }
 
@@ -145,7 +160,6 @@ public class PlayerMovement : MonoBehaviour
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
         }
-
         if (collision.gameObject.CompareTag("Wall"))
         {
             isTouchWall = true;
