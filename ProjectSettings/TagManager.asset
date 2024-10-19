@@ -8,6 +8,7 @@ TagManager:
   - Spike
   - Wall
   - heart
+  - Platform
   layers:
   - Default
   - TransparentFX
