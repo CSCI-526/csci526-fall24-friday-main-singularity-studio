@@ -11,19 +11,24 @@ public class MovingPlatform : MonoBehaviour
 
     public bool moveHorizontally = true;
 
+    private Vector3 initialPosition;
+
     void Start()
     {
         go = GameObject.Find("GameView");
         sceneRotation = go.GetComponent<SceneRotation>();
+        initialPosition = transform.localPosition;
     }
 
     void Update()
     {
-        if(moveHorizontally){
-            transform.localPosition = new Vector3(Mathf.PingPong(Time.time * speed, movingDistance), transform.localPosition.y, 0);
+        if (moveHorizontally)
+        {
+            transform.localPosition = new Vector3(initialPosition.x + Mathf.PingPong(Time.time * speed, movingDistance), initialPosition.y, 0);
         }
-        else{
-            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.PingPong(Time.time * speed, movingDistance), 0);
+        else
+        {
+            transform.localPosition = new Vector3(initialPosition.x, initialPosition.y + Mathf.PingPong(Time.time * speed, movingDistance), 0);
         }
         
         // if (sceneRotation.isVertical)
