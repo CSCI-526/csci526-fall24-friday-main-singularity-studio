@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class EventControl : MonoBehaviour
 {
     public GameObject instructionPanel;    // Panel for instructions
-    public GameObject settingsPanel;       // Panel for settings
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;             // Win panel
@@ -15,7 +14,6 @@ public class EventControl : MonoBehaviour
     {
         // Hide all panels initially
         instructionPanel.SetActive(false);
-        settingsPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
         mainMenuUI.SetActive(true);
@@ -37,20 +35,18 @@ public class EventControl : MonoBehaviour
     {
         mainMenuUI.SetActive(false);
         instructionPanel.SetActive(true);
-        settingsPanel.SetActive(false);
+
     }
 
     public void ShowSettings()
     {
         mainMenuUI.SetActive(false);
-        settingsPanel.SetActive(true);
         instructionPanel.SetActive(false);
     }
 
     public void BackToMainMenu()
     {
         instructionPanel.SetActive(false);
-        settingsPanel.SetActive(false);
         mainMenuUI.SetActive(true);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
@@ -76,7 +72,6 @@ public class EventControl : MonoBehaviour
     public void RestartGameBack()
     {
         instructionPanel.SetActive(false);
-        settingsPanel.SetActive(false);
         mainMenuUI.SetActive(true);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
