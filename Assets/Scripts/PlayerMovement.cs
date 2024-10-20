@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
 
     private float damageCoolDown = 0.5f;
 
-    private bool isPlayerTouchPlatform = false;
     
 
     void Start()
@@ -111,12 +110,6 @@ public class PlayerMovement : MonoBehaviour
                 Die();
             }
         }
-
-        if (collision.gameObject.tag == "Untagged" || collision.gameObject.CompareTag("Spike"))
-        {
-            isPlayerTouchPlatform = true;
-        }
-        
     }
 
 
@@ -128,10 +121,6 @@ public class PlayerMovement : MonoBehaviour
                 stayOnSpikeTime = 0.0f; 
             }
         }
-
-        if(isPlayerTouchPlatform && isTouchWall){
-            FindObjectOfType<EventControl>().ShowGameOverPanel();
-        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -140,10 +129,6 @@ public class PlayerMovement : MonoBehaviour
         {
             damagedSpikes.Remove(collision.gameObject);
             stayOnSpikeTime = 0.0f;
-        }
-        if (collision.gameObject.tag == "Untagged" || collision.gameObject.CompareTag("Spike"))
-        {
-            isPlayerTouchPlatform = false;
         }
     }
 
@@ -159,10 +144,6 @@ public class PlayerMovement : MonoBehaviour
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
-        }
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            isTouchWall = true;
         }
     }
 
@@ -197,15 +178,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Player has died :("); //print death
         health.TakeDamage(healthDamage);
-
-        // // Position the player and camera and sceneView at the origial position instead of reloading the scene!
-        // gameObject.transform.position = playerOriginalPosition;
-        // cam.transform.position = CameraOriginalPosition;
-        // scene.transform.position = sceneOriginalPosition;
-        // scene.transform.rotation = Quaternion.identity;
-        // sceneRotation.setCameraOrientation();
-
-        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     void Win()
