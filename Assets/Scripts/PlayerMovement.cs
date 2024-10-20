@@ -1,101 +1,216 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ⁠ https://www.youtube.com/watch?v=mldjoVDhKc4 ⁠ Reference
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
-    private float speed = 5f;
-    private float jumpForceLandscape = 6.0f;
-    private float fallSpeedLandscape = 0.09f;
-    private float jetpackForce = 3.0f;
-    private float normalFallSpeed = 0.05f;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForceLandscape = 6.0f; 
+    [SerializeField] private float fallSpeedLandscape = 0.09f; 
+    [SerializeField] private float jetpackForce = 3.0f; 
+    [SerializeField] private float normalFallSpeed = 0.05f; 
     private Rigidbody2D rb;
     private bool useJet;
     public CameraMovement cameraMovement;
+    private Health health;
+    private int healthDamage = 1;
+    private Vector3 playerOriginalPosition;
+    public GameObject cam; 
+    public Vector3 CameraOriginalPosition;
+    public GameObject scene;
+    public Vector3 sceneOriginalPosition; 
 
-    private bool isGameStarted = false;
+    private bool isGameStated = false;
+
+    private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
+
+    private bool isTouchWall = false;
+    private float stayOnWallTime = 0.0f;
+
+    private float stayOnSpikeTime = 0.0f;
+
+    private bool isWallDamage = false;
+
+    private float damageCoolDown = 0.5f;
+
+    private bool isPlayerTouchPlatform = false;
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        isGameStarted = false;
+        health = GetComponent<Health>();
+
+        isGameStated = false;
     }
 
     void Update()
     {
-        if (isGameStarted)
-        {
-            float moveLR = Input.GetAxis("Horizontal");  // Left/Right Movement
-            Vector2 vel = new Vector2(moveLR * speed, rb.velocity.y);
+        if(isGameStated){
+            float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
+            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
             rb.velocity = vel;
 
-            if (sceneRotation.isVertical)  // Check vertical mode
+            if (sceneRotation.isVertical) //Check vert
             {
-                if (Input.GetKey(KeyCode.Space))  // Jetpack
+                if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
                 {
                     useJet = true;
-                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);  // Apply jetpack force
+                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
                 }
                 else
                 {
                     useJet = false;
                 }
 
-                if (!useJet && rb.velocity.y < 0)  // Apply gravity in vertical mode
+                if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
                 {
-                    rb.velocity += new Vector2(0, -normalFallSpeed);
+                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
                 }
             }
-            else  // Landscape mode (horizontal)
+            else
             {
-                if (Input.GetKeyDown(KeyCode.Space))  // Jump
+                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForceLandscape);
+                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
+                    rb.velocity = spac;
                 }
 
-                if (rb.velocity.y < 0)  // Apply slow fall
+                if (rb.velocity.y < 0) // Slow landscape fall
                 {
-                    rb.velocity += new Vector2(0, -fallSpeedLandscape);
+                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
+                    rb.velocity += slo;
                 }
 
                 useJet = false;
             }
         }
+        
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    
+    void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
-        if (collision.gameObject.CompareTag("Spike"))
+        if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
         {
-            Die();
+            if (!damagedSpikes.Contains(collision.gameObject))
+            {
+                damagedSpikes.Add(collision.gameObject);
+
+                playerOriginalPosition = gameObject.transform.position;
+
+                cam = GameObject.Find("Main Camera");
+                CameraOriginalPosition = cam.transform.position;
+
+                scene = GameObject.Find("GameView");
+                sceneOriginalPosition = scene.transform.position;
+                Die();
+            }
+        }
+
+        if (collision.gameObject.tag == "Untagged" || collision.gameObject.CompareTag("Spike"))
+        {
+            isPlayerTouchPlatform = true;
+        }
+        
+    }
+
+
+    void OnCollisionStay2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Spike")){
+            stayOnSpikeTime += Time.deltaTime;
+            if(stayOnSpikeTime >= damageCoolDown){
+                Die();
+                stayOnSpikeTime = 0.0f; 
+            }
+        }
+
+        if(isPlayerTouchPlatform && isTouchWall){
+            FindObjectOfType<EventControl>().ShowGameOverPanel();
         }
     }
 
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
+        {
+            damagedSpikes.Remove(collision.gameObject);
+            stayOnSpikeTime = 0.0f;
+        }
+        if (collision.gameObject.tag == "Untagged" || collision.gameObject.CompareTag("Spike"))
+        {
+            isPlayerTouchPlatform = false;
+        }
+    }
+
+    public void StartGame(){
+        isGameStated = true;
+    }
+
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("WinTrigger"))
+        if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
         {
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
         }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchWall = true;
+        }
     }
 
-    public void StartGame()  // Call this from anywhere to start player movement
+    void OnTriggerStay2D(Collider2D collision)
     {
-        isGameStarted = true;
-        Debug.Log("Player can now move!");
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            stayOnWallTime += Time.deltaTime;
+
+            if (stayOnWallTime < damageCoolDown && !isWallDamage)
+            {
+                health.TakeDamage(healthDamage);
+                isWallDamage = true;
+            }
+            else if(stayOnWallTime >= damageCoolDown){
+                stayOnWallTime = 0.0f;
+                isWallDamage = false;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchWall = false;
+            stayOnWallTime = 0.0f;
+        }
     }
 
     void Die()
     {
-        Debug.Log("Player has died :(");
-        FindObjectOfType<EventControl>().ShowGameOverPanel();  // Notify EventControl
+        Debug.Log("Player has died :("); //print death
+        health.TakeDamage(healthDamage);
+
+        // // Position the player and camera and sceneView at the origial position instead of reloading the scene!
+        // gameObject.transform.position = playerOriginalPosition;
+        // cam.transform.position = CameraOriginalPosition;
+        // scene.transform.position = sceneOriginalPosition;
+        // scene.transform.rotation = Quaternion.identity;
+        // sceneRotation.setCameraOrientation();
+
+        // UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     void Win()
     {
-        Debug.Log("Winner Winner Chicken Dinner!");
         FindObjectOfType<EventControl>().ShowWinPanel();  // Notify EventControl
+        Debug.Log("Winner Winner Chicken Dinner!"); //print win
     }
 }

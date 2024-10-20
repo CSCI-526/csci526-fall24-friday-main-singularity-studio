@@ -35,7 +35,6 @@ public class EventControl : MonoBehaviour
     {
         mainMenuUI.SetActive(false);
         instructionPanel.SetActive(true);
-
     }
 
     public void ShowSettings()
@@ -66,7 +65,6 @@ public class EventControl : MonoBehaviour
 
     public void RestartGame()
     {
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void RestartGameBack()

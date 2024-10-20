@@ -6,6 +6,9 @@ TagManager:
   tags:
   - WinTrigger
   - Spike
+  - Wall
+  - heart
+  - Platform
   layers:
   - Default
   - TransparentFX
