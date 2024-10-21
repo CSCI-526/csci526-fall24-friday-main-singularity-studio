@@ -33172,6 +33172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1177985018}
   - component: {fileID: 1177985019}
+  - component: {fileID: 1177985020}
   m_Layer: 0
   m_Name: Walls Trigger
   m_TagString: Untagged
@@ -33216,6 +33217,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneRotation: {fileID: 291149386}
   speed: 3.5
+--- !u!114 &1177985020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177985017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 012162425ddc7d64ca4cd4c075932f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftBorder: {fileID: 1412591807}
+  rightBorder: {fileID: 692157652}
+  topBorder: {fileID: 1316358989}
+  bottomBorder: {fileID: 73423770}
 --- !u!1 &1183904817
 GameObject:
   m_ObjectHideFlags: 0
