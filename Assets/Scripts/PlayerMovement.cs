@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// ⁠ https://www.youtube.com/watch?v=mldjoVDhKc4 ⁠ Reference
@@ -36,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
+    public Image ProgressBarImg;
+    private float ProgressBarWidth;
+    private RectTransform rt;
+    // private Vector2 ProgressBarPosition;
 
     
 
@@ -45,6 +50,16 @@ public class PlayerMovement : MonoBehaviour
         health = GetComponent<Health>();
 
         isGameStated = false;
+        ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
+        // ProgressBarPosition = GameObject.Find("Progress").transform.position;
+        rt = ProgressBarImg.GetComponent<RectTransform>();
+
+        rt.anchorMin = new Vector2(0, 0.5f);
+        rt.anchorMax = new Vector2(0, 0.5f);
+
+        // Set the new width (keeping the height the same)
+        ProgressBarWidth = rt.rect.width;
+        rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
     }
 
     void Update()
@@ -139,8 +154,19 @@ public class PlayerMovement : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.name == "EndPhase1") // If it is winTrigger
+        {
+            print("pass phase 0");
+            rt.sizeDelta = new Vector2(ProgressBarWidth/3, rt.sizeDelta.y);
+        }
+        if (collision.gameObject.name == "EndPhase2") // If it is winTrigger
+        {
+            print("pass phase 1");
+            rt.sizeDelta = new Vector2(2*ProgressBarWidth/3, rt.sizeDelta.y);
+        }
         if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
         {
+            rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
