@@ -44893,9 +44893,9 @@ MonoBehaviour:
   maxHealth: 3
   numOfHearts: 3
   hearts:
-  - {fileID: 88758884}
-  - {fileID: 1063871245}
   - {fileID: 1095691609}
+  - {fileID: 1063871245}
+  - {fileID: 88758884}
   fullHeart: {fileID: 1589124918195245447, guid: e227becae7d334e119ca4fdca1341859, type: 3}
   emptyHeart: {fileID: 1589124918195245447, guid: 9b3276d9b59bb472d90b2f5878fc6875, type: 3}
 --- !u!1 &1636273928
