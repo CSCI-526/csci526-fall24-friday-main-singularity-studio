@@ -22,8 +22,26 @@ public class DisappearOnCollision : MonoBehaviour
             Debug.LogError("Player  not found in the scene!");
         }
 
+        // Collider2D thisCollider = GetComponent<Collider2D>(); // Get the current object's 2D collider
+        // GameObject[] spikes = GameObject.FindGameObjectsWithTag("Wall");
+        // print(spikes.Length);
+
+        // // Loop through each spike and ignore collision with the current object
+        // foreach (GameObject spike in spikes)
+        // {
+        //     Collider2D spikeCollider = spike.GetComponent<Collider2D>();
+
+        //     if (spikeCollider != null)
+        //     {
+        //         Physics2D.IgnoreCollision(thisCollider, spikeCollider);
+        //         Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
+        //     }
+        // }
+
         StartCoroutine(ChangeColorAfterDelay());
     }
+
+    
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -44,6 +62,12 @@ public class DisappearOnCollision : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        // else{
+        //     if (this.gameObject.name == "heart-test"){
+        //         print(other.gameObject.name);
+        //     }
+            
+        // }
     }
     
 
