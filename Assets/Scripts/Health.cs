@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Health : MonoBehaviour
 {
     public int maxHealth = 3;
-    public static int currentHealth;
+    public int currentHealth;
 
     public int numOfHearts;
     public GameObject[] hearts;
@@ -44,6 +44,7 @@ public class Health : MonoBehaviour
             // Time.timeScale = 0f; //Pause the game (for now)
 
             FindObjectOfType<EventControl>().ShowGameOverPanel();
+
         }
         UpdateHearts();
     }

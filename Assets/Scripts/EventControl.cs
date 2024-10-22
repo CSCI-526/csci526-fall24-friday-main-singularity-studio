@@ -2,6 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Unity.Services.Analytics;
+using Unity.Services.Core;
+using Unity.Services.Core.Analytics;
+
+
 public class EventControl : MonoBehaviour
 {
     public GameObject instructionPanel;    // Panel for instructions
@@ -9,6 +14,7 @@ public class EventControl : MonoBehaviour
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;             // Win panel
     public PlayerMovement playerMovement;  // Reference to PlayerMovement
+    private AnalyticsManager analyticsManager;
 
     void Start()
     {
@@ -18,6 +24,7 @@ public class EventControl : MonoBehaviour
         winPanel.SetActive(false);
         mainMenuUI.SetActive(true);
         Time.timeScale = 0f;  // Pause game at start
+        analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
     }
 
     public void StartGame()

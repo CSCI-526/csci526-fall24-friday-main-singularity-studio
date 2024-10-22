@@ -9,26 +9,24 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpForceLandscape = 6.0f; 
-    [SerializeField] private float fallSpeedLandscape = 0.09f; 
-    [SerializeField] private float jetpackForce = 3.0f; 
+    [SerializeField] private float jetForce = 6.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f; 
+    [SerializeField] private float doubleTapTime = 0.3f;
     private Rigidbody2D rb;
-    private bool useJet;
-    public CameraMovement cameraMovement;
+    private CameraMovement cameraMovement;
     private Health health;
     private int healthDamage = 1;
     private Vector3 playerOriginalPosition;
     public GameObject cam; 
     public Vector3 CameraOriginalPosition;
-    public GameObject scene;
+    private GameObject scene;
     public Vector3 sceneOriginalPosition; 
 
-    private bool isGameStated = false;
+    private bool isGameStarted = false;
 
     private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
 
-    private bool isTouchWall = false;
+    // private bool isTouchWall = false;
     private float stayOnWallTime = 0.0f;
 
     private float stayOnSpikeTime = 0.0f;
@@ -36,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
+    public int currentLevel = 0;
 
     
 
@@ -43,55 +42,24 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
-
-        isGameStated = false;
+        isGameStarted = false;
+        cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
     }
 
     void Update()
     {
-        if(isGameStated){
+        if(isGameStarted){
+
+
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
-            rb.velocity = vel;
 
-            if (sceneRotation.isVertical) //Check vert
-            {
-                if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
-                {
-                    useJet = true;
-                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
-                }
-                else
-                {
-                    useJet = false;
-                }
 
-                if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
-                {
-                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
-                }
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
-                {
-                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
-                    rb.velocity = spac;
-                }
-
-                if (rb.velocity.y < 0) // Slow landscape fall
-                {
-                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
-                    rb.velocity += slo;
-                }
-
-                useJet = false;
-            }
+            // if space bar is down, speed change to jetForce; 
+            // otherwise fall normally
+            rb.velocity = new Vector2(moveLR * speed, Input.GetKey(KeyCode.Space) ? jetForce : rb.velocity.y - normalFallSpeed);
         }
-        
     }
 
-    
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
@@ -133,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartGame(){
-        isGameStated = true;
+        isGameStarted = true;
     }
 
     
@@ -145,6 +113,12 @@ public class PlayerMovement : MonoBehaviour
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
         }
+        if (collision.gameObject.CompareTag("LevelTrigger")) // If it is winTrigger
+        {
+            Debug.Log("Leveled up");
+            Destroy(collision.gameObject);
+            currentLevel++;
+        }
     }
 
     void OnTriggerStay2D(Collider2D collision)
@@ -155,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (stayOnWallTime < damageCoolDown && !isWallDamage)
             {
-                health.TakeDamage(healthDamage);
+                Die();
                 isWallDamage = true;
             }
             else if(stayOnWallTime >= damageCoolDown){
@@ -169,20 +143,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            isTouchWall = false;
+            // isTouchWall = false;
             stayOnWallTime = 0.0f;
         }
     }
 
     void Die()
     {
-        Debug.Log("Player has died :("); //print death
+        Debug.Log("Lost one heart");
         health.TakeDamage(healthDamage);
+        if (health.currentHealth <= 0) 
+        {
+            AnalyticsManager.trackProgress(currentLevel, false);
+            Debug.Log("You died at level " + currentLevel);
+        }
     }
 
     void Win()
     {
         FindObjectOfType<EventControl>().ShowWinPanel();  // Notify EventControl
         Debug.Log("Winner Winner Chicken Dinner!"); //print win
+        AnalyticsManager.trackProgress(currentLevel, true);
     }
 }
