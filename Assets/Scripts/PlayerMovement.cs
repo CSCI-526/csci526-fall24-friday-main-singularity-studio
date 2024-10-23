@@ -10,20 +10,20 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpForceLandscape = 6.0f; 
-    [SerializeField] private float jumpForcePortrait = 4.0f; 
-    [SerializeField] private float fallSpeedLandscape = 0.09f; 
+    [SerializeField] private float jumpForceLandscape = 6.0f;
+    [SerializeField] private float jumpForcePortrait = 4.0f;
+    [SerializeField] private float fallSpeedLandscape = 0.09f;
     //[SerializeField] private float jetpackForce = 3.0f; 
-    [SerializeField] private float normalFallSpeed = 0.05f; 
+    [SerializeField] private float normalFallSpeed = 0.05f;
     private Rigidbody2D rb;
     public CameraMovement cameraMovement;
     private Health health;
     private int healthDamage = 1;
     private Vector3 playerOriginalPosition;
-    public GameObject cam; 
+    public GameObject cam;
     public Vector3 CameraOriginalPosition;
     public GameObject scene;
-    public Vector3 sceneOriginalPosition; 
+    public Vector3 sceneOriginalPosition;
 
     private bool isGameStated = false;
 
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private RectTransform rt;
     // private Vector2 ProgressBarPosition;
 
-    
+
 
     void Start()
     {
@@ -64,9 +64,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(isGameStated){
+        if (isGameStated)
+        {
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
+            Vector2 vel = new Vector2(moveLR * speed, rb.velocity.y);
             rb.velocity = vel;
 
             if (sceneRotation.isVertical) //Check vert
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
                     //rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
                 }
 
-                if ( rb.velocity.y < 0) // Use normal gravity in vertical mode
+                if (rb.velocity.y < 0) // Use normal gravity in vertical mode
                 {
                     rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
                 }
@@ -100,10 +101,10 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-        
+
     }
 
-    
+
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
@@ -125,12 +126,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void OnCollisionStay2D(Collision2D collision){
-        if (collision.gameObject.CompareTag("Spike")){
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
+        {
             stayOnSpikeTime += Time.deltaTime;
-            if(stayOnSpikeTime >= damageCoolDown){
+            if (stayOnSpikeTime >= damageCoolDown)
+            {
                 Die();
-                stayOnSpikeTime = 0.0f; 
+                stayOnSpikeTime = 0.0f;
             }
         }
     }
@@ -144,22 +148,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void StartGame(){
+    public void StartGame()
+    {
         isGameStated = true;
     }
 
-    
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "EndPhase1") // If it is winTrigger
         {
             print("pass phase 0");
-            rt.sizeDelta = new Vector2(ProgressBarWidth/3, rt.sizeDelta.y);
+            rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
         }
         if (collision.gameObject.name == "EndPhase2") // If it is winTrigger
         {
             print("pass phase 1");
-            rt.sizeDelta = new Vector2(2*ProgressBarWidth/3, rt.sizeDelta.y);
+            rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
         }
         if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
         {
@@ -181,7 +186,8 @@ public class PlayerMovement : MonoBehaviour
                 health.TakeDamage(healthDamage);
                 isWallDamage = true;
             }
-            else if(stayOnWallTime >= damageCoolDown){
+            else if (stayOnWallTime >= damageCoolDown)
+            {
                 stayOnWallTime = 0.0f;
                 isWallDamage = false;
             }
