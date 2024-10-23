@@ -11,11 +11,11 @@ public class PlayerMovement : MonoBehaviour
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForceLandscape = 6.0f; 
+    [SerializeField] private float jumpForcePortrait = 4.0f; 
     [SerializeField] private float fallSpeedLandscape = 0.09f; 
-    [SerializeField] private float jetpackForce = 3.0f; 
+    //[SerializeField] private float jetpackForce = 3.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f; 
     private Rigidbody2D rb;
-    private bool useJet;
     public CameraMovement cameraMovement;
     private Health health;
     private int healthDamage = 1;
@@ -71,17 +71,15 @@ public class PlayerMovement : MonoBehaviour
 
             if (sceneRotation.isVertical) //Check vert
             {
-                if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
+                if (Input.GetKeyDown(KeyCode.Space)) // disable jump, enable jet
                 {
-                    useJet = true;
-                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
-                }
-                else
-                {
-                    useJet = false;
+                    Vector2 spac = new Vector2(rb.velocity.x, jumpForcePortrait);
+                    rb.velocity = spac;
+                    //useJet = false;
+                    //rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
                 }
 
-                if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
+                if ( rb.velocity.y < 0) // Use normal gravity in vertical mode
                 {
                     rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
                 }
@@ -100,7 +98,6 @@ public class PlayerMovement : MonoBehaviour
                     rb.velocity += slo;
                 }
 
-                useJet = false;
             }
         }
         
