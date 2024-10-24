@@ -2822,7 +2822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8024562704649987324, guid: cb667cab5b3e74e93acef5be06503918, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.1
+      value: -5.9
       objectReference: {fileID: 0}
     - target: {fileID: 8024562704649987324, guid: cb667cab5b3e74e93acef5be06503918, type: 3}
       propertyPath: m_LocalPosition.y
@@ -46741,13 +46741,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneRotation: {fileID: 291149386}
   speed: 5
-  jumpForceLandscape: 10
-  jumpForcePortrait: 4
-  fallSpeedLandscape: 0.03
+  jetForce: 3
   normalFallSpeed: 0.05
-  doubleTapTime: 0.3
+  cameraMovement: {fileID: 0}
   cam: {fileID: 519420028}
   CameraOriginalPosition: {x: 0, y: 0, z: 0}
+  scene: {fileID: 0}
   sceneOriginalPosition: {x: 0, y: 0, z: 0}
   ProgressBarImg: {fileID: 0}
 --- !u!114 &1629949513
@@ -50472,7 +50471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8024562704649987324, guid: cb667cab5b3e74e93acef5be06503918, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.6900005
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8024562704649987324, guid: cb667cab5b3e74e93acef5be06503918, type: 3}
       propertyPath: m_LocalPosition.y
