@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
             if (i < currentHealth)
                 hearts[i].GetComponent<RawImage>().color = new Color(255, 0, 0 );
             else
-                hearts[i].GetComponent<RawImage>().color = new Color(0, 0, 0 );
+                hearts[i].GetComponent<RawImage>().color = new Color(0.5f, 0.5f, 0.5f);
         }
     }
 

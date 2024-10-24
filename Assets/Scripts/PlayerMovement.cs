@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// ⁠ https://www.youtube.com/watch?v=mldjoVDhKc4 ⁠ Reference
@@ -9,17 +10,19 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jetForce = 6.0f; 
+    [SerializeField] private float jumpForceLandscape = 6.0f; 
+    [SerializeField] private float fallSpeedLandscape = 0.09f; 
+    [SerializeField] private float jetpackForce = 3.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f; 
-    [SerializeField] private float doubleTapTime = 0.3f;
     private Rigidbody2D rb;
-    private CameraMovement cameraMovement;
+    private bool useJet;
+    public CameraMovement cameraMovement;
     private Health health;
     private int healthDamage = 1;
     private Vector3 playerOriginalPosition;
-    public GameObject cam; 
+    public GameObject cam;
     public Vector3 CameraOriginalPosition;
-    private GameObject scene;
+    public GameObject scene;
     public Vector3 sceneOriginalPosition; 
 
     private bool isGameStarted = false;
@@ -34,32 +37,72 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
-    public int currentLevel = 0;
 
-    
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
-        isGameStarted = false;
-        cameraMovement = GameObject.Find("Main Camera").GetComponent<CameraMovement>();
+
+        isGameStated = false;
+        ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
+        // ProgressBarPosition = GameObject.Find("Progress").transform.position;
+        rt = ProgressBarImg.GetComponent<RectTransform>();
+
+        rt.anchorMin = new Vector2(0, 0.5f);
+        rt.anchorMax = new Vector2(0, 0.5f);
+
+        // Set the new width (keeping the height the same)
+        ProgressBarWidth = rt.rect.width;
+        rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
     }
 
     void Update()
     {
-        if(isGameStarted){
-
-
+        if(isGameStated){
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
+            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
+            rb.velocity = vel;
 
+            if (sceneRotation.isVertical) //Check vert
+            {
+                if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
+                {
+                    useJet = true;
+                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
+                }
+                else
+                {
+                    useJet = false;
+                }
 
-            // if space bar is down, speed change to jetForce; 
-            // otherwise fall normally
-            rb.velocity = new Vector2(moveLR * speed, Input.GetKey(KeyCode.Space) ? jetForce : rb.velocity.y - normalFallSpeed);
+                if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
+                {
+                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
+                {
+                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
+                    rb.velocity = spac;
+                }
+
+                if (rb.velocity.y < 0) // Slow landscape fall
+                {
+                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
+                    rb.velocity += slo;
+                }
+
+                useJet = false;
+            }
         }
+        
     }
 
+    
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
@@ -81,12 +124,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    void OnCollisionStay2D(Collision2D collision){
-        if (collision.gameObject.CompareTag("Spike")){
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Spike"))
+        {
             stayOnSpikeTime += Time.deltaTime;
-            if(stayOnSpikeTime >= damageCoolDown){
+            if (stayOnSpikeTime >= damageCoolDown)
+            {
                 Die();
-                stayOnSpikeTime = 0.0f; 
+                stayOnSpikeTime = 0.0f;
             }
         }
     }
@@ -101,14 +147,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartGame(){
-        isGameStarted = true;
+        isGameStated = true;
     }
 
-    
+
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.name == "EndPhase1") // If it is winTrigger
+        {
+            print("pass phase 0");
+            rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
+        }
+        if (collision.gameObject.name == "EndPhase2") // If it is winTrigger
+        {
+            print("pass phase 1");
+            rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
+        }
         if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
         {
+            rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
@@ -132,7 +189,8 @@ public class PlayerMovement : MonoBehaviour
                 Die();
                 isWallDamage = true;
             }
-            else if(stayOnWallTime >= damageCoolDown){
+            else if (stayOnWallTime >= damageCoolDown)
+            {
                 stayOnWallTime = 0.0f;
                 isWallDamage = false;
             }

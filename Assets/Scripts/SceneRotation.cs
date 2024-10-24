@@ -14,6 +14,7 @@ public class SceneRotation : MonoBehaviour
 
     private float relativePos = 0.0f;
     public GameObject healthDisplay;
+    public GameObject levelDisplay;
 
     
     // Start is called before the first frame update
@@ -40,6 +41,7 @@ public class SceneRotation : MonoBehaviour
         if(currentTime >= nextRotateTime){
             isRotating = true;
             healthDisplay.SetActive(false);
+            levelDisplay.SetActive(false);
 
             //check if it currently rotating the scene
             if(rotationProgress < 1 && rotationProgress >= 0){
@@ -75,6 +77,7 @@ public class SceneRotation : MonoBehaviour
                 rotationProgress = 0;
                 isRotating = false;
                 healthDisplay.SetActive(true);
+                levelDisplay.SetActive(true);
 
 
 
