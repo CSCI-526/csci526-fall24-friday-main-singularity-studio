@@ -10,12 +10,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpForceLandscape = 6.0f; 
-    [SerializeField] private float fallSpeedLandscape = 0.09f; 
-    [SerializeField] private float jetpackForce = 3.0f; 
+    [SerializeField] private float jetForce = 3.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f; 
     private Rigidbody2D rb;
-    private bool useJet;
     public CameraMovement cameraMovement;
     private Health health;
     private int healthDamage = 1;
@@ -37,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
-    private bool isGameStated = false;
     public Image ProgressBarImg;
     private float ProgressBarWidth;
     private RectTransform rt;
