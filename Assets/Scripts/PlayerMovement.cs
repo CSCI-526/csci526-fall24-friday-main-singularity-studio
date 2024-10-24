@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
 
-        isGameStated = false;
+        isGameStarted = false;
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
         // ProgressBarPosition = GameObject.Find("Progress").transform.position;
         rt = ProgressBarImg.GetComponent<RectTransform>();
@@ -60,46 +60,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(isGameStated){
+        if(isGameStarted){
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
-            rb.velocity = vel;
-
-            if (sceneRotation.isVertical) //Check vert
-            {
-                if (Input.GetKey(KeyCode.Space)) // disable jump, enable jet
-                {
-                    useJet = true;
-                    rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
-                }
-                else
-                {
-                    useJet = false;
-                }
-
-                if (!useJet && rb.velocity.y < 0) // Use normal gravity in vertical mode
-                {
-                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
-                }
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
-                {
-                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
-                    rb.velocity = spac;
-                }
-
-                if (rb.velocity.y < 0) // Slow landscape fall
-                {
-                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
-                    rb.velocity += slo;
-                }
-
-                useJet = false;
-            }
+            // if space bar is down, speed change to jetForce; 
+            // otherwise fall normally
+            rb.velocity = new Vector2(moveLR * speed, Input.GetKey(KeyCode.Space) ? jetForce : rb.velocity.y - normalFallSpeed);
         }
-        
     }
 
     
@@ -147,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartGame(){
-        isGameStated = true;
+        isGameStarted = true;
     }
 
 
