@@ -37,6 +37,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isWallDamage = false;
 
     private float damageCoolDown = 0.5f;
+    private bool isGameStated = false;
+    public Image ProgressBarImg;
+    private float ProgressBarWidth;
+    private RectTransform rt;
+    private int currentLevel = 0;
 
 
 
