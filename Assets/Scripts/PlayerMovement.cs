@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jetForce = 3.0f; 
-    [SerializeField] private float normalFallSpeed = 0.05f; 
+    [SerializeField] private float jumpForceLandscape = 6.0f;
+    [SerializeField] private float jumpForcePortrait = 4.0f;
+    [SerializeField] private float fallSpeedLandscape = 0.09f;
+    //[SerializeField] private float jetpackForce = 3.0f; 
+    [SerializeField] private float normalFallSpeed = 0.05f;
     private Rigidbody2D rb;
     public CameraMovement cameraMovement;
     private Health health;
@@ -20,13 +23,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cam;
     public Vector3 CameraOriginalPosition;
     public GameObject scene;
-    public Vector3 sceneOriginalPosition; 
+    public Vector3 sceneOriginalPosition;
 
     private bool isGameStarted = false;
 
     private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
 
-    // private bool isTouchWall = false;
+    private bool isTouchWall = false;
     private float stayOnWallTime = 0.0f;
 
     private float stayOnSpikeTime = 0.0f;
@@ -38,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float ProgressBarWidth;
     private RectTransform rt;
     private int currentLevel = 0;
+    // private Vector2 ProgressBarPosition;
 
 
 
@@ -61,15 +65,47 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(isGameStarted){
+        if (isGameStarted)
+        {
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-            // if space bar is down, speed change to jetForce; 
-            // otherwise fall normally
-            rb.velocity = new Vector2(moveLR * speed, Input.GetKey(KeyCode.Space) ? jetForce : rb.velocity.y - normalFallSpeed);
+            Vector2 vel = new Vector2(moveLR * speed, rb.velocity.y);
+            rb.velocity = vel;
+
+            if (sceneRotation.isVertical) //Check vert
+            {
+                if (Input.GetKeyDown(KeyCode.Space)) // disable jump, enable jet
+                {
+                    Vector2 spac = new Vector2(rb.velocity.x, jumpForcePortrait);
+                    rb.velocity = spac;
+                    //useJet = false;
+                    //rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
+                }
+
+                if (rb.velocity.y < 0) // Use normal gravity in vertical mode
+                {
+                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
+                {
+                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
+                    rb.velocity = spac;
+                }
+
+                if (rb.velocity.y < 0) // Slow landscape fall
+                {
+                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
+                    rb.velocity += slo;
+                }
+
+            }
         }
+
     }
 
-    
+
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
@@ -87,6 +123,12 @@ public class PlayerMovement : MonoBehaviour
                 sceneOriginalPosition = scene.transform.position;
                 Die();
             }
+        }
+        if (collision.gameObject.CompareTag("LevelTrigger")) // If it is winTrigger
+        {
+            Debug.Log("Leveled up");
+            Destroy(collision.gameObject);
+            currentLevel++;
         }
     }
 
@@ -113,7 +155,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void StartGame(){
+    public void StartGame()
+    {
         isGameStarted = true;
     }
 
@@ -136,12 +179,6 @@ public class PlayerMovement : MonoBehaviour
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
-        }
-        if (collision.gameObject.CompareTag("LevelTrigger")) // If it is winTrigger
-        {
-            Debug.Log("Leveled up");
-            Destroy(collision.gameObject);
-            currentLevel++;
         }
     }
 
