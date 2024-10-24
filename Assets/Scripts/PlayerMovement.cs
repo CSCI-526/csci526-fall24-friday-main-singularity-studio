@@ -10,19 +10,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
-<<<<<<< Updated upstream
-    [SerializeField] private float jumpForceLandscape = 6.0f;
-    [SerializeField] private float jumpForcePortrait = 4.0f;
-    [SerializeField] private float fallSpeedLandscape = 0.09f;
-    //[SerializeField] private float jetpackForce = 3.0f; 
-    [SerializeField] private float normalFallSpeed = 0.05f;
-=======
     [SerializeField] private float jumpForceLandscape = 6.0f; 
     [SerializeField] private float jumpForcePortrait = 4.0f; 
     [SerializeField] private float fallSpeedLandscape = 0.09f; 
     //[SerializeField] private float jetpackForce = 3.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f; 
->>>>>>> Stashed changes
     private Rigidbody2D rb;
     public CameraMovement cameraMovement;
     private Health health;
@@ -31,17 +23,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject cam; 
     public Vector3 CameraOriginalPosition;
     public GameObject scene;
-    public Vector3 sceneOriginalPosition;
+    public Vector3 sceneOriginalPosition; 
 
     private bool isGameStated = false;
 
     private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
 
-<<<<<<< Updated upstream
-    private bool isTouchWall = false;
-=======
     //private bool isTouchWall = false;
->>>>>>> Stashed changes
     private float stayOnWallTime = 0.0f;
 
     private float stayOnSpikeTime = 0.0f;
@@ -56,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
 
     //Analytics
     private int currentLevel = 0;
-    // private Vector2 ProgressBarPosition;
 
     
 
@@ -80,16 +67,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-<<<<<<< Updated upstream
-        if (isGameStarted)
-        {
-            float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-            Vector2 vel = new Vector2(moveLR * speed, rb.velocity.y);
-=======
         if(isGameStated){
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
             Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
->>>>>>> Stashed changes
             rb.velocity = vel;
 
             if (sceneRotation.isVertical) //Check vert
@@ -102,11 +82,7 @@ public class PlayerMovement : MonoBehaviour
                     //rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
                 }
 
-<<<<<<< Updated upstream
-                if (rb.velocity.y < 0) // Use normal gravity in vertical mode
-=======
                 if ( rb.velocity.y < 0) // Use normal gravity in vertical mode
->>>>>>> Stashed changes
                 {
                     rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
                 }
@@ -127,14 +103,10 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-<<<<<<< Updated upstream
-
-=======
         
->>>>>>> Stashed changes
     }
 
-
+    
     void OnCollisionEnter2D(Collision2D collision) // If collided with spike
     {
         if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
@@ -152,12 +124,6 @@ public class PlayerMovement : MonoBehaviour
                 sceneOriginalPosition = scene.transform.position;
                 Die();
             }
-        }
-        if (collision.gameObject.CompareTag("LevelTrigger")) // If it is winTrigger
-        {
-            Debug.Log("Leveled up");
-            Destroy(collision.gameObject);
-            currentLevel++;
         }
     }
 
@@ -184,14 +150,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-<<<<<<< Updated upstream
-    public void StartGame()
-    {
-        isGameStarted = true;
-=======
     public void StartGame(){
         isGameStated = true;
->>>>>>> Stashed changes
     }
 
     
@@ -213,6 +173,12 @@ public class PlayerMovement : MonoBehaviour
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
+        }
+        if (collision.gameObject.CompareTag("LevelTrigger")) // If it is winTrigger
+        {
+            Debug.Log("Leveled up");
+            Destroy(collision.gameObject);
+            currentLevel++;
         }
     }
 
