@@ -10,26 +10,38 @@ public class PlayerMovement : MonoBehaviour
 {
     public SceneRotation sceneRotation;
     [SerializeField] private float speed = 5f;
+<<<<<<< Updated upstream
     [SerializeField] private float jumpForceLandscape = 6.0f;
     [SerializeField] private float jumpForcePortrait = 4.0f;
     [SerializeField] private float fallSpeedLandscape = 0.09f;
     //[SerializeField] private float jetpackForce = 3.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f;
+=======
+    [SerializeField] private float jumpForceLandscape = 6.0f; 
+    [SerializeField] private float jumpForcePortrait = 4.0f; 
+    [SerializeField] private float fallSpeedLandscape = 0.09f; 
+    //[SerializeField] private float jetpackForce = 3.0f; 
+    [SerializeField] private float normalFallSpeed = 0.05f; 
+>>>>>>> Stashed changes
     private Rigidbody2D rb;
     public CameraMovement cameraMovement;
     private Health health;
     private int healthDamage = 1;
     private Vector3 playerOriginalPosition;
-    public GameObject cam;
+    public GameObject cam; 
     public Vector3 CameraOriginalPosition;
     public GameObject scene;
     public Vector3 sceneOriginalPosition;
 
-    private bool isGameStarted = false;
+    private bool isGameStated = false;
 
     private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
 
+<<<<<<< Updated upstream
     private bool isTouchWall = false;
+=======
+    //private bool isTouchWall = false;
+>>>>>>> Stashed changes
     private float stayOnWallTime = 0.0f;
 
     private float stayOnSpikeTime = 0.0f;
@@ -40,17 +52,20 @@ public class PlayerMovement : MonoBehaviour
     public Image ProgressBarImg;
     private float ProgressBarWidth;
     private RectTransform rt;
+    // private Vector2 ProgressBarPosition;
+
+    //Analytics
     private int currentLevel = 0;
     // private Vector2 ProgressBarPosition;
 
-
+    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
 
-        isGameStarted = false;
+        isGameStated = false;
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
         // ProgressBarPosition = GameObject.Find("Progress").transform.position;
         rt = ProgressBarImg.GetComponent<RectTransform>();
@@ -65,10 +80,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         if (isGameStarted)
         {
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
             Vector2 vel = new Vector2(moveLR * speed, rb.velocity.y);
+=======
+        if(isGameStated){
+            float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
+            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
+>>>>>>> Stashed changes
             rb.velocity = vel;
 
             if (sceneRotation.isVertical) //Check vert
@@ -81,7 +102,11 @@ public class PlayerMovement : MonoBehaviour
                     //rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
                 }
 
+<<<<<<< Updated upstream
                 if (rb.velocity.y < 0) // Use normal gravity in vertical mode
+=======
+                if ( rb.velocity.y < 0) // Use normal gravity in vertical mode
+>>>>>>> Stashed changes
                 {
                     rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
                 }
@@ -102,7 +127,11 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
     }
 
 
@@ -141,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
             if (stayOnSpikeTime >= damageCoolDown)
             {
                 Die();
-                stayOnSpikeTime = 0.0f;
+                stayOnSpikeTime = 0.0f; 
             }
         }
     }
@@ -155,23 +184,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     public void StartGame()
     {
         isGameStarted = true;
+=======
+    public void StartGame(){
+        isGameStated = true;
+>>>>>>> Stashed changes
     }
 
-
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "EndPhase1") // If it is winTrigger
         {
             print("pass phase 0");
-            rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
+            rt.sizeDelta = new Vector2(ProgressBarWidth/3, rt.sizeDelta.y);
         }
         if (collision.gameObject.name == "EndPhase2") // If it is winTrigger
         {
             print("pass phase 1");
-            rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
+            rt.sizeDelta = new Vector2(2*ProgressBarWidth/3, rt.sizeDelta.y);
         }
         if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
         {
@@ -193,8 +227,7 @@ public class PlayerMovement : MonoBehaviour
                 Die();
                 isWallDamage = true;
             }
-            else if (stayOnWallTime >= damageCoolDown)
-            {
+            else if(stayOnWallTime >= damageCoolDown){
                 stayOnWallTime = 0.0f;
                 isWallDamage = false;
             }
@@ -205,7 +238,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            // isTouchWall = false;
+            //isTouchWall = false;
             stayOnWallTime = 0.0f;
         }
     }
