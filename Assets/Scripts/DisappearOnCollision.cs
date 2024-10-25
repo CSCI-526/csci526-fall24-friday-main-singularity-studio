@@ -37,8 +37,9 @@ public class DisappearOnCollision : MonoBehaviour
         //         Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
         //     }
         // }
-
-        StartCoroutine(ChangeColorAfterDelay());
+        if(gameObject.name == "fortuneHeart"){
+            StartCoroutine(ChangeColorAfterDelay());
+        }
     }
 
     
@@ -59,6 +60,11 @@ public class DisappearOnCollision : MonoBehaviour
                     print("damage");
                     health.TakeDamage(1);
                 }
+                Destroy(gameObject);
+            }
+            else if(this.gameObject.name == "fortuneHeart"){
+                print("fortune");
+                health.Heal(1);
                 Destroy(gameObject);
             }
         }
