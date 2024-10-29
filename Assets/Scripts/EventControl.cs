@@ -13,7 +13,7 @@ public class EventControl : MonoBehaviour
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;             // Win panel
-    public PlayerMovement playerMovement;  // Reference to PlayerMovement
+    public PlayerMovementTutorial playerMovement;  // Reference to PlayerMovement
     private AnalyticsManager analyticsManager;
 
     void Start()
