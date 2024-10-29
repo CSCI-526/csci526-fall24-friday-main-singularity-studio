@@ -22,7 +22,14 @@ public class SceneRotation : MonoBehaviour
     {
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
-        relativePos = cameraTransform.position.x - transform.position.x;
+        if(isVertical)
+        {
+            relativePos = cameraTransform.position.x - transform.position.x;
+        } else
+        {
+            relativePos = cameraTransform.position.y - transform.position.y;
+        }
+        
     }
 
 
