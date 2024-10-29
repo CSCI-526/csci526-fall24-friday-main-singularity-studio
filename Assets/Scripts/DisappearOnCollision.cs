@@ -51,7 +51,7 @@ public class DisappearOnCollision : MonoBehaviour
             {
                 StartCoroutine(DestroyAfterDelay());
             }
-            else if (this.gameObject.name == "heart")
+            else if (this.gameObject.name == "fortuneHeart")
             {
                 if (isOriginalColor){
                     print("heal");
@@ -62,7 +62,7 @@ public class DisappearOnCollision : MonoBehaviour
                 }
                 Destroy(gameObject);
             }
-            else if(this.gameObject.name == "fortuneHeart"){
+            else if(this.gameObject.name == "heart"){
                 print("fortune");
                 health.Heal(1);
                 Destroy(gameObject);
