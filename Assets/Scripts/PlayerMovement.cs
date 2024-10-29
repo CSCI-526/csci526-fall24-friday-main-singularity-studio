@@ -52,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
 
-        isGameStated = false;
+        // isGameStated = false;
+        // print("set false");
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
         // ProgressBarPosition = GameObject.Find("Progress").transform.position;
         rt = ProgressBarImg.GetComponent<RectTransform>();
@@ -71,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
             Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
             rb.velocity = vel;
-
             if (sceneRotation.isVertical) //Check vert
             {
                 if (Input.GetKeyDown(KeyCode.Space)) // disable jump, enable jet

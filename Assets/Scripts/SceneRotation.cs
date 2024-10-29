@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneRotation : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class SceneRotation : MonoBehaviour
     private float relativePos = 0.0f;
     public GameObject healthDisplay;
     public GameObject levelDisplay;
+    public GameObject skipButton;
 
     
     // Start is called before the first frame update
@@ -42,6 +44,10 @@ public class SceneRotation : MonoBehaviour
             isRotating = true;
             healthDisplay.SetActive(false);
             levelDisplay.SetActive(false);
+            if(SceneManager.GetActiveScene().name == "Tutorial"){
+                skipButton.SetActive(false);
+            }
+            
 
             //check if it currently rotating the scene
             if(rotationProgress < 1 && rotationProgress >= 0){
@@ -78,9 +84,9 @@ public class SceneRotation : MonoBehaviour
                 isRotating = false;
                 healthDisplay.SetActive(true);
                 levelDisplay.SetActive(true);
-
-
-
+                if(SceneManager.GetActiveScene().name == "Tutorial"){
+                    skipButton.SetActive(true);
+                }
             }
         }
     }
