@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - WinTrigger
-  - Spike
-  - Wall
-  - heart
-  - Platform
-  - LevelTrigger
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -17,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - userlayer6
+  - 
   - 
   - 
   - 

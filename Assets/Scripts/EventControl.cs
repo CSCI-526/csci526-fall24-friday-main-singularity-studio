@@ -19,57 +19,23 @@ public class EventControl : MonoBehaviour
     void Start()
     {
         // Hide all panels initially
-        // instructionPanel.SetActive(false);
-        // gameOverPanel.SetActive(false);
-        // winPanel.SetActive(false);
-        if (this.gameObject.name == "EventSystemMenu"){
-            mainMenuUI.SetActive(true);
-            Time.timeScale = 0f;  // Pause game at start
-        }
-        else if (this.gameObject.name == "EventSystemTutorial"){
-            print("start tutorial");
-            Time.timeScale = 1f;  // Make sure time is resumed here
-
-            if (playerMovement != null)
-            {
-                print("playerMovement != null");
-                playerMovement.StartGame();
-            }
-        }
-        else if (this.gameObject.name == "EventSystemGame"){
-            analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
-            // StartGame();
-            Time.timeScale = 1f;  // Make sure time is resumed here
-            if (playerMovement != null)
-            {
-                playerMovement.StartGame();
-            }
-        }
-        // mainMenuUI.SetActive(true);
-        // Time.timeScale = 0f;  // Pause game at start
-        // analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
+        instructionPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+        winPanel.SetActive(false);
+        mainMenuUI.SetActive(true);
+        Time.timeScale = 0f;  // Pause game at start
+        analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game");
-        // mainMenuUI.SetActive(false);
-        // Time.timeScale = 1f;  // Make sure time is resumed here
+        mainMenuUI.SetActive(false);
+        Time.timeScale = 1f;  // Make sure time is resumed here
 
-        // if (playerMovement != null)
-        // {
-        //     playerMovement.StartGame();
-        // }
-    }
-
-    public void ShowTutorial(){
-        SceneManager.LoadScene("Tutorial");
-        // mainMenuUI.SetActive(false);
-        // Time.timeScale = 1f;  // Make sure time is resumed here
-        // if (playerMovement != null)
-        // {
-        //     playerMovement.StartGame();
-        // }
+        if (playerMovement != null)
+        {
+            playerMovement.StartGame();
+        }
     }
 
     public void ShowInstructions()
@@ -92,10 +58,6 @@ public class EventControl : MonoBehaviour
         winPanel.SetActive(false);
     }
 
-    public void BackToMain(){
-        SceneManager.LoadScene("Menu");
-    }
-
     public void ShowWinPanel()
     {
         winPanel.SetActive(true);
@@ -108,17 +70,17 @@ public class EventControl : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // public void RestartGame()
-    // {
-    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    // }
-    // public void RestartGameBack()
-    // {
-    //     instructionPanel.SetActive(false);
-    //     mainMenuUI.SetActive(true);
-    //     gameOverPanel.SetActive(false);
-    //     winPanel.SetActive(false);
-    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    // }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void RestartGameBack()
+    {
+        instructionPanel.SetActive(false);
+        mainMenuUI.SetActive(true);
+        gameOverPanel.SetActive(false);
+        winPanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
 }

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "890440441320",
+    "firebase_url": "https://gravityleap-cf6eb-default-rtdb.firebaseio.com",
+    "project_id": "gravityleap-cf6eb",
+    "storage_bucket": "gravityleap-cf6eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890440441320:android:9dd88f399774435633185d",
+        "android_client_info": {
+          "package_name": "com.game1.firebasedb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvlrHfbVULx_HW69YHKZV2t8HlXhu8uvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -44,16 +44,17 @@ public class PlayerMovement : MonoBehaviour
 
     //Analytics
     private int currentLevel = 0;
-
-    
+    public DatabaseManager databaseManager;
+    private string currentPhase = "Phase0";
+    private bool reachedEndPhase1 = false;
+    private bool reachedEndPhase2 = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
 
-        // isGameStated = false;
-        // print("set false");
+        isGameStated = false;
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
         // ProgressBarPosition = GameObject.Find("Progress").transform.position;
         rt = ProgressBarImg.GetComponent<RectTransform>();
@@ -72,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
             Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
             rb.velocity = vel;
+
             if (sceneRotation.isVertical) //Check vert
             {
                 if (Input.GetKeyDown(KeyCode.Space)) // disable jump, enable jet
@@ -159,16 +161,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.name == "EndPhase1") // If it is winTrigger
         {
+            reachedEndPhase1 = true;
+            databaseManager.LogReach("EndPhase1");
+            currentPhase = "EndPhase1";
             print("pass phase 0");
             rt.sizeDelta = new Vector2(ProgressBarWidth/3, rt.sizeDelta.y);
         }
         if (collision.gameObject.name == "EndPhase2") // If it is winTrigger
         {
+            reachedEndPhase2 = true;
+            databaseManager.LogReach("EndPhase2");
+            currentPhase = "EndPhase2";
             print("pass phase 1");
             rt.sizeDelta = new Vector2(2*ProgressBarWidth/3, rt.sizeDelta.y);
         }
         if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
         {
+            databaseManager.LogLevelCompletion();
             rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             Win();
             cameraMovement.StopCamera();
@@ -179,6 +188,18 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Leveled up");
             Destroy(collision.gameObject);
             currentLevel++;
+        }
+    }
+
+    public void OnPlayerDeath()
+    {
+        if (!reachedEndPhase1)
+        {
+            databaseManager.LogReach("Phase0");
+        }
+        else if (reachedEndPhase1 && !reachedEndPhase2)
+        {
+            databaseManager.LogDeath(currentPhase);
         }
     }
 
@@ -215,6 +236,7 @@ public class PlayerMovement : MonoBehaviour
         health.TakeDamage(healthDamage);
         if (health.currentHealth <= 0) 
         {
+            databaseManager.LogDeath(currentPhase);
             AnalyticsManager.trackProgress(currentLevel, false);
             Debug.Log("You died at level " + currentLevel);
         }
