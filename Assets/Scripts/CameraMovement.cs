@@ -11,6 +11,8 @@ public class CameraMovement : MonoBehaviour
     public float cameraMovingPeriod = 10.0f;
     private float nextCameraStopTime = 0.0f;
 
+    public GameObject cameraStopTrigger; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +40,11 @@ public class CameraMovement : MonoBehaviour
 
     public void MoveCamera(){
         stopMovement = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision){
+        if (collision.isTrigger){
+            StopCamera();
+        }
     }
 }
