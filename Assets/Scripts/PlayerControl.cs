@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpikeCollision))]
 [RequireComponent(typeof(WallCollision))]
 [RequireComponent(typeof(LevelCompletion))]
+[RequireComponent(typeof(TutorialControl))]
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
@@ -16,6 +17,7 @@ public class PlayerControl : MonoBehaviour
     private SpikeCollision spikeCollision;
     private WallCollision wallCollision;
     private LevelCompletion levelCompletion;
+    private TutorialControl tutorialControl;
     private bool isGameStarted = false;
 
     private void Awake()
@@ -25,6 +27,7 @@ public class PlayerControl : MonoBehaviour
         spikeCollision = GetComponent<SpikeCollision>();
         wallCollision = GetComponent<WallCollision>();
         levelCompletion = GetComponent<LevelCompletion>();
+        tutorialControl = GetComponent<TutorialControl>();
     }
 
     private void Update()
