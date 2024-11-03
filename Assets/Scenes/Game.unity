@@ -46962,7 +46962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForceLandscape: 6
-  jumpForcePortrait: 10
+  jumpForcePortrait: 6
   normalFallSpeed: 0.05
   fallSpeedLandscape: 0.09
   sceneRotation: {fileID: 291149386}
