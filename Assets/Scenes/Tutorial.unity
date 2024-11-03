@@ -1245,6 +1245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flag
       objectReference: {fileID: 0}
+    - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
+      propertyPath: m_TagString
+      value: Flag Trigger
+      objectReference: {fileID: 0}
     - target: {fileID: 6389853300985773204, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.38
@@ -1674,6 +1678,10 @@ PrefabInstance:
     - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_Name
       value: Flag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
+      propertyPath: m_TagString
+      value: Flag Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 6389853300985773204, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2142,6 +2150,7 @@ MonoBehaviour:
   sceneRotation: {fileID: 291149386}
   speed: 3.5
   cameraMovingPeriod: 10
+  cameraStopTrigger: {fileID: 0}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5729,6 +5738,7 @@ MonoBehaviour:
   sceneRotation: {fileID: 291149386}
   speed: 3.5
   cameraMovingPeriod: 10
+  cameraStopTrigger: {fileID: 0}
 --- !u!114 &1177985020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7257,6 +7267,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flag
       objectReference: {fileID: 0}
+    - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
+      propertyPath: m_TagString
+      value: Flag Trigger
+      objectReference: {fileID: 0}
     - target: {fileID: 6389853300985773204, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.67
@@ -7979,6 +7993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flag
       objectReference: {fileID: 0}
+    - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
+      propertyPath: m_TagString
+      value: Flag Trigger
+      objectReference: {fileID: 0}
     - target: {fileID: 6389853300985773204, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.38
@@ -8311,6 +8329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1ec1c7acb6c4e39a96f4652fc69c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMovement: {fileID: 519420033}
 --- !u!1 &1632659533
 GameObject:
   m_ObjectHideFlags: 0
@@ -9242,6 +9261,10 @@ PrefabInstance:
     - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_Name
       value: Flag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
+      propertyPath: m_TagString
+      value: Flag Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 6389853300985773204, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11686,6 +11709,10 @@ PrefabInstance:
     - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_Name
       value: Flag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108750273878758402, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
+      propertyPath: m_TagString
+      value: Flag Trigger
       objectReference: {fileID: 0}
     - target: {fileID: 6389853300985773204, guid: 05dcb4e39e1be4efdbee6d8f1f49902e, type: 3}
       propertyPath: m_LocalPosition.x
