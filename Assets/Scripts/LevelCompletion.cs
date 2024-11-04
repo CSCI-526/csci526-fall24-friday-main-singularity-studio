@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // For Image and UI components
+using UnityEngine.Analytics;
 
 
 public class LevelCompletion : MonoBehaviour
@@ -12,6 +13,9 @@ public class LevelCompletion : MonoBehaviour
     private float ProgressBarWidth;
     public CameraMovement cameraMovement;
     public SceneRotation sceneRotation;
+    
+    private float startTime; // Track the game start time
+    private bool isGameStarted = false; // Track if the game has started
 
     private void Start()
     {
@@ -21,6 +25,13 @@ public class LevelCompletion : MonoBehaviour
         rt.anchorMin = new Vector2(0, 0.5f);
         rt.anchorMax = new Vector2(0, 0.5f);
         rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
+    }
+
+    // Method to start tracking playtime
+    public void StartGameTimer()
+    {
+        startTime = Time.time;
+        isGameStarted = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,8 +61,12 @@ public class LevelCompletion : MonoBehaviour
     {
         FindObjectOfType<EventControl>().ShowWinPanel();
         Debug.Log("Winner Winner Chicken Dinner!");
-        AnalyticsManager.trackProgress(currentLevel, true);
+        
+        float playTime = Time.time - startTime; // Calculate the play duration
+        AnalyticsManager.trackProgress(currentLevel, true, playTime); // Pass playtime to AnalyticsManager
+        
         cameraMovement.StopCamera();
         sceneRotation.StopRotation();
+        isGameStarted = false; // Reset the game state
     }
 }

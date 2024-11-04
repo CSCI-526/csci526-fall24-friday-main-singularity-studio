@@ -16,15 +16,17 @@ public class AnalyticsManager : MonoBehaviour
         Debug.Log("AnalyticsManager Initialized");
     }
 
-    public static void trackProgress(int levelCompleted, bool isGameWon)
+    public static void trackProgress(int levelCompleted, bool isGameWon, float playTime)
     {
         ProgressTracker progressTracker = new ProgressTracker
         {
             LevelCompleted = levelCompleted,
-            IsGameWon = isGameWon
+            IsGameWon = isGameWon,
+            PlayTime = playTime
         };
         AnalyticsService.Instance.RecordEvent(progressTracker);
         AnalyticsService.Instance.Flush();
+        Debug.Log($"Level: {levelCompleted}, Won: {isGameWon}, Play Time: {playTime} seconds");
     }
 
 }

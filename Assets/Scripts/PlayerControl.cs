@@ -39,6 +39,7 @@ public class PlayerControl : MonoBehaviour
     public void StartGame()
     {
         isGameStarted = true;
+        levelCompletion.StartGameTimer();
     }
 
     private void HandleMovement()

@@ -46709,7 +46709,6 @@ GameObject:
   - component: {fileID: 1629949509}
   - component: {fileID: 1629949508}
   - component: {fileID: 1629949511}
-  - component: {fileID: 1629949512}
   - component: {fileID: 1629949513}
   - component: {fileID: 1629949518}
   - component: {fileID: 1629949517}
@@ -46852,30 +46851,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1629949512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629949507}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3e0af227df04f1ab0395c6541d211f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneRotation: {fileID: 291149386}
-  speed: 5
-  jumpForceLandscape: 6
-  jumpForcePortrait: 4
-  fallSpeedLandscape: 0.09
-  normalFallSpeed: 0.05
-  cameraMovement: {fileID: 0}
-  cam: {fileID: 519420028}
-  CameraOriginalPosition: {x: 0, y: 0, z: 0}
-  scene: {fileID: 0}
-  sceneOriginalPosition: {x: 0, y: 0, z: 0}
-  ProgressBarImg: {fileID: 0}
 --- !u!114 &1629949513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46909,7 +46884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e054dec1dc8b7f46810934c8d29cb93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
 --- !u!114 &1629949515
 MonoBehaviour:
   m_ObjectHideFlags: 0

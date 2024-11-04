@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForceLandscape = 6.0f; 
     [SerializeField] private float jumpForcePortrait = 4.0f; 
     [SerializeField] private float fallSpeedLandscape = 0.09f; 
-    //[SerializeField] private float jetpackForce = 3.0f; 
     [SerializeField] private float normalFallSpeed = 0.05f; 
     private Rigidbody2D rb;
     public CameraMovement cameraMovement;
@@ -26,95 +25,76 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 sceneOriginalPosition; 
 
     private bool isGameStated = false;
+    private float startTime; // Track the game start time
 
     private HashSet<GameObject> damagedSpikes = new HashSet<GameObject>();
-
-    //private bool isTouchWall = false;
     private float stayOnWallTime = 0.0f;
-
     private float stayOnSpikeTime = 0.0f;
-
     private bool isWallDamage = false;
-
     private float damageCoolDown = 0.5f;
+
     public Image ProgressBarImg;
     private float ProgressBarWidth;
     private RectTransform rt;
-    // private Vector2 ProgressBarPosition;
 
-    //Analytics
+    // Analytics
     private int currentLevel = 0;
-
-    
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
 
-        // isGameStated = false;
-        // print("set false");
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
-        // ProgressBarPosition = GameObject.Find("Progress").transform.position;
         rt = ProgressBarImg.GetComponent<RectTransform>();
 
         rt.anchorMin = new Vector2(0, 0.5f);
         rt.anchorMax = new Vector2(0, 0.5f);
 
-        // Set the new width (keeping the height the same)
         ProgressBarWidth = rt.rect.width;
         rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
     }
 
     void Update()
     {
-        if(isGameStated){
-            float moveLR = Input.GetAxis("Horizontal"); // Left/Righ Movement
-            Vector2 vel= new Vector2(moveLR * speed, rb.velocity.y);
+        if (isGameStated)
+        {
+            float moveLR = Input.GetAxis("Horizontal");
+            Vector2 vel = new Vector2(moveLR * speed, rb.velocity.y);
             rb.velocity = vel;
-            if (sceneRotation.isVertical) //Check vert
-            {
-                if (Input.GetKeyDown(KeyCode.Space)) // disable jump, enable jet
-                {
-                    Vector2 spac = new Vector2(rb.velocity.x, jumpForcePortrait);
-                    rb.velocity = spac;
-                    //useJet = false;
-                    //rb.velocity = new Vector2(rb.velocity.x, jetpackForce);
-                }
 
-                if ( rb.velocity.y < 0) // Use normal gravity in vertical mode
+            if (sceneRotation.isVertical)
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    rb.velocity += new Vector2(0, -normalFallSpeed); // Normal falling speed
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForcePortrait);
+                }
+                if (rb.velocity.y < 0)
+                {
+                    rb.velocity += new Vector2(0, -normalFallSpeed);
                 }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.Space)) // input spaceBar
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    Vector2 spac = new Vector2(rb.velocity.x, jumpForceLandscape);
-                    rb.velocity = spac;
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForceLandscape);
                 }
-
-                if (rb.velocity.y < 0) // Slow landscape fall
+                if (rb.velocity.y < 0)
                 {
-                    Vector2 slo = new Vector2(0, -fallSpeedLandscape);
-                    rb.velocity += slo;
+                    rb.velocity += new Vector2(0, -fallSpeedLandscape);
                 }
-
             }
         }
-        
     }
 
-    
-    void OnCollisionEnter2D(Collision2D collision) // If collided with spike
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating) //check if it is spike
+        if (collision.gameObject.CompareTag("Spike") && !sceneRotation.isRotating)
         {
             if (!damagedSpikes.Contains(collision.gameObject))
             {
                 damagedSpikes.Add(collision.gameObject);
-
                 playerOriginalPosition = gameObject.transform.position;
 
                 cam = GameObject.Find("Main Camera");
@@ -127,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Spike"))
@@ -136,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
             if (stayOnSpikeTime >= damageCoolDown)
             {
                 Die();
-                stayOnSpikeTime = 0.0f; 
+                stayOnSpikeTime = 0.0f;
             }
         }
     }
@@ -150,31 +129,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void StartGame(){
+    public void StartGame()
+    {
+        startTime = Time.time; // Initialize start time
         isGameStated = true;
     }
 
-    
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "EndPhase1") // If it is winTrigger
+        if (collision.gameObject.name == "EndPhase1")
         {
-            print("pass phase 0");
-            rt.sizeDelta = new Vector2(ProgressBarWidth/3, rt.sizeDelta.y);
+            rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
         }
-        if (collision.gameObject.name == "EndPhase2") // If it is winTrigger
+        else if (collision.gameObject.name == "EndPhase2")
         {
-            print("pass phase 1");
-            rt.sizeDelta = new Vector2(2*ProgressBarWidth/3, rt.sizeDelta.y);
+            rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
         }
-        if (collision.gameObject.CompareTag("WinTrigger")) // If it is winTrigger
+        else if (collision.gameObject.CompareTag("WinTrigger"))
         {
             rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             Win();
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
         }
-        if (collision.gameObject.CompareTag("LevelTrigger")) // If it is winTrigger
+        else if (collision.gameObject.CompareTag("LevelTrigger"))
         {
             Debug.Log("Leveled up");
             Destroy(collision.gameObject);
@@ -187,13 +165,13 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             stayOnWallTime += Time.deltaTime;
-
             if (stayOnWallTime < damageCoolDown && !isWallDamage)
             {
                 Die();
                 isWallDamage = true;
             }
-            else if(stayOnWallTime >= damageCoolDown){
+            else if (stayOnWallTime >= damageCoolDown)
+            {
                 stayOnWallTime = 0.0f;
                 isWallDamage = false;
             }
@@ -204,7 +182,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            //isTouchWall = false;
             stayOnWallTime = 0.0f;
         }
     }
@@ -213,17 +190,19 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Lost one heart");
         health.TakeDamage(healthDamage);
-        if (health.currentHealth <= 0) 
+        if (health.currentHealth <= 0)
         {
-            AnalyticsManager.trackProgress(currentLevel, false);
+            float playTime = Time.time - startTime; // Calculate play time
+            AnalyticsManager.trackProgress(currentLevel, false, playTime);
             Debug.Log("You died at level " + currentLevel);
         }
     }
 
     void Win()
     {
-        FindObjectOfType<EventControl>().ShowWinPanel();  // Notify EventControl
-        Debug.Log("Winner Winner Chicken Dinner!"); //print win
-        AnalyticsManager.trackProgress(currentLevel, true);
+        float playTime = Time.time - startTime; // Calculate play time
+        FindObjectOfType<EventControl>().ShowWinPanel();
+        Debug.Log("Winner Winner Chicken Dinner!");
+        AnalyticsManager.trackProgress(currentLevel, true, playTime);
     }
 }
