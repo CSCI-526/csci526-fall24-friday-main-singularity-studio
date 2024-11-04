@@ -12,6 +12,7 @@ TagManager:
   - LevelTrigger
   - Flag Trigger
   - Stop Camera Trigger
+  - Flag Trigger1
   layers:
   - Default
   - TransparentFX

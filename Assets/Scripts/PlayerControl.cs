@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine;
-
 [RequireComponent(typeof(JumpHandler))]
 [RequireComponent(typeof(SpikeCollision))]
 [RequireComponent(typeof(WallCollision))]
