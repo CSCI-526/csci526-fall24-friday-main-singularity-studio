@@ -15,6 +15,7 @@ public class BlackHoleGravity : MonoBehaviour
         {
             targetRb = targetTransform.GetComponent<Rigidbody2D>();
         }
+
     }
 
     void Update()
