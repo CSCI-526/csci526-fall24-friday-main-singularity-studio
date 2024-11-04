@@ -9,9 +9,12 @@ public class TutorialControl : MonoBehaviour
     public CameraMovement cameraMovement; 
     void Start()
     {
-        
-        cameraMovement.StopCamera();
-        Debug.Log("Camera stopped at the start of the tutorial scene");
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+        if (sceneName == "Tutorial")
+            cameraMovement.StopCamera();
+            Debug.Log("Camera stopped at the start of the tutorial scene");
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
