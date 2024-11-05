@@ -13,6 +13,8 @@ TagManager:
   - Flag Trigger
   - Stop Camera Trigger
   - Flag Trigger1
+  - MoveCameraTrigger
+  - RotateSceneTrigger
   layers:
   - Default
   - TransparentFX

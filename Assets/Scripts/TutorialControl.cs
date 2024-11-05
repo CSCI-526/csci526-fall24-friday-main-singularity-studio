@@ -5,16 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class TutorialControl : MonoBehaviour
 {
-    private bool isPaused = false; 
-    public CameraMovement cameraMovement; 
+    public CameraMovement cameraMovement;
+    public SceneRotation sceneRotation; 
+
+    private HashSet<GameObject> collidedTriggerList = new HashSet<GameObject>();
     void Start()
     {
         Scene currentScene = SceneManager.GetActiveScene();
 
         string sceneName = currentScene.name;
-        if (sceneName == "Tutorial")
+        if (sceneName == "Tutorial"){
             cameraMovement.StopCamera();
             Debug.Log("Camera stopped at the start of the tutorial scene");
+        }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,26 +27,19 @@ public class TutorialControl : MonoBehaviour
             cameraMovement.MoveCamera();
             Debug.Log("Camera started moving due to Flag Trigger");
         }
-
-        
-        else if (collision.gameObject.CompareTag("Flag Trigger1") && !isPaused)
+        else if (collision.gameObject.CompareTag("Flag Trigger1"))
         {
-            StartCoroutine(PauseAndContinueCamera());
+            cameraMovement.StopCamera(); 
+        }
+        else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
+            cameraMovement.MoveCamera(); 
+        }
+        else if(collision.gameObject.CompareTag("RotateSceneTrigger") && !collidedTriggerList.Contains(collision.gameObject)){
+            sceneRotation.RotateScene();
         }
     }
 
-    private IEnumerator PauseAndContinueCamera()
-    {
-        isPaused = true; 
-
-        cameraMovement.StopCamera(); 
-        Debug.Log("Camera paused due to Flag Trigger1");
-
-        yield return new WaitForSeconds(1); 
-
-        cameraMovement.MoveCamera();
-        Debug.Log("Camera resumed moving after pause");
-
-        isPaused = false; 
+    void OnTriggerExit2D(Collider2D collision) {
+        collidedTriggerList.Add(collision.gameObject);
     }
 }
