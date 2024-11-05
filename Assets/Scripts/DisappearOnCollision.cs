@@ -9,8 +9,11 @@ public class DisappearOnCollision : MonoBehaviour
     private GameObject Player;
     private float objectID;
     private Health health;
-    private Color healColor = Color.red;  
-    private Color damageColor = Color.magenta; 
+    // private Color healColor = Color.red;  
+    // private Color damageColor = Color.magenta; 
+    private Color healColor = new Color(1f, 0.6f, 0.9f);  
+    private Color damageColor = Color.red; 
+
     private bool isOriginalColor = true; 
 
     private void Start()
@@ -63,17 +66,11 @@ public class DisappearOnCollision : MonoBehaviour
                 Destroy(gameObject);
             }
             else if(this.gameObject.name == "heart"){
-                print("fortune");
+                print("heart");
                 health.Heal(1);
                 Destroy(gameObject);
             }
         }
-        // else{
-        //     if (this.gameObject.name == "heart-test"){
-        //         print(other.gameObject.name);
-        //     }
-            
-        // }
     }
     
 

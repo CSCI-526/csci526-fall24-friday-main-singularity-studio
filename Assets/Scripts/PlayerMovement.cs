@@ -211,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Lost one heart");
+        Debug.Log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
         health.TakeDamage(healthDamage);
         if (health.currentHealth <= 0) 
         {

@@ -35,6 +35,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        StartCoroutine(ShowDamage());
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -49,6 +50,13 @@ public class Health : MonoBehaviour
         UpdateHearts();
     }
 
+    IEnumerator ShowDamage()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
+
     private void UpdateHearts()
     {
         //Ensure the player has the maximum of (3) hearts
@@ -60,7 +68,7 @@ public class Health : MonoBehaviour
         for (int i = 0; i < hearts.Length; i++)
         {
             if (i < currentHealth)
-                hearts[i].GetComponent<RawImage>().color = new Color(255, 0, 0 );
+                hearts[i].GetComponent<RawImage>().color = new Color(1f, 0.4f, 0.7f); 
             else
                 hearts[i].GetComponent<RawImage>().color = new Color(0.5f, 0.5f, 0.5f);
         }

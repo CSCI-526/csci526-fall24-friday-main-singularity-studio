@@ -50,7 +50,15 @@ public class SpikeCollision : MonoBehaviour
 
     private void Die()
     {
+        StartCoroutine(ShowDamage());
         health.TakeDamage(1);
         Debug.Log("Lost one heart due to spike collision");
+    }
+
+    IEnumerator ShowDamage()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }
