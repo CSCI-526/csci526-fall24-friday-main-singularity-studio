@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -48,10 +49,18 @@ public class LevelCompletion : MonoBehaviour
 
     private void Win()
     {
-        FindObjectOfType<EventControl>().ShowWinPanel();
-        Debug.Log("Winner Winner Chicken Dinner!");
-        AnalyticsManager.trackProgress(currentLevel, true);
-        cameraMovement.StopCamera();
-        sceneRotation.StopRotation();
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+        if (sceneName == "Tutorial")
+            FindObjectOfType<EventControl>().ShowWinTutorial();
+        else
+        {
+            FindObjectOfType<EventControl>().ShowWinPanel();
+            Debug.Log("Winner Winner Chicken Dinner!");
+            AnalyticsManager.trackProgress(currentLevel, true);
+            cameraMovement.StopCamera();
+            sceneRotation.StopRotation();
+        }
     }
 }
