@@ -16,12 +16,13 @@ public class LevelCompletion : MonoBehaviour
     public SceneRotation sceneRotation;
     public ParticleSystem confetti1;
     public ParticleSystem confetti2;
+    public ParticleSystem confetti3;
     private Vector2 mapPosition;
     private Vector2 mapScale;
     private Vector2 topLeftCorner;
     private Vector2 bottomRightCorner;
     public float distanceFromStart;
-    private float mapLength = 415f;
+    private float mapLength;
     private Scene currentScene;
     private void Start()
     {
@@ -34,8 +35,12 @@ public class LevelCompletion : MonoBehaviour
 
         currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "Tutorial"){
+            mapLength = 415f;
             confetti1.Stop();
             confetti2.Stop();
+            confetti3.Stop();
+        }else{
+            mapLength = 150f;
         }
         
 
@@ -65,9 +70,10 @@ public class LevelCompletion : MonoBehaviour
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
         }
-        else if (collision.gameObject.CompareTag("WinTrigger"))
+        else if (collision.gameObject.CompareTag("WinTrigger") && currentScene.name != "Tutorial")
         {
             // rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
+            confetti3.Play();
             Win();
         }
         else if (collision.gameObject.CompareTag("LevelTrigger"))
