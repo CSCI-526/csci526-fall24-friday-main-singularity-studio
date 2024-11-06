@@ -27,4 +27,13 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.Flush();
     }
 
+    public static void trackDamageCause(string obstacle)
+    {
+        DamageCauseTracker damageCauseTracker = new DamageCauseTracker
+        {
+            Obstacle = obstacle
+        };
+        AnalyticsService.Instance.RecordEvent(damageCauseTracker);
+        AnalyticsService.Instance.Flush();
+    }
 }
