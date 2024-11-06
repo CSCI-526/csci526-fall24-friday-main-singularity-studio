@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 
 public class LevelCompletion : MonoBehaviour
@@ -13,6 +14,14 @@ public class LevelCompletion : MonoBehaviour
     private float ProgressBarWidth;
     public CameraMovement cameraMovement;
     public SceneRotation sceneRotation;
+    public ParticleSystem confetti1;
+    public ParticleSystem confetti2;
+    private Vector2 mapPosition;
+    private Vector2 mapScale;
+    private Vector2 topLeftCorner;
+    private Vector2 bottomRightCorner;
+    public float distanceFromStart;
+    private float mapLength = 415f;
 
     private void Start()
     {
@@ -22,21 +31,37 @@ public class LevelCompletion : MonoBehaviour
         rt.anchorMin = new Vector2(0, 0.5f);
         rt.anchorMax = new Vector2(0, 0.5f);
         rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
+        confetti1.Stop();
+        confetti2.Stop();
+
+        mapPosition = sceneRotation.transform.position;
+        mapScale = sceneRotation.transform.localScale;
+        topLeftCorner = mapPosition + new Vector2(-mapScale.x / 2, mapScale.y / 2);
+        bottomRightCorner = mapPosition + new Vector2(mapScale.x / 2, -mapScale.y);
+    }
+
+    private void Update(){
+        // Calculate the distance from the player to the top-left corner
+        distanceFromStart = Vector2.Distance(transform.position, topLeftCorner);
+        float progress = (mapLength - distanceFromStart)*100 / mapLength;
+        rt.sizeDelta = new Vector2(ProgressBarWidth * (100 - progress)/100, rt.sizeDelta.y);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "EndPhase1")
         {
-            rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
+            confetti1.Play();
+            // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
         }
         else if (collision.gameObject.name == "EndPhase2")
         {
-            rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
+            confetti2.Play();
+            // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
         }
         else if (collision.gameObject.CompareTag("WinTrigger"))
         {
-            rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
+            // rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             Win();
         }
         else if (collision.gameObject.CompareTag("LevelTrigger"))
