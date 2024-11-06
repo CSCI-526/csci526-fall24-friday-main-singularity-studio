@@ -1646,7 +1646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &33330827
 Transform:
   m_ObjectHideFlags: 0
@@ -2243,7 +2243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &50665169
 Transform:
   m_ObjectHideFlags: 0
@@ -5169,7 +5169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &134559258
 Transform:
   m_ObjectHideFlags: 0
@@ -34858,7 +34858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &769397784
 Transform:
   m_ObjectHideFlags: 0
@@ -36256,7 +36256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &800283861
 Transform:
   m_ObjectHideFlags: 0
@@ -39557,7 +39557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &860261142
 Transform:
   m_ObjectHideFlags: 0
@@ -42611,7 +42611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &929644876
 Transform:
   m_ObjectHideFlags: 0
@@ -51963,7 +51963,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3823561732119594311, guid: f9601c7d705a44092b992fc1923820ef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -6.3
       objectReference: {fileID: 0}
     - target: {fileID: 3823561732119594311, guid: f9601c7d705a44092b992fc1923820ef, type: 3}
       propertyPath: m_LocalPosition.y
@@ -53754,7 +53754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1245063571
 Transform:
   m_ObjectHideFlags: 0
@@ -65150,6 +65150,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1581514926}
     m_Modifications:
+    - target: {fileID: 6193930774890495870, guid: 269a7f0ad65904477b335bab4f7cf94c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6488335841017176125, guid: 269a7f0ad65904477b335bab4f7cf94c, type: 3}
       propertyPath: m_Name
       value: Platform Spike (2)
@@ -66070,7 +66074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1527322602
 Transform:
   m_ObjectHideFlags: 0
@@ -70430,7 +70434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1676293442
 Transform:
   m_ObjectHideFlags: 0
