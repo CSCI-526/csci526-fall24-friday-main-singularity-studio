@@ -22,7 +22,7 @@ public class LevelCompletion : MonoBehaviour
     private Vector2 bottomRightCorner;
     public float distanceFromStart;
     private float mapLength = 415f;
-
+    private Scene currentScene;
     private void Start()
     {
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
@@ -31,8 +31,13 @@ public class LevelCompletion : MonoBehaviour
         rt.anchorMin = new Vector2(0, 0.5f);
         rt.anchorMax = new Vector2(0, 0.5f);
         rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
-        confetti1.Stop();
-        confetti2.Stop();
+
+        currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name != "Tutorial"){
+            confetti1.Stop();
+            confetti2.Stop();
+        }
+        
 
         mapPosition = sceneRotation.transform.position;
         mapScale = sceneRotation.transform.localScale;
@@ -49,12 +54,13 @@ public class LevelCompletion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "EndPhase1")
+        
+        if (collision.gameObject.name == "EndPhase1" && currentScene.name != "Tutorial")
         {
             confetti1.Play();
             // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
         }
-        else if (collision.gameObject.name == "EndPhase2")
+        else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
