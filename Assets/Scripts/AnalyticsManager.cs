@@ -6,6 +6,7 @@ using Unity.Services.Core;
 using Unity.Services.Core.Analytics;
 using UnityEngine.SceneManagement;
 
+
 public class AnalyticsManager : MonoBehaviour
 {
     async void Start()
@@ -26,5 +27,18 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.RecordEvent(progressTracker);
         AnalyticsService.Instance.Flush();
     }
+    // Method to track heart collection events
+    public static void TrackHeartCollection(int heartID, string heartName, bool gainedHealth, bool lostHealth)
+    {
+        HeartCollectionTracker heartCollection = new HeartCollectionTracker
+        {
+            HeartID = heartID,
+            HeartName = heartName,
+            GainedHealth = gainedHealth,
+            lostHealth = lostHealth
+        };
 
+        AnalyticsService.Instance.RecordEvent(heartCollection);
+        AnalyticsService.Instance.Flush();
+    }
 }

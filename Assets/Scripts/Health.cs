@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public enum DamageCause
+{
+    Hazard,
+    FortuneHeart
+}
+
 public class Health : MonoBehaviour
 {
     public int maxHealth = 3;
@@ -14,6 +20,11 @@ public class Health : MonoBehaviour
     public GameObject fullHeart;
     public GameObject emptyHeart;
 
+    //Analytic HeartCollection
+    private HeartTracker currentHeart; // Stores the heart being collected
+    private int previousHealth; // Tracks the player's health before collection
+    private bool isCollectingHeart = false; // Flag to track if health change is due to heart collection
+
     private void Start()
     {
         if (currentHealth == 0)
@@ -23,9 +34,20 @@ public class Health : MonoBehaviour
         }
         UpdateHearts();
     }
+    public void CollectHeart(HeartTracker heart)
+    {
+        currentHeart = heart;
+        previousHealth = currentHealth; 
+        isCollectingHeart = true; 
+    }
 
     public void Heal(int healAmount)
     {
+        // Log healing if a heart was collected
+        if (isCollectingHeart && currentHeart != null)
+        {
+            Debug.Log($"Healing from Collected Heart - ID: {currentHeart.heartID}, Name: {currentHeart.heartName}");
+        }
         currentHealth += healAmount;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
@@ -33,8 +55,15 @@ public class Health : MonoBehaviour
         UpdateHearts();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, DamageCause cause)
     {
+        // Log the damage cause for debugging
+        if (cause == DamageCause.FortuneHeart && currentHeart != null)
+        {
+            Debug.Log($"Lost health due to fortune heart - ID: {currentHeart.heartID}, Name: {currentHeart.heartName}");
+        }
+
+        isCollectingHeart = (cause == DamageCause.FortuneHeart);
         StartCoroutine(ShowDamage());
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -71,6 +100,19 @@ public class Health : MonoBehaviour
                 hearts[i].GetComponent<RawImage>().color = new Color(1f, 0.4f, 0.7f); 
             else
                 hearts[i].GetComponent<RawImage>().color = new Color(0.5f, 0.5f, 0.5f);
+        }
+        // Log heart collection if a heart was collected
+        if (isCollectingHeart && currentHeart != null)
+        {
+            bool gainedHealth = currentHealth > previousHealth;  // Determine if health increased
+            bool lostHealth = currentHealth < previousHealth;    // Determine if health decreased
+
+            // Track the heart collection with the appropriate health status
+            AnalyticsManager.TrackHeartCollection(currentHeart.heartID, currentHeart.heartName, gainedHealth, lostHealth);
+
+            // Reset currentHeart and flag after logging
+            currentHeart = null;
+            isCollectingHeart = false;
         }
     }
 
