@@ -36,4 +36,18 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.RecordEvent(damageCauseTracker);
         AnalyticsService.Instance.Flush();
     }
+    
+    public static void TrackHeartCollection(int heartID, string heartName, bool gainedHealth, bool lostHealth)
+    {
+        HeartCollectionTracker heartCollection = new HeartCollectionTracker
+        {
+            HeartID = heartID,
+            HeartName = heartName,
+            GainedHealth = gainedHealth,
+            lostHealth = lostHealth
+        };
+
+        AnalyticsService.Instance.RecordEvent(heartCollection);
+        AnalyticsService.Instance.Flush();
+    }
 }
