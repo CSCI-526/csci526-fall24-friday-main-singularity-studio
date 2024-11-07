@@ -9,7 +9,7 @@ using UnityEngine.Analytics;
 
 public class LevelCompletion : MonoBehaviour
 {
-    private int currentLevel = 0;
+    private int currentLevel = 1;
     public Image ProgressBarImg;
     private RectTransform rt;
     private float ProgressBarWidth;
@@ -29,6 +29,8 @@ public class LevelCompletion : MonoBehaviour
     private float startTime; // Track the game start time
     private bool isGameStarted = false; // Track if the game has started
 
+    public Health playerHealth;
+
     private void Start()
     {
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
@@ -47,7 +49,9 @@ public class LevelCompletion : MonoBehaviour
         }else{
             mapLength = 150f;
         }
-        
+
+        playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
+        playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
 
         mapPosition = sceneRotation.transform.position;
         mapScale = sceneRotation.transform.localScale;
@@ -74,13 +78,17 @@ public class LevelCompletion : MonoBehaviour
         
         if (collision.gameObject.name == "EndPhase1" && currentScene.name != "Tutorial")
         {
+            currentLevel = 2;
             confetti1.Play();
             // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
+            Debug.Log("Level 2");
         }
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
+            currentLevel = 3;
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
+            Debug.Log("Level 3");
         }
         else if (collision.gameObject.CompareTag("WinTrigger"))
         {
@@ -108,9 +116,28 @@ public class LevelCompletion : MonoBehaviour
             }
         }
     }
+    private void HandlePlayerDeath()
+    {
+        Debug.Log("Player has died. Game Over.");
+        UploadDeathData(); // Custom method to upload data
+        FindObjectOfType<EventControl>().ShowGameOverPanel(); // Show Game Over UI
+        cameraMovement.StopCamera();
+        sceneRotation.StopRotation();
+    }
+    private void UploadDeathData()
+    {
+        float playTime = Time.time - startTime; // Calculate time spent in level
+        AnalyticsManager.trackProgress(currentLevel, false, playTime); // Upload data indicating game over
+    }
+    private void OnDestroy()
+    {
+        // Unsubscribe from the event to prevent potential memory leaks
+        playerHealth.OnPlayerDied -= HandlePlayerDeath;
+    }
 
     private void Win()
     {
+        Debug.Log("Win method called");
         Scene currentScene = SceneManager.GetActiveScene();
 
         string sceneName = currentScene.name;

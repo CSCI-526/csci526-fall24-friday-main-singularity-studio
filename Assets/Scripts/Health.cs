@@ -23,7 +23,10 @@ public class Health : MonoBehaviour
     //Analytic HeartCollection
     private HeartTracker currentHeart; 
     private int previousHealth; 
-    private bool isCollectingHeart = false; 
+    private bool isCollectingHeart = false;
+
+    public delegate void PlayerDiedEventHandler();
+    public event PlayerDiedEventHandler OnPlayerDied;
 
     private void Start()
     {
@@ -68,9 +71,7 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Debug.Log("YOU LOST!");
-            PlayerPrefs.DeleteAll();
-            // Time.timeScale = 0f; //Pause the game (for now)
+            OnPlayerDied?.Invoke();
 
             FindObjectOfType<EventControl>().ShowGameOverPanel();
 
