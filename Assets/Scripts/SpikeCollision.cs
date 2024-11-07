@@ -51,7 +51,7 @@ public class SpikeCollision : MonoBehaviour
     private void Die()
     {
         StartCoroutine(ShowDamage());
-        health.TakeDamage(1);
+        health.TakeDamage(1, DamageCause.Hazard);
         AnalyticsManager.trackDamageCause("spike");
         Debug.Log("Lost one heart due to spike collision");
     }

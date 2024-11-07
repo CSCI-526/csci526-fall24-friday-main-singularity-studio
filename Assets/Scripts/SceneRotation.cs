@@ -54,7 +54,7 @@ public class SceneRotation : MonoBehaviour
         float currentTime = Time.time;
         //check if we have reach the rotation time
         if((currentTime >= nextRotateTime && !isTutoriual) || startRotating){
-            Debug.Log("start rotating");
+            //Debug.Log("start rotating");
             isRotating = true;
             healthDisplay.SetActive(false);
             levelDisplay.SetActive(false);

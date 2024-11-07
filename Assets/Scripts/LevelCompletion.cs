@@ -38,7 +38,7 @@ public class LevelCompletion : MonoBehaviour
             mapLength = 415f;
             confetti1.Stop();
             confetti2.Stop();
-            confetti3.Stop();
+            // confetti3.Stop();
         }else{
             mapLength = 150f;
         }
@@ -70,7 +70,7 @@ public class LevelCompletion : MonoBehaviour
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
         }
-        else if (collision.gameObject.CompareTag("WinTrigger") && currentScene.name != "Tutorial")
+        else if (collision.gameObject.CompareTag("WinTrigger"))
         {
             // rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             confetti3.Play();
@@ -84,13 +84,37 @@ public class LevelCompletion : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("WinTrigger")){
+            GameObject cautionTape = GameObject.Find("Caution Tape");
+            if (cautionTape != null){
+                cautionTape.SetActive(false);
+            }
+            GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
+            if (wallDamage != null){
+                wallDamage.SetActive(false);
+            }
+        }
+    }
+
     private void Win()
     {
         Scene currentScene = SceneManager.GetActiveScene();
 
         string sceneName = currentScene.name;
-        if (sceneName == "Tutorial")
+        if (sceneName == "Tutorial"){
+            cameraMovement.StopCamera();
+            GameObject cautionTape = GameObject.Find("Caution Tape");
+            if (cautionTape != null){
+                cautionTape.SetActive(false);
+            }
+            GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
+            if (wallDamage != null){
+                wallDamage.SetActive(false);
+            }
             FindObjectOfType<EventControl>().ShowWinTutorial();
+            
+        }
         else
         {
             FindObjectOfType<EventControl>().ShowWinPanel();

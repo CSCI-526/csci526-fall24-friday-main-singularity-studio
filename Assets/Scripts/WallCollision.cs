@@ -45,7 +45,7 @@ public class WallCollision : MonoBehaviour
     {
         StartCoroutine(ShowDamage());
 
-        health.TakeDamage(1);
+        health.TakeDamage(1, DamageCause.Hazard);
         AnalyticsManager.trackDamageCause("wall");
         Debug.Log("Lost one heart due to wall collision");
     }

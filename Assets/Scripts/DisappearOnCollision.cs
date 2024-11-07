@@ -45,8 +45,6 @@ public class DisappearOnCollision : MonoBehaviour
         }
     }
 
-    
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject == Player){
@@ -56,19 +54,31 @@ public class DisappearOnCollision : MonoBehaviour
             }
             else if (this.gameObject.name == "fortuneHeart")
             {
-                if (isOriginalColor){
-                    print("heal");
-                    health.Heal(1);
-                }else{
-                    print("damage");
-                    health.TakeDamage(1);
+                HeartTracker heart = GetComponent<HeartTracker>();
+                if (heart != null || SceneManager.GetActiveScene().name == "Tutorial")
+                {
+                    // Call CollectHeart to set up the heart information in Health
+                    health.CollectHeart(heart);
+
+                    if (isOriginalColor)
+                    {
+                        health.Heal(1);
+                    }
+                    else
+                    {
+                        health.TakeDamage(1, DamageCause.FortuneHeart);
+                    }
                 }
                 Destroy(gameObject);
             }
             else if(this.gameObject.name == "heart"){
-                print("heart");
-                health.Heal(1);
-                Destroy(gameObject);
+                HeartTracker heart = GetComponent<HeartTracker>();
+                if (heart != null || SceneManager.GetActiveScene().name == "Tutorial")
+                {
+                    health.CollectHeart(heart);
+                    health.Heal(1);
+                    Destroy(gameObject);
+                }
             }
         }
     }

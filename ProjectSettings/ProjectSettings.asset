@@ -707,11 +707,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 4b6bf5f7-cffa-4fa6-b2a1-732b97715de4
+  cloudProjectId: e0c83094-4f1f-4baa-92c2-9919e581dca4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Gravity Leap Alpha
-  organizationId: ngocta0905
+  projectName: 2D Prototype Rotatable
+  organizationId: yiyangdu
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

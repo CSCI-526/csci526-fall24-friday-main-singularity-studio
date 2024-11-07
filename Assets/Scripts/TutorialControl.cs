@@ -27,12 +27,13 @@ public class TutorialControl : MonoBehaviour
             cameraMovement.MoveCamera();
             Debug.Log("Camera started moving due to Flag Trigger");
         }
-        else if (collision.gameObject.CompareTag("Flag Trigger1"))
+        else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject))
         {
-            cameraMovement.StopCamera(); 
+            StartCoroutine(DelayStopTime());
         }
         else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
             cameraMovement.MoveCamera(); 
+            StartCoroutine(DelayMoveTime());
         }
         else if(collision.gameObject.CompareTag("RotateSceneTrigger") && !collidedTriggerList.Contains(collision.gameObject)){
             sceneRotation.RotateScene();
@@ -41,5 +42,16 @@ public class TutorialControl : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision) {
         collidedTriggerList.Add(collision.gameObject);
+    }
+
+    IEnumerator DelayMoveTime()
+    {
+        yield return new WaitForSeconds(1);
+        cameraMovement.MoveCamera(); 
+    }
+    IEnumerator DelayStopTime()
+    {
+        yield return new WaitForSeconds(1);
+        cameraMovement.StopCamera(); 
     }
 }
