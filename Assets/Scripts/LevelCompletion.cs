@@ -42,6 +42,16 @@ public class LevelCompletion : MonoBehaviour
 
         currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "Tutorial"){
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                playerHealth = player.GetComponent<Health>();
+                playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
+            }
+            else
+            {
+                Debug.LogError("Player object not found. Make sure the player is tagged 'Player' and has a Health component.");
+            }
             mapLength = 415f;
             confetti1.Stop();
             confetti2.Stop();
@@ -49,9 +59,6 @@ public class LevelCompletion : MonoBehaviour
         }else{
             mapLength = 150f;
         }
-
-        playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
-        playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
 
         mapPosition = sceneRotation.transform.position;
         mapScale = sceneRotation.transform.localScale;
@@ -120,9 +127,33 @@ public class LevelCompletion : MonoBehaviour
     {
         Debug.Log("Player has died. Game Over.");
         UploadDeathData(); // Custom method to upload data
-        FindObjectOfType<EventControl>().ShowGameOverPanel(); // Show Game Over UI
-        cameraMovement.StopCamera();
-        sceneRotation.StopRotation();
+        var eventControl = FindObjectOfType<EventControl>();
+        if (eventControl != null)
+        {
+            eventControl.ShowGameOverPanel();
+        }
+        else
+        {
+            Debug.LogError("EventControl component is missing.");
+        }
+
+        if (cameraMovement != null)
+        {
+            cameraMovement.StopCamera();
+        }
+        else
+        {
+            Debug.LogError("CameraMovement is missing.");
+        }
+
+        if (sceneRotation != null)
+        {
+            sceneRotation.StopRotation();
+        }
+        else
+        {
+            Debug.LogError("SceneRotation is missing.");
+        }
     }
     private void UploadDeathData()
     {

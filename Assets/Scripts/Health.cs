@@ -61,6 +61,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage, DamageCause cause)
     {
+        var eventControl = FindObjectOfType<EventControl>();
         // Log the damage cause for debugging
         if (cause == DamageCause.FortuneHeart && currentHeart != null)
         {
@@ -70,11 +71,12 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            if (SceneManager.GetActiveScene().name == "Tutorial")
+            {
+                eventControl.ShowGameOverPanel();
+            }
             currentHealth = 0;
             OnPlayerDied?.Invoke();
-
-            FindObjectOfType<EventControl>().ShowGameOverPanel();
-
         }
         UpdateHearts();
     }

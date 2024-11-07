@@ -75223,12 +75223,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProgressBarImg: {fileID: 0}
-  cameraMovement: {fileID: 0}
+  cameraMovement: {fileID: 519420033}
   sceneRotation: {fileID: 291149386}
   confetti1: {fileID: 1713314457}
   confetti2: {fileID: 449875663}
   confetti3: {fileID: 148945524}
   distanceFromStart: 0
+  playerHealth: {fileID: 1629949513}
 --- !u!114 &1629949516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75282,8 +75283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1ec1c7acb6c4e39a96f4652fc69c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMovement: {fileID: 0}
-  sceneRotation: {fileID: 0}
+  cameraMovement: {fileID: 519420033}
+  sceneRotation: {fileID: 291149386}
 --- !u!1 &1635392004
 GameObject:
   m_ObjectHideFlags: 0
