@@ -15,6 +15,7 @@ public class EventControl : MonoBehaviour
     public GameObject winPanel;             // Win panel
     public PlayerControl playerMovement;  // Reference to PlayerMovement
     private AnalyticsManager analyticsManager;
+    public CameraMovement cameraMovement;
 
     void Start()
     {
@@ -94,6 +95,16 @@ public class EventControl : MonoBehaviour
 
     public void BackToMain(){
         SceneManager.LoadScene("Menu");
+    }
+    public void RestartTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    public void ShowWinTutorial()
+    {
+        winPanel.SetActive(true);
+        cameraMovement.StopCamera();
     }
 
     public void ShowWinPanel()

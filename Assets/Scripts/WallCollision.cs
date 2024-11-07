@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WallCollision : MonoBehaviour
 {
@@ -43,7 +44,20 @@ public class WallCollision : MonoBehaviour
 
     private void Die()
     {
-        health.TakeDamage(1);
+        StartCoroutine(ShowDamage());
+
+        health.TakeDamage(1, DamageCause.Hazard);
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            AnalyticsManager.trackDamageCause("wall");
+        }
         Debug.Log("Lost one heart due to wall collision");
+    }
+
+    IEnumerator ShowDamage()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 }

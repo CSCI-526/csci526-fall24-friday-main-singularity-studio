@@ -29,4 +29,27 @@ public class AnalyticsManager : MonoBehaviour
         Debug.Log($"Level: {levelCompleted}, Won: {isGameWon}, Play Time: {playTime} seconds");
     }
 
+    public static void trackDamageCause(string obstacle)
+    {
+        DamageCauseTracker damageCauseTracker = new DamageCauseTracker
+        {
+            Obstacle = obstacle
+        };
+        AnalyticsService.Instance.RecordEvent(damageCauseTracker);
+        AnalyticsService.Instance.Flush();
+    }
+    
+    public static void TrackHeartCollection(int heartID, string heartName, bool gainedHealth, bool lostHealth)
+    {
+        HeartCollectionTracker heartCollection = new HeartCollectionTracker
+        {
+            HeartID = heartID,
+            HeartName = heartName,
+            GainedHealth = gainedHealth,
+            lostHealth = lostHealth
+        };
+
+        AnalyticsService.Instance.RecordEvent(heartCollection);
+        AnalyticsService.Instance.Flush();
+    }
 }

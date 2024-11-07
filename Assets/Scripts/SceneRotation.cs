@@ -8,10 +8,12 @@ public class SceneRotation : MonoBehaviour
     public Transform cameraTransform;
     public bool isVertical = true;
     public bool isRotating = false;
+    private bool startRotating = false;
     public float rotationPeriod = 5.0f;
     private float nextRotateTime = 0.0f;
     private float rotationProgress;
     private bool shouldRotate = true;
+    private bool isTutoriual = false;
 
     private float relativePos = 0.0f;
     public GameObject healthDisplay;
@@ -24,11 +26,22 @@ public class SceneRotation : MonoBehaviour
     {
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
-        relativePos = cameraTransform.position.x - transform.position.x;
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+        if (sceneName == "Tutorial"){
+            isTutoriual = true;
+        }
+
+        if(isVertical)
+        {
+            relativePos = cameraTransform.position.x - transform.position.x;
+        } 
+        else
+        {
+            relativePos = cameraTransform.position.y - transform.position.y;
+        }
     }
-
-
-
 
     // Update is called once per frame
     void Update()
@@ -40,19 +53,17 @@ public class SceneRotation : MonoBehaviour
 
         float currentTime = Time.time;
         //check if we have reach the rotation time
-        if(currentTime >= nextRotateTime){
+        if((currentTime >= nextRotateTime && !isTutoriual) || startRotating){
+            //Debug.Log("start rotating");
             isRotating = true;
             healthDisplay.SetActive(false);
             levelDisplay.SetActive(false);
             if(SceneManager.GetActiveScene().name == "Tutorial"){
                 skipButton.SetActive(false);
             }
-            
-
             //check if it currently rotating the scene
             if(rotationProgress < 1 && rotationProgress >= 0){
                 rotationProgress += Time.deltaTime;
-                // UpdateWalls(true);
                 if(isVertical){
                     //rotate the scene from the center of the camera position
                     // https://stackoverflow.com/questions/52737303/in-unity-script-how-to-rotate-and-rotate-to-around-pivot-position reference
@@ -82,6 +93,7 @@ public class SceneRotation : MonoBehaviour
                 isVertical = !isVertical;
                 rotationProgress = 0;
                 isRotating = false;
+                startRotating = false;
                 healthDisplay.SetActive(true);
                 levelDisplay.SetActive(true);
                 if(SceneManager.GetActiveScene().name == "Tutorial"){
@@ -91,7 +103,10 @@ public class SceneRotation : MonoBehaviour
         }
     }
 
-    
+    public void RotateScene(){
+        startRotating = true;
+        Debug.Log("inside rotate scene function");
+    }
     public void StopRotation()
     {
         shouldRotate = false;

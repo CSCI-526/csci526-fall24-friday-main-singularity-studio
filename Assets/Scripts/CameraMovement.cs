@@ -8,9 +8,14 @@ public class CameraMovement : MonoBehaviour
     public float speed = 2.0f;
     private bool stopMovement = false;
 
+    public float cameraMovingPeriod = 10.0f;
+    private float nextCameraStopTime = 0.0f;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        // nextCameraStopTime = Time.time + cameraMovingPeriod;
     }
 
     // Update is called once per frame
@@ -30,5 +35,9 @@ public class CameraMovement : MonoBehaviour
     public void StopCamera()
     {
         stopMovement = true;
+    }
+
+    public void MoveCamera(){
+        stopMovement = false;
     }
 }

@@ -10,6 +10,11 @@ TagManager:
   - heart
   - Platform
   - LevelTrigger
+  - Flag Trigger
+  - Stop Camera Trigger
+  - Flag Trigger1
+  - MoveCameraTrigger
+  - RotateSceneTrigger
   layers:
   - Default
   - TransparentFX
@@ -46,4 +51,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1
+    uniqueID: 1837838121
     locked: 0
