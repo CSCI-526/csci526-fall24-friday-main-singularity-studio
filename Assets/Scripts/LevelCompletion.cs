@@ -92,6 +92,14 @@ public class LevelCompletion : MonoBehaviour
         if (sceneName == "Tutorial"){
             FindObjectOfType<EventControl>().ShowWinTutorial();
             cameraMovement.StopCamera();
+            GameObject cautionTape = GameObject.Find("Caution Tape");
+            if (cautionTape != null){
+                cautionTape.SetActive(false);
+            }
+            GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
+            if (wallDamage != null){
+                wallDamage.SetActive(false);
+            }
         }
         else
         {
