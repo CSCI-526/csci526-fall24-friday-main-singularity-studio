@@ -31779,7 +31779,7 @@ MonoBehaviour:
   confetti2: {fileID: 0}
   confetti3: {fileID: 358116036}
   distanceFromStart: 0
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 1629949513}
 --- !u!114 &1629949516
 MonoBehaviour:
   m_ObjectHideFlags: 0
