@@ -2493,7 +2493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3845841047155821712, guid: 3163df1d118ab442590c414b11c65573, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3845841047155821712, guid: 3163df1d118ab442590c414b11c65573, type: 3}
       propertyPath: m_LocalRotation.w
@@ -31779,6 +31779,7 @@ MonoBehaviour:
   confetti2: {fileID: 0}
   confetti3: {fileID: 358116036}
   distanceFromStart: 0
+  playerHealth: {fileID: 0}
 --- !u!114 &1629949516
 MonoBehaviour:
   m_ObjectHideFlags: 0
