@@ -87,14 +87,12 @@ public class LevelCompletion : MonoBehaviour
         
         if (collision.gameObject.name == "EndPhase1" && currentScene.name != "Tutorial")
         {
-            currentLevel = 2;
             confetti1.Play();
             // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
             Debug.Log("Level 2");
         }
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
-            currentLevel = 3;
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
             Debug.Log("Level 3");
