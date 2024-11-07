@@ -84,13 +84,25 @@ public class LevelCompletion : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("WinTrigger")){
+            GameObject cautionTape = GameObject.Find("Caution Tape");
+            if (cautionTape != null){
+                cautionTape.SetActive(false);
+            }
+            GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
+            if (wallDamage != null){
+                wallDamage.SetActive(false);
+            }
+        }
+    }
+
     private void Win()
     {
         Scene currentScene = SceneManager.GetActiveScene();
 
         string sceneName = currentScene.name;
         if (sceneName == "Tutorial"){
-            FindObjectOfType<EventControl>().ShowWinTutorial();
             cameraMovement.StopCamera();
             GameObject cautionTape = GameObject.Find("Caution Tape");
             if (cautionTape != null){
@@ -100,6 +112,8 @@ public class LevelCompletion : MonoBehaviour
             if (wallDamage != null){
                 wallDamage.SetActive(false);
             }
+            FindObjectOfType<EventControl>().ShowWinTutorial();
+            
         }
         else
         {
