@@ -33,6 +33,7 @@ public class TutorialControl : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
             cameraMovement.MoveCamera(); 
+            StartCoroutine(DelayMoveTime());
         }
         else if(collision.gameObject.CompareTag("RotateSceneTrigger") && !collidedTriggerList.Contains(collision.gameObject)){
             sceneRotation.RotateScene();
@@ -43,6 +44,11 @@ public class TutorialControl : MonoBehaviour
         collidedTriggerList.Add(collision.gameObject);
     }
 
+    IEnumerator DelayMoveTime()
+    {
+        yield return new WaitForSeconds(1);
+        cameraMovement.MoveCamera(); 
+    }
     IEnumerator DelayStopTime()
     {
         yield return new WaitForSeconds(1);

@@ -89,8 +89,10 @@ public class LevelCompletion : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
 
         string sceneName = currentScene.name;
-        if (sceneName == "Tutorial")
+        if (sceneName == "Tutorial"){
             FindObjectOfType<EventControl>().ShowWinTutorial();
+            cameraMovement.StopCamera();
+        }
         else
         {
             FindObjectOfType<EventControl>().ShowWinPanel();
