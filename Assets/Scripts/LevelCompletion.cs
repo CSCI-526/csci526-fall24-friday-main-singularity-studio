@@ -46,12 +46,11 @@ public class LevelCompletion : MonoBehaviour
             confetti1.Stop();
             confetti2.Stop();
             // confetti3.Stop();
+            playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
+            playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
         }else{
             mapLength = 150f;
         }
-
-        playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
-        playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
 
         mapPosition = sceneRotation.transform.position;
         mapScale = sceneRotation.transform.localScale;
