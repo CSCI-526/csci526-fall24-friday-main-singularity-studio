@@ -57,9 +57,10 @@ public class DisappearOnCollision : MonoBehaviour
                 HeartTracker heart = GetComponent<HeartTracker>();
                 if (heart != null || SceneManager.GetActiveScene().name == "Tutorial")
                 {
-                    // Call CollectHeart to set up the heart information in Health
-                    health.CollectHeart(heart);
-
+                    if (SceneManager.GetActiveScene().name != "Tutorial")
+                    {
+                        health.CollectHeart(heart);
+                    }
                     if (isOriginalColor)
                     {
                         health.Heal(1);
@@ -75,7 +76,10 @@ public class DisappearOnCollision : MonoBehaviour
                 HeartTracker heart = GetComponent<HeartTracker>();
                 if (heart != null || SceneManager.GetActiveScene().name == "Tutorial")
                 {
-                    health.CollectHeart(heart);
+                    if (SceneManager.GetActiveScene().name != "Tutorial")
+                    {
+                        health.CollectHeart(heart);
+                    }
                     health.Heal(1);
                     Destroy(gameObject);
                 }

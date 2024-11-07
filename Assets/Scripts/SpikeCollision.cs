@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpikeCollision : MonoBehaviour
 {
@@ -52,7 +53,10 @@ public class SpikeCollision : MonoBehaviour
     {
         StartCoroutine(ShowDamage());
         health.TakeDamage(1, DamageCause.Hazard);
-        AnalyticsManager.trackDamageCause("spike");
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            AnalyticsManager.trackDamageCause("spike");
+        }
         Debug.Log("Lost one heart due to spike collision");
     }
 

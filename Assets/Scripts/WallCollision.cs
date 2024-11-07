@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WallCollision : MonoBehaviour
 {
@@ -46,7 +47,10 @@ public class WallCollision : MonoBehaviour
         StartCoroutine(ShowDamage());
 
         health.TakeDamage(1, DamageCause.Hazard);
-        AnalyticsManager.trackDamageCause("wall");
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            AnalyticsManager.trackDamageCause("wall");
+        }
         Debug.Log("Lost one heart due to wall collision");
     }
 

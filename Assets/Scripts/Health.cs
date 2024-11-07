@@ -106,7 +106,6 @@ public class Health : MonoBehaviour
             bool gainedHealth = currentHealth > previousHealth;  // Determine if health increased
             bool lostHealth = currentHealth < previousHealth;    // Determine if health decreased
 
-            // Track the heart collection with the appropriate health status
             AnalyticsManager.TrackHeartCollection(currentHeart.heartID, currentHeart.heartName, gainedHealth, lostHealth);
 
             // Reset currentHeart and flag after logging
