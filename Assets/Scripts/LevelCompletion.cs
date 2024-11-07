@@ -131,18 +131,13 @@ public class LevelCompletion : MonoBehaviour
         {
             FindObjectOfType<EventControl>().ShowWinPanel();
             Debug.Log("Winner Winner Chicken Dinner!");
-            AnalyticsManager.trackProgress(currentLevel, true);
+            
+            float playTime = Time.time - startTime; // Calculate the play duration
+            AnalyticsManager.trackProgress(currentLevel, true, playTime); // Pass playtime to AnalyticsManager
+            
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();
+            isGameStarted = false; // Reset the game state
         }
-        FindObjectOfType<EventControl>().ShowWinPanel();
-        Debug.Log("Winner Winner Chicken Dinner!");
-        
-        float playTime = Time.time - startTime; // Calculate the play duration
-        AnalyticsManager.trackProgress(currentLevel, true, playTime); // Pass playtime to AnalyticsManager
-        
-        cameraMovement.StopCamera();
-        sceneRotation.StopRotation();
-        isGameStarted = false; // Reset the game state
     }
 }
