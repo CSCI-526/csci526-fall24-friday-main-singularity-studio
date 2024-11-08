@@ -9,7 +9,7 @@ using UnityEngine.Analytics;
 
 public class LevelCompletion : MonoBehaviour
 {
-    private int currentLevel = 1;
+    private int currentLevel = 0;
     public Image ProgressBarImg;
     private RectTransform rt;
     private float ProgressBarWidth;

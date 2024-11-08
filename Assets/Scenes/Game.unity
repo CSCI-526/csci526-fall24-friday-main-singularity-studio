@@ -26301,7 +26301,7 @@ GameObject:
   - component: {fileID: 451825977}
   - component: {fileID: 451825976}
   m_Layer: 0
-  m_Name: LevelTrigger (1)
+  m_Name: LevelTrigger1
   m_TagString: LevelTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34482,7 +34482,7 @@ GameObject:
   - component: {fileID: 685028733}
   - component: {fileID: 685028732}
   m_Layer: 0
-  m_Name: LevelTrigger
+  m_Name: LevelTrigger0
   m_TagString: LevelTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42221,9 +42221,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 685028734}
+  - {fileID: 451825978}
   - {fileID: 1443112394}
   - {fileID: 1576362952}
-  - {fileID: 451825978}
   m_Father: {fileID: 291149387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817343535
@@ -68026,7 +68026,7 @@ GameObject:
   - component: {fileID: 1443112393}
   - component: {fileID: 1443112392}
   m_Layer: 0
-  m_Name: LevelTrigger (2)
+  m_Name: LevelTrigger2
   m_TagString: LevelTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68138,7 +68138,7 @@ Transform:
   m_GameObject: {fileID: 1443112391}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.136932, y: 182.84134, z: 0.42859095}
+  m_LocalPosition: {x: -9.14, y: 183.29, z: 0.42859095}
   m_LocalScale: {x: 22.444998, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73383,7 +73383,7 @@ GameObject:
   - component: {fileID: 1576362951}
   - component: {fileID: 1576362950}
   m_Layer: 0
-  m_Name: LevelTrigger (3)
+  m_Name: LevelTrigger3
   m_TagString: LevelTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73495,7 +73495,7 @@ Transform:
   m_GameObject: {fileID: 1576362949}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.366933, y: -22.958649, z: 0.42859095}
+  m_LocalPosition: {x: -9.37, y: -22, z: 0.42859095}
   m_LocalScale: {x: 22.444998, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
