@@ -538,6 +538,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 7043985863742492466}
   winPanel: {fileID: 8896661905698106518}
   playerMovement: {fileID: 0}
+  cameraMovement: {fileID: 0}
 --- !u!1 &382523796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,10 +1854,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Movement: Left and Right Arrow keys
+  m_text: 'Movement: Left and Right Arrow Keys
 
 
-    Jump: Space
+    Jump: Spacebar
+
+
+    Multiple
+    Jumps: Multiple Taps the Spacebar
 
 
 '
