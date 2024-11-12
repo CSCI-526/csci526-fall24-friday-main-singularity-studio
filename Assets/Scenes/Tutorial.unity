@@ -10785,6 +10785,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow Key (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4048090764714314191, guid: 7eb65d41645d540c4a67f98832264494, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4245971310320182059, guid: 7eb65d41645d540c4a67f98832264494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0299978
@@ -10825,6 +10829,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4477899442634474790, guid: 7eb65d41645d540c4a67f98832264494, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42915,6 +42923,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1520570102081312146, guid: 684b2086ad6fc4d068c1ff59550e65a8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 1638103195750368146, guid: 684b2086ad6fc4d068c1ff59550e65a8, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1.5
@@ -42975,6 +42987,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7119553860879055506, guid: 684b2086ad6fc4d068c1ff59550e65a8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7994625099596248394, guid: 684b2086ad6fc4d068c1ff59550e65a8, type: 3}
       propertyPath: m_LocalPosition.z
       value: -1
@@ -43403,6 +43419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow Key
       objectReference: {fileID: 0}
+    - target: {fileID: 4048090764714314191, guid: 7eb65d41645d540c4a67f98832264494, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4245971310320182059, guid: 7eb65d41645d540c4a67f98832264494, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.2
@@ -43443,6 +43463,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467924774861693722, guid: 7eb65d41645d540c4a67f98832264494, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
