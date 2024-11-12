@@ -168,6 +168,8 @@ public class LevelCompletion : MonoBehaviour
         if (eventControl != null)
         {
             eventControl.ShowGameOverPanel();
+            // eventControl.ShowMessage();
+            // StartCoroutine(LoadScene());
         }
         else
         {

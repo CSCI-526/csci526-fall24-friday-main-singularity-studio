@@ -12,7 +12,7 @@ public class DisappearOnCollision : MonoBehaviour
     // private Color healColor = Color.red;  
     // private Color damageColor = Color.magenta; 
     private Color healColor = new Color(1f, 0.6f, 0.9f);  
-    private Color damageColor = Color.red; 
+    private Color damageColor = Color.yellow; 
 
     private bool isOriginalColor = true; 
 
