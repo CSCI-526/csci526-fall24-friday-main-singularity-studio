@@ -27,6 +27,8 @@ public class LevelCompletion : MonoBehaviour
     
     private float startTime; // Track the game start time
     private bool isGameStarted = false; // Track if the game has started
+    public Button pulseButton;
+    private ButtonPulse buttonPulseScript;
 
     public Health playerHealth;
 
@@ -66,6 +68,12 @@ public class LevelCompletion : MonoBehaviour
             mapLength = 150f;
             topLeftCorner = mapPosition + new Vector2(mapScale.x / 2, mapScale.y / 2);
         }
+        
+        if (pulseButton != null)
+        {
+            pulseButton.gameObject.SetActive(false);
+            pulseButton.onClick.AddListener(ResumeGame);
+        }
     }
 
     private void Update(){
@@ -73,6 +81,15 @@ public class LevelCompletion : MonoBehaviour
         distanceFromStart = Vector2.Distance(transform.position, topLeftCorner);
         float progress = (mapLength - distanceFromStart)*100 / mapLength;
         rt.sizeDelta = new Vector2(ProgressBarWidth * (100 - progress)/100, rt.sizeDelta.y);
+    }
+
+    public void ResumeGame()
+    {
+        if (pulseButton != null)
+        {
+            pulseButton.gameObject.SetActive(false);
+            Time.timeScale = 1f;
+        }
     }
 
     // Method to start tracking playtime
@@ -89,12 +106,14 @@ public class LevelCompletion : MonoBehaviour
         {
             confetti1.Play();
             // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
+            TriggerEndPhasePulse();
             Debug.Log("Level 2");
         }
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
+            TriggerEndPhasePulse();
             Debug.Log("Level 3");
         }
         else if (collision.gameObject.CompareTag("WinTrigger"))
@@ -108,6 +127,24 @@ public class LevelCompletion : MonoBehaviour
             Debug.Log("Leveled up");
             Destroy(collision.gameObject);
             currentLevel++;
+        }
+    }
+
+    private void TriggerEndPhasePulse()
+    {
+        if (pulseButton != null)
+        {
+            pulseButton.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+
+    private void StopPulse()
+    {
+        if (buttonPulseScript != null)
+        {
+            buttonPulseScript.StopPulse();
+            pulseButton.gameObject.SetActive(false); // Hide the button after pulsing stops
         }
     }
 
@@ -130,9 +167,7 @@ public class LevelCompletion : MonoBehaviour
         var eventControl = FindObjectOfType<EventControl>();
         if (eventControl != null)
         {
-            // eventControl.ShowGameOverPanel();
-            eventControl.ShowMessage();
-            StartCoroutine(LoadScene());
+            eventControl.ShowGameOverPanel();
         }
         else
         {
@@ -172,6 +207,7 @@ public class LevelCompletion : MonoBehaviour
 
     private void Win()
     {
+        StopPulse();
         Debug.Log("Win method called");
         Scene currentScene = SceneManager.GetActiveScene();
 
