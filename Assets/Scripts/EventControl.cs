@@ -13,6 +13,7 @@ public class EventControl : MonoBehaviour
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;             // Win panel
+    public GameObject levelsPanel;
     public GameObject Message; 
     public PlayerControl playerMovement;  // Reference to PlayerMovement
     private AnalyticsManager analyticsManager;
@@ -80,6 +81,12 @@ public class EventControl : MonoBehaviour
         instructionPanel.SetActive(true);
     }
 
+    public void ShowLevels()
+    {
+        mainMenuUI.SetActive(false);
+        levelsPanel.SetActive(true);
+    }
+
     public void ShowSettings()
     {
         mainMenuUI.SetActive(false);
@@ -93,7 +100,8 @@ public class EventControl : MonoBehaviour
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
         Message.SetActive(false);
-    }
+     }
+
 
     public void BackToMain(){
         SceneManager.LoadScene("Menu");
