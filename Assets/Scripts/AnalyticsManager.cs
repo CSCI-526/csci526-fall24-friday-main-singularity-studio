@@ -16,17 +16,29 @@ public class AnalyticsManager : MonoBehaviour
         Debug.Log("AnalyticsManager Initialized");
     }
 
+    private static string CategorizePlayTime(float playTime)
+    {
+        if (playTime <= 10) return "Very Short";
+        else if (playTime <= 30) return "Short";
+        else if (playTime <= 60) return "Moderate";
+        else if (playTime <= 120) return "Long";
+        else return "Very Long";
+    }
+
     public static void trackProgress(int levelCompleted, bool isGameWon, float playTime)
     {
+        string timeCategory = CategorizePlayTime(playTime);
+
         ProgressTracker progressTracker = new ProgressTracker
         {
             LevelCompleted = levelCompleted,
             IsGameWon = isGameWon,
-            PlayTime = playTime
+            PlayTime = playTime,
+            TimeCategory = timeCategory
         };
         AnalyticsService.Instance.RecordEvent(progressTracker);
         AnalyticsService.Instance.Flush();
-        Debug.Log($"Level: {levelCompleted}, Won: {isGameWon}, Play Time: {playTime} seconds");
+        Debug.Log($"Level: {levelCompleted}, Won: {isGameWon}, Play Time: {playTime} seconds, Time Category: {timeCategory}");
     }
 
     public static void trackDamageCause(string obstacle)
