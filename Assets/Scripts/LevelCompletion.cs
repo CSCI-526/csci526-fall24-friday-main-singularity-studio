@@ -21,7 +21,6 @@ public class LevelCompletion : MonoBehaviour
     private Vector2 mapPosition;
     private Vector2 mapScale;
     private Vector2 topLeftCorner;
-    private Vector2 bottomRightCorner;
     public float distanceFromStart;
     private float mapLength;
     private Scene currentScene;
@@ -64,8 +63,7 @@ public class LevelCompletion : MonoBehaviour
 
         mapPosition = sceneRotation.transform.position;
         mapScale = sceneRotation.transform.localScale;
-        topLeftCorner = mapPosition + new Vector2(-mapScale.x / 2, mapScale.y / 2);
-        bottomRightCorner = mapPosition + new Vector2(mapScale.x / 2, -mapScale.y);
+        topLeftCorner = mapPosition + new Vector2(mapScale.x / 2 - 28, mapScale.y / 2);
     }
 
     private void Update(){
