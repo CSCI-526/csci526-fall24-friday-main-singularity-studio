@@ -39,7 +39,11 @@ public class LevelCompletion : MonoBehaviour
         rt.anchorMax = new Vector2(0, 0.5f);
         rt.sizeDelta = new Vector2(1, rt.sizeDelta.y);
 
+        mapPosition = sceneRotation.transform.position;
+        mapScale = sceneRotation.transform.localScale;
+
         currentScene = SceneManager.GetActiveScene();
+
         if (currentScene.name != "Tutorial"){
             GameObject player = GameObject.FindWithTag("Player");
             if (player != null)
@@ -57,13 +61,11 @@ public class LevelCompletion : MonoBehaviour
             // confetti3.Stop();
             playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
             playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
+            topLeftCorner = mapPosition + new Vector2(mapScale.x / 2 - 28, mapScale.y / 2);
         }else{
             mapLength = 150f;
+            topLeftCorner = mapPosition + new Vector2(mapScale.x / 2, mapScale.y / 2);
         }
-
-        mapPosition = sceneRotation.transform.position;
-        mapScale = sceneRotation.transform.localScale;
-        topLeftCorner = mapPosition + new Vector2(mapScale.x / 2 - 28, mapScale.y / 2);
     }
 
     private void Update(){
@@ -128,7 +130,9 @@ public class LevelCompletion : MonoBehaviour
         var eventControl = FindObjectOfType<EventControl>();
         if (eventControl != null)
         {
-            eventControl.ShowGameOverPanel();
+            // eventControl.ShowGameOverPanel();
+            eventControl.ShowMessage();
+            StartCoroutine(LoadScene());
         }
         else
         {
@@ -153,6 +157,8 @@ public class LevelCompletion : MonoBehaviour
             Debug.LogError("SceneRotation is missing.");
         }
     }
+
+
     private void UploadDeathData()
     {
         float playTime = Time.time - startTime; // Calculate time spent in level
@@ -180,8 +186,8 @@ public class LevelCompletion : MonoBehaviour
             if (wallDamage != null){
                 wallDamage.SetActive(false);
             }
-            FindObjectOfType<EventControl>().ShowWinTutorial();
-            
+            FindObjectOfType<EventControl>().ShowMessage();
+            StartCoroutine(LoadScene());
         }
         else
         {
@@ -195,5 +201,11 @@ public class LevelCompletion : MonoBehaviour
             sceneRotation.StopRotation();
             isGameStarted = false; // Reset the game state
         }
+    }
+
+    private IEnumerator LoadScene()
+    {
+        yield return new WaitForSeconds(1.5f); 
+        FindObjectOfType<EventControl>().StartGame();
     }
 }

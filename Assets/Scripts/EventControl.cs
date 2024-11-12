@@ -13,6 +13,7 @@ public class EventControl : MonoBehaviour
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;             // Win panel
+    public GameObject Message; 
     public PlayerControl playerMovement;  // Reference to PlayerMovement
     private AnalyticsManager analyticsManager;
     public CameraMovement cameraMovement;
@@ -91,6 +92,7 @@ public class EventControl : MonoBehaviour
         mainMenuUI.SetActive(true);
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
+        Message.SetActive(false);
     }
 
     public void BackToMain(){
@@ -101,9 +103,10 @@ public class EventControl : MonoBehaviour
         SceneManager.LoadScene("Tutorial");
     }
 
-    public void ShowWinTutorial()
+    public void ShowMessage()
     {
-        winPanel.SetActive(true);
+        // winPanel.SetActive(true);
+        Message.SetActive(true);
         cameraMovement.StopCamera();
     }
 

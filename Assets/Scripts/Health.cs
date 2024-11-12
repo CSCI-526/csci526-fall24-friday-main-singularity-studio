@@ -88,6 +88,7 @@ public class Health : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
+
     private void UpdateHearts()
     {
         //Ensure the player has the maximum of (3) hearts
