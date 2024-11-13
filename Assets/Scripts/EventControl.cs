@@ -1,35 +1,42 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;  // Include this to manage UI elements like buttons
 
 using Unity.Services.Analytics;
 using Unity.Services.Core;
 using Unity.Services.Core.Analytics;
-
 
 public class EventControl : MonoBehaviour
 {
     public GameObject instructionPanel;    // Panel for instructions
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
-    public GameObject winPanel;             // Win panel
-    public GameObject levelsPanel;
+    public GameObject winPanel;            // Win panel
     public GameObject Message; 
-    public PlayerControl playerMovement;  // Reference to PlayerMovement
-    private AnalyticsManager analyticsManager;
+    public PlayerControl playerMovement;   // Reference to PlayerMovement
     public CameraMovement cameraMovement;
+    
+    // Pause-related UI elements
+    public Button pauseButton;
+    public Button resumeButton;
+    public float pauseSpeed = 2.0f;
+    public float minScale = 0.9f;
+    public float maxScale = 1.1f;
+    private bool isPulsing = false;
+    
+    private AnalyticsManager analyticsManager;
 
     void Start()
     {
         // Hide all panels initially
-        // instructionPanel.SetActive(false);
-        // gameOverPanel.SetActive(false);
-        // winPanel.SetActive(false);
-        if (this.gameObject.name == "EventSystemMenu"){
+        if (this.gameObject.name == "EventSystemMenu")
+        {
             mainMenuUI.SetActive(true);
             Time.timeScale = 0f;  // Pause game at start
         }
-        else if (this.gameObject.name == "EventSystemTutorial"){
+        else if (this.gameObject.name == "EventSystemTutorial")
+        {
             print("start tutorial");
             Time.timeScale = 1f;  // Make sure time is resumed here
 
@@ -39,52 +46,46 @@ public class EventControl : MonoBehaviour
                 playerMovement.StartGame();
             }
         }
-        else if (this.gameObject.name == "EventSystemGame"){
+        else if (this.gameObject.name == "EventSystemGame")
+        {
             analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
-            // StartGame();
             Time.timeScale = 1f;  // Make sure time is resumed here
+
             if (playerMovement != null)
             {
                 playerMovement.StartGame();
             }
         }
-        // mainMenuUI.SetActive(true);
-        // Time.timeScale = 0f;  // Pause game at start
-        // analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
+
+        // Initialize pause button setup
+        pauseButton.onClick.AddListener(StartPause);
+        resumeButton.onClick.AddListener(StopPause);
+        resumeButton.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (isPulsing)
+        {
+            float scale = Mathf.PingPong(Time.unscaledTime * pauseSpeed, maxScale - minScale) + minScale;
+            transform.localScale = new Vector3(scale, scale, 1);
+        }
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene("Game");
-        // mainMenuUI.SetActive(false);
-        // Time.timeScale = 1f;  // Make sure time is resumed here
-
-        // if (playerMovement != null)
-        // {
-        //     playerMovement.StartGame();
-        // }
     }
 
-    public void ShowTutorial(){
+    public void ShowTutorial()
+    {
         SceneManager.LoadScene("Tutorial");
-        // mainMenuUI.SetActive(false);
-        // Time.timeScale = 1f;  // Make sure time is resumed here
-        // if (playerMovement != null)
-        // {
-        //     playerMovement.StartGame();
-        // }
     }
 
     public void ShowInstructions()
     {
         mainMenuUI.SetActive(false);
         instructionPanel.SetActive(true);
-    }
-
-    public void ShowLevels()
-    {
-        mainMenuUI.SetActive(false);
-        levelsPanel.SetActive(true);
     }
 
     public void ShowSettings()
@@ -100,12 +101,13 @@ public class EventControl : MonoBehaviour
         gameOverPanel.SetActive(false);
         winPanel.SetActive(false);
         Message.SetActive(false);
-     }
+    }
 
-
-    public void BackToMain(){
+    public void BackToMain()
+    {
         SceneManager.LoadScene("Menu");
     }
+
     public void RestartTutorial()
     {
         SceneManager.LoadScene("Tutorial");
@@ -113,7 +115,6 @@ public class EventControl : MonoBehaviour
 
     public void ShowMessage()
     {
-        // winPanel.SetActive(true);
         Message.SetActive(true);
         cameraMovement.StopCamera();
     }
@@ -130,17 +131,22 @@ public class EventControl : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // public void RestartGame()
-    // {
-    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    // }
-    // public void RestartGameBack()
-    // {
-    //     instructionPanel.SetActive(false);
-    //     mainMenuUI.SetActive(true);
-    //     gameOverPanel.SetActive(false);
-    //     winPanel.SetActive(false);
-    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    // }
+    // Pause and Resume Functionality
+    public void StartPause()
+    {
+        isPulsing = true;
+        Time.timeScale = 0f;
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(true);
+    }
 
+    public void StopPause()
+    {
+        isPulsing = false;
+        Time.timeScale = 1f;
+        pauseButton.gameObject.SetActive(true);
+        resumeButton.gameObject.SetActive(false);
+        transform.localScale = Vector3.one;
+    }
 }
+
