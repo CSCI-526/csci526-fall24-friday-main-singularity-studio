@@ -14685,10 +14685,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d7734b96e2b440bb957d9cd31afa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdownText: {fileID: 1348898427}
   cameraTransform: {fileID: 519420032}
   isVertical: 0
   isRotating: 0
   rotationPeriod: 10
+  cameraMovement: {fileID: 519420033}
   healthDisplay: {fileID: 1055946626}
   levelDisplay: {fileID: 260554483}
   skipButton: {fileID: 0}
@@ -63789,7 +63791,6 @@ MonoBehaviour:
   - {fileID: 88758884}
   fullHeart: {fileID: 1589124918195245447, guid: e227becae7d334e119ca4fdca1341859, type: 3}
   emptyHeart: {fileID: 1589124918195245447, guid: 9b3276d9b59bb472d90b2f5878fc6875, type: 3}
-  countdownText: {fileID: 1348898427}
 --- !u!114 &1629949514
 MonoBehaviour:
   m_ObjectHideFlags: 0
