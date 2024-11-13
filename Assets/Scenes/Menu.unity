@@ -339,7 +339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 673, y: 162}
+  m_AnchoredPosition: {x: 1362, y: 162}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237815671
@@ -547,10 +547,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d7734b96e2b440bb957d9cd31afa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdownText: {fileID: 0}
   cameraTransform: {fileID: 519420032}
   isVertical: 1
   isRotating: 0
   rotationPeriod: 10
+  cameraMovement: {fileID: 0}
   healthDisplay: {fileID: 1055946626}
   levelDisplay: {fileID: 260554483}
   skipButton: {fileID: 0}
@@ -674,6 +676,11 @@ MonoBehaviour:
   Message: {fileID: 0}
   playerMovement: {fileID: 0}
   cameraMovement: {fileID: 0}
+  pauseButton: {fileID: 0}
+  resumeButton: {fileID: 0}
+  pauseSpeed: 2
+  minScale: 0.9
+  maxScale: 1.1
 --- !u!1 &382523796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -327, y: 92}
+  m_AnchoredPosition: {x: -91.99994, y: -45.00003}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &885167678
@@ -2410,7 +2417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 673, y: 162.00002}
+  m_AnchoredPosition: {x: 1362, y: 162.00002}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2043966827
@@ -3123,7 +3130,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -126, y: 92}
+  m_AnchoredPosition: {x: 109, y: -45}
   m_SizeDelta: {x: 160, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2823602924488719859

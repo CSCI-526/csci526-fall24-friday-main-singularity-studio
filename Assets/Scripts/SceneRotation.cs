@@ -24,38 +24,8 @@ public class SceneRotation : MonoBehaviour
     public GameObject skipButton;
 
     
-    // Start is called before the first frame update
     void Start()
     {
-        //cameraMovement.StopCamera();
-        StartCoroutine(CountdownCoroutine());
-        //cameraMovement.MoveCamera();
-    }
-
-    private IEnumerator CountdownCoroutine()
-    {
-        nextRotateTime = Time.time + rotationPeriod;
-        rotationProgress = 0;
-        print("Inside Countdown");
-        countdownText.gameObject.SetActive(true);
-
-        for (int i = 3; i > 0; i--)
-        {
-            countdownText.text = i.ToString();
-            yield return new WaitForSeconds(1f); // Wait for 1 second
-        }
-
-        countdownText.gameObject.SetActive(false);
-
-        nextRotateTime = Time.time + rotationPeriod;
-        rotationProgress = 0;
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        string sceneName = currentScene.name;
-        if (sceneName == "Tutorial"){
-            isTutoriual = true;
-        }
-
         if(isVertical)
         {
             relativePos = cameraTransform.position.x - transform.position.x;
@@ -64,6 +34,32 @@ public class SceneRotation : MonoBehaviour
         {
             relativePos = cameraTransform.position.y - transform.position.y;
         }
+        
+        if (SceneManager.GetActiveScene().name == "Tutorial"){
+            isTutoriual = true;
+            countdownText.gameObject.SetActive(false);
+        }
+        else{
+            cameraMovement.StopCamera();
+            StartCoroutine(CountdownCoroutine());
+        }
+    }
+
+    private IEnumerator CountdownCoroutine()
+    {
+        nextRotateTime = Time.time + rotationPeriod;
+        rotationProgress = 0;
+        countdownText.gameObject.SetActive(true);
+
+        for (int i = 3; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(.5f); // Wait for 1 second
+        }
+
+        countdownText.gameObject.SetActive(false);
+
+        cameraMovement.MoveCamera();
     }
 
     // Update is called once per frame

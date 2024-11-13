@@ -13,6 +13,7 @@ public class EventControl : MonoBehaviour
     public GameObject mainMenuUI;          // Main menu UI
     public GameObject gameOverPanel;       // Game Over panel
     public GameObject winPanel;            // Win panel
+    public GameObject levelsPanel;
     public GameObject Message; 
     public PlayerControl playerMovement;   // Reference to PlayerMovement
     public CameraMovement cameraMovement;
@@ -58,9 +59,11 @@ public class EventControl : MonoBehaviour
         }
 
         // Initialize pause button setup
-        pauseButton.onClick.AddListener(StartPause);
-        resumeButton.onClick.AddListener(StopPause);
-        resumeButton.gameObject.SetActive(false);
+        if(SceneManager.GetActiveScene().name != "Menu"){
+            pauseButton.onClick.AddListener(StartPause);
+            resumeButton.onClick.AddListener(StopPause);
+            resumeButton.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -147,6 +150,12 @@ public class EventControl : MonoBehaviour
         pauseButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
         transform.localScale = Vector3.one;
+    }
+
+    public void ShowLevels()
+    {
+        mainMenuUI.SetActive(false);
+        levelsPanel.SetActive(true);
     }
 }
 
