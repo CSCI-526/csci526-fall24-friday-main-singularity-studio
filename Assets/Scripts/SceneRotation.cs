@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SceneRotation : MonoBehaviour
 {
+    public TextMeshProUGUI countdownText;
     public Transform cameraTransform;
     public bool isVertical = true;
     public bool isRotating = false;
@@ -14,6 +16,7 @@ public class SceneRotation : MonoBehaviour
     private float rotationProgress;
     private bool shouldRotate = true;
     private bool isTutoriual = false;
+    public CameraMovement cameraMovement;
 
     private float relativePos = 0.0f;
     public GameObject healthDisplay;
@@ -24,6 +27,26 @@ public class SceneRotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //cameraMovement.StopCamera();
+        StartCoroutine(CountdownCoroutine());
+        //cameraMovement.MoveCamera();
+    }
+
+    private IEnumerator CountdownCoroutine()
+    {
+        nextRotateTime = Time.time + rotationPeriod;
+        rotationProgress = 0;
+        print("Inside Countdown");
+        countdownText.gameObject.SetActive(true);
+
+        for (int i = 3; i > 0; i--)
+        {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f); // Wait for 1 second
+        }
+
+        countdownText.gameObject.SetActive(false);
+
         nextRotateTime = Time.time + rotationPeriod;
         rotationProgress = 0;
         Scene currentScene = SceneManager.GetActiveScene();
