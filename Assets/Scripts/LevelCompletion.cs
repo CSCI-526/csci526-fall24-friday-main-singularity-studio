@@ -195,11 +195,20 @@ public class LevelCompletion : MonoBehaviour
         }
     }
 
+    private static string CategorizePlayTime(float playTime)
+    {
+        if (playTime <= 10) return "Very Short";
+        else if (playTime <= 30) return "Short";
+        else if (playTime <= 60) return "Moderate";
+        else if (playTime <= 120) return "Long";
+        else return "Very Long";
+    }
 
     private void UploadDeathData()
     {
         float playTime = Time.time - startTime; // Calculate time spent in level
-        AnalyticsManager.trackProgress(currentLevel, false, playTime); // Upload data indicating game over
+        string timeCategory = CategorizePlayTime(playTime);
+        AnalyticsManager.trackProgress(currentLevel, false, playTime, timeCategory); // Upload data indicating game over
     }
     private void OnDestroy()
     {
@@ -233,7 +242,8 @@ public class LevelCompletion : MonoBehaviour
             Debug.Log("Winner Winner Chicken Dinner!");
             
             float playTime = Time.time - startTime; // Calculate the play duration
-            AnalyticsManager.trackProgress(currentLevel, true, playTime); // Pass playtime to AnalyticsManager
+            string timeCategory = CategorizePlayTime(playTime);
+            AnalyticsManager.trackProgress(currentLevel, true, playTime, timeCategory); // Pass playtime to AnalyticsManager
             
             cameraMovement.StopCamera();
             sceneRotation.StopRotation();

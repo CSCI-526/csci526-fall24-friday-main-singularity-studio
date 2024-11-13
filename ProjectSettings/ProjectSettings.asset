@@ -707,11 +707,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: e58389a4-9c7d-4904-a85d-d1798d0dbe3a
+  cloudProjectId: e0c83094-4f1f-4baa-92c2-9919e581dca4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: csci526-fall24-friday-main-singularity-studio 2024-11-11_18-57-37
-  organizationId: ngocta0905
+  projectName: 2D Prototype Rotatable
+  organizationId: yiyangdu
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

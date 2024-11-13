@@ -16,18 +16,8 @@ public class AnalyticsManager : MonoBehaviour
         Debug.Log("AnalyticsManager Initialized");
     }
 
-    private static string CategorizePlayTime(float playTime)
+    public static void trackProgress(int levelCompleted, bool isGameWon, float playTime, string timeCategory)
     {
-        if (playTime <= 10) return "Very Short";
-        else if (playTime <= 30) return "Short";
-        else if (playTime <= 60) return "Moderate";
-        else if (playTime <= 120) return "Long";
-        else return "Very Long";
-    }
-
-    public static void trackProgress(int levelCompleted, bool isGameWon, float playTime)
-    {
-        string timeCategory = CategorizePlayTime(playTime);
 
         ProgressTracker progressTracker = new ProgressTracker
         {
