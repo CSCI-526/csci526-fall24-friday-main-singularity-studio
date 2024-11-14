@@ -44337,6 +44337,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Damage Show
       objectReference: {fileID: 0}
+    - target: {fileID: 2423458433842651260, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3776102526828387021, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286664348458129431, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6515268445892892100, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7320987678927425893, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.79
@@ -44347,7 +44363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7320987678927425893, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7320987678927425893, guid: cc511111edc574153a48bd62d190cfbc, type: 3}
       propertyPath: m_LocalRotation.w
