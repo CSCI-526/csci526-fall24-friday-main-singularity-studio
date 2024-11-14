@@ -68,6 +68,10 @@ public class DisappearOnCollision : MonoBehaviour
                     else
                     {
                         health.TakeDamage(1, DamageCause.FortuneHeart);
+                        if (SceneManager.GetActiveScene().name != "Tutorial")
+                        {
+                            AnalyticsManager.trackDamageCause("FortuneHeart");
+                        }
                     }
                 }
                 Destroy(gameObject);
