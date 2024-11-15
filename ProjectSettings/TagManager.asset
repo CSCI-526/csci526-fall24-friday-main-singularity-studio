@@ -15,6 +15,7 @@ TagManager:
   - Flag Trigger1
   - MoveCameraTrigger
   - RotateSceneTrigger
+  - winEffect
   layers:
   - Default
   - TransparentFX

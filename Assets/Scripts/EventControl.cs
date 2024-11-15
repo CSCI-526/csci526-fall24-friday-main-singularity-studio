@@ -130,6 +130,8 @@ public class EventControl : MonoBehaviour
 
     public void ShowGameOverPanel()
     {
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(false);
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
     }
