@@ -29,9 +29,6 @@ public class LevelCompletion : MonoBehaviour
     private bool isGameStarted = false; // Track if the game has started
 
     public Health playerHealth;
-    public Button pauseButton;
-    public Button resumeButton;
-    public Button quitButton;
 
     private void Start()
     {
@@ -190,27 +187,22 @@ public class LevelCompletion : MonoBehaviour
         string sceneName = currentScene.name;
         if (sceneName == "Tutorial"){
             cameraMovement.StopCamera();
-            //GameObject cautionTape = GameObject.Find("Caution Tape");
-            //if (cautionTape != null){
-            //    cautionTape.SetActive(false);
-            //}
-            //GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
-            //if (wallDamage != null){
-            //    wallDamage.SetActive(false);
-            //}
-            FindObjectOfType<EventControl>().ShowWinPanel();
-            pauseButton.gameObject.SetActive(false);
-            resumeButton.gameObject.SetActive(false);
-            quitButton.gameObject.SetActive(false);
+            GameObject cautionTape = GameObject.Find("Caution Tape");
+            if (cautionTape != null){
+                cautionTape.SetActive(false);
+            }
+            GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
+            if (wallDamage != null){
+                wallDamage.SetActive(false);
+            }
+            FindObjectOfType<EventControl>().ShowMessage();
             StartCoroutine(LoadScene());
         }
         else
         {
             FindObjectOfType<EventControl>().ShowWinPanel();
             Debug.Log("Winner Winner Chicken Dinner!");
-            pauseButton.gameObject.SetActive(false);
-            resumeButton.gameObject.SetActive(false);
-
+            
             float playTime = Time.time - startTime; // Calculate the play duration
             string timeCategory = CategorizePlayTime(playTime);
             AnalyticsManager.trackProgress(currentLevel, true, playTime, timeCategory); // Pass playtime to AnalyticsManager
