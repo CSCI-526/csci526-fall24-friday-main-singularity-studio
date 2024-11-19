@@ -48,7 +48,7 @@ public class DisappearOnCollision : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject == Player){
-            if (this.gameObject.name == "Platform Trap")
+            if (this.gameObject.name == "Platform Trap" || this.gameObject.name == "Platform Trap Art")
             {
                 StartCoroutine(DestroyAfterDelay());
             }
