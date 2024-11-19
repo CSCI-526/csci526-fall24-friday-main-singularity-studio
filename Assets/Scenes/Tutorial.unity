@@ -4760,7 +4760,7 @@ MonoBehaviour:
   isVertical: 0
   isRotating: 0
   rotationPeriod: 5
-  cameraMovement: {fileID: 0}
+  cameraMovement: {fileID: 519420033}
   healthDisplay: {fileID: 1055946626}
   levelDisplay: {fileID: 260554483}
   skipButton: {fileID: 733829999}
@@ -33126,9 +33126,10 @@ GameObject:
   - component: {fileID: 1629949516}
   - component: {fileID: 1629949515}
   - component: {fileID: 1629949519}
+  - component: {fileID: 1629949520}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33159,7 +33160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1629949509
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33201,8 +33202,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.078431375, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bec07078e4dfc4f9884de8c5c4d5e86a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -33221,8 +33222,8 @@ Transform:
   m_GameObject: {fileID: 1629949507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.22, y: -90.6, z: 2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8.3291, y: -88.9946, z: 2}
+  m_LocalScale: {x: 0.04231264, y: 0.04231264, z: 0.04231264}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 527806979}
@@ -33235,7 +33236,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629949507}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -33312,8 +33313,8 @@ MonoBehaviour:
   ProgressBarImg: {fileID: 0}
   cameraMovement: {fileID: 519420033}
   sceneRotation: {fileID: 291149386}
-  confetti1: {fileID: 0}
-  confetti2: {fileID: 0}
+  confetti1: {fileID: 358116036}
+  confetti2: {fileID: 358116036}
   confetti3: {fileID: 358116036}
   distanceFromStart: 0
   playerHealth: {fileID: 1629949513}
@@ -33375,6 +33376,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraMovement: {fileID: 519420033}
   sceneRotation: {fileID: 291149386}
+--- !u!61 &1629949520
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629949507}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 14.93, y: 19.54}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 14.93, y: 19.54}
+  m_EdgeRadius: 0
 --- !u!1 &1632659533
 GameObject:
   m_ObjectHideFlags: 0

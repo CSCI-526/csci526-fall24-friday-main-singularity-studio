@@ -6,12 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/Menu_NoArt.unity
     guid: f1ceef218d2d84df8a0b967588d5cda3
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Scenes/Tutorial_NoArt.unity
     guid: 42d13cf48ce684f489630b2ab9a0f3a6
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/Scenes/Game_NoArt.unity
     guid: 556f85ce3f49347e59d250cb683395fd
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 3ddbffaee14f44c7f8139c8d636e7914
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 5df7beb4f893e4208895bb6abd863976
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 06ff1a4611a8148e2bff24a3fedb1bd3
   m_configObjects: {}
