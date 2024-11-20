@@ -16,6 +16,7 @@ TagManager:
   - MoveCameraTrigger
   - RotateSceneTrigger
   - winEffect
+  - FireEffect
   layers:
   - Default
   - TransparentFX
