@@ -58,7 +58,7 @@ public class LevelCompletion : MonoBehaviour
             {
                 Debug.LogError("Player object not found. Make sure the player is tagged 'Player' and has a Health component.");
             }
-            mapLength = 410f;
+            mapLength = 200f;
             confetti1.Stop();
             confetti2.Stop();
             // confetti3.Stop();
@@ -189,12 +189,12 @@ public class LevelCompletion : MonoBehaviour
 
         string sceneName = currentScene.name;
         if (sceneName == "Tutorial"){
-            cameraMovement.StopCamera();
-            FindObjectOfType<EventControl>().ShowWinPanel();
-            pauseButton.gameObject.SetActive(false);
-            resumeButton.gameObject.SetActive(false);
-            quitButton.gameObject.SetActive(false);
-            StartCoroutine(LoadScene());
+            StartCoroutine(PauseForAnimation());
+            // cameraMovement.StopCamera();
+            // pauseButton.gameObject.SetActive(false);
+            // resumeButton.gameObject.SetActive(false);
+            // quitButton.gameObject.SetActive(false);
+            // StartCoroutine(LoadScene());
         }
         else
         {
@@ -212,6 +212,19 @@ public class LevelCompletion : MonoBehaviour
             isGameStarted = false; // Reset the game state
         }
     }
+
+    private IEnumerator PauseForAnimation()
+    {
+        yield return new WaitForSeconds(1.5f); 
+        cameraMovement.StopCamera();
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(false);
+        FindObjectOfType<EventControl>().ShowWinPanel();
+        quitButton.gameObject.SetActive(false);
+        // StartCoroutine(LoadScene());
+    }
+
+    //TODO: create a Coroutine for Pausing (GAME)
 
     private IEnumerator LoadScene()
     {
