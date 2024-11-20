@@ -10,21 +10,42 @@ public class JumpHandler : MonoBehaviour
     [SerializeField] private float fallSpeedLandscape = 0.09f;
     private Rigidbody2D rb;
     public SceneRotation sceneRotation;
+    private GameObject fireLeft;
+    private GameObject fireRight;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        fireLeft = GameObject.Find("Fire Left");
+        fireRight = GameObject.Find("Fire Right");
+        Debug.Log("inside the start jump handler");
+        if (fireLeft != null && fireRight != null){
+            fireLeft.SetActive(false);
+            fireRight.SetActive(false);
+        }
     }
 
     public void HandleJump()
     {
+        Debug.Log("inside handle jump function");
+        
         if (sceneRotation.isVertical && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForcePortrait);
+            if (fireLeft != null && fireRight != null){
+                Debug.Log("found fire obj");
+                StartCoroutine(DelayStopTime());
+            }
+            
         }
         else if (!sceneRotation.isVertical && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForceLandscape);
+            if (fireLeft != null && fireRight != null){
+                Debug.Log("found fire obj");
+                StartCoroutine(DelayStopTime());
+            }
+            
         }
     }
 
@@ -36,5 +57,17 @@ public class JumpHandler : MonoBehaviour
                 ? new Vector2(0, -normalFallSpeed) 
                 : new Vector2(0, -fallSpeedLandscape);
         }
+    }
+
+    
+
+    IEnumerator DelayStopTime()
+    {   
+        Debug.Log("inside delay function");
+        fireLeft.SetActive(true);
+        fireRight.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        fireLeft.SetActive(false);
+        fireRight.SetActive(false);
     }
 }
