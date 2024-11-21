@@ -45,7 +45,7 @@ public class DisappearOnCollision : MonoBehaviour
         // }
         goodHeart = GameObject.Find("Good Heart");
         poisonHeart= GameObject.Find("Poison Heart");
-        
+
         if(gameObject.name == "fortuneHeart"){
             StartCoroutine(ChangeColorAfterDelay());
         }
