@@ -16,6 +16,9 @@ public class DisappearOnCollision : MonoBehaviour
 
     private bool isOriginalColor = true; 
 
+    private GameObject goodHeart;
+    private GameObject poisonHeart;
+
     private void Start()
     {
         Player = GameObject.Find("Player");
@@ -40,6 +43,9 @@ public class DisappearOnCollision : MonoBehaviour
         //         Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
         //     }
         // }
+        goodHeart = GameObject.Find("Good Heart");
+        poisonHeart= GameObject.Find("Poison Heart");
+        
         if(gameObject.name == "fortuneHeart"){
             StartCoroutine(ChangeColorAfterDelay());
         }
@@ -107,22 +113,32 @@ public class DisappearOnCollision : MonoBehaviour
         }
     }
     private void changeHeartColor(){
-        foreach (Transform child in transform){
-            Color newColor = isOriginalColor ? healColor : damageColor;
-
-            SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
-
-            if (spriteRenderer != null)
-            {
-                spriteRenderer.color = newColor;
-            }
-
-            Renderer renderer = child.GetComponent<Renderer>();
-
-            if (renderer != null)
-            {
-                renderer.material.color = newColor;
-            }
+        if(isOriginalColor){
+            goodHeart.SetActive(true);
+            poisonHeart.SetActive(false);
+            
         }
+        else{
+            goodHeart.SetActive(false);
+            poisonHeart.SetActive(true);
+        }
+
+        // foreach (Transform child in transform){
+        //     Color newColor = isOriginalColor ? healColor : damageColor;
+
+        //     SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
+
+        //     if (spriteRenderer != null)
+        //     {
+        //         spriteRenderer.color = newColor;
+        //     }
+
+        //     Renderer renderer = child.GetComponent<Renderer>();
+
+        //     if (renderer != null)
+        //     {
+        //         renderer.material.color = newColor;
+        //     }
+        // }
     }
 }
