@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 2038091462210724697}
   m_Layer: 0
   m_Name: Good Heart
-  m_TagString: Untagged
+  m_TagString: GoodHeart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -403,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 4137870800589699949}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -0.912, z: 0}
+  m_LocalPosition: {x: -0.069999695, y: -0.91199994, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 1567507707413048367}
   m_Layer: 0
   m_Name: Poison Heart
-  m_TagString: Untagged
+  m_TagString: PoisonHeart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -745,7 +745,7 @@ Transform:
   m_GameObject: {fileID: 4232889952809424160}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -0.912, z: 0}
+  m_LocalPosition: {x: -0.069999695, y: -0.91199994, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -901,7 +901,7 @@ GameObject:
   - component: {fileID: 2092449351991335315}
   m_Layer: 0
   m_Name: fortuneHeart
-  m_TagString: Untagged
+  m_TagString: heart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -926,8 +926,8 @@ Transform:
   - {fileID: 6449207814180599060}
   - {fileID: 7438743231454796220}
   - {fileID: 4565033877287791394}
-  - {fileID: 7247035040793626705}
   - {fileID: 2434209718156696566}
+  - {fileID: 7247035040793626705}
   m_Father: {fileID: 3823561732119594311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3945977786197033763

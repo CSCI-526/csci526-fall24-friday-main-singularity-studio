@@ -17,6 +17,8 @@ TagManager:
   - RotateSceneTrigger
   - winEffect
   - FireEffect
+  - GoodHeart
+  - PoisonHeart
   layers:
   - Default
   - TransparentFX

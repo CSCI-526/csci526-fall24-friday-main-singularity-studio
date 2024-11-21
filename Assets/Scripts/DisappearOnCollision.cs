@@ -16,8 +16,8 @@ public class DisappearOnCollision : MonoBehaviour
 
     private bool isOriginalColor = true; 
 
-    private GameObject goodHeart;
-    private GameObject poisonHeart;
+    private List<GameObject> goodHearts = new List<GameObject>();
+    private List<GameObject> poisonHearts = new List<GameObject>();
 
     private void Start()
     {
@@ -43,8 +43,24 @@ public class DisappearOnCollision : MonoBehaviour
         //         Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
         //     }
         // }
-        goodHeart = GameObject.Find("Good Heart");
-        poisonHeart= GameObject.Find("Poison Heart");
+
+        foreach (Transform child in transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == "Good Heart")
+            {
+                goodHearts.Add(child.gameObject);
+            }
+            else if (child.name == "Poison Heart")
+            {
+                poisonHearts.Add(child.gameObject);
+            }
+        }
+        // if (goodHearts.Count > 0 && poisonHearts.Count > 0)
+        // {
+        //     SetGoodHeartsActive(true);
+        //     SetPoisonHeartsActive(false);
+        //     StartCoroutine(ChangeColorAfterDelay());
+        // }
 
         if(gameObject.name == "fortuneHeart"){
             StartCoroutine(ChangeColorAfterDelay());
@@ -100,7 +116,7 @@ public class DisappearOnCollision : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(1f); 
+        yield return new WaitForSeconds(.5f); 
         Destroy(gameObject); 
     }
 
@@ -114,13 +130,13 @@ public class DisappearOnCollision : MonoBehaviour
     }
     private void changeHeartColor(){
         if(isOriginalColor){
-            goodHeart.SetActive(true);
-            poisonHeart.SetActive(false);
+            SetGoodHeartsActive(true);
+            SetPoisonHeartsActive(false);
             
         }
         else{
-            goodHeart.SetActive(false);
-            poisonHeart.SetActive(true);
+            SetGoodHeartsActive(false);
+            SetPoisonHeartsActive(true);
         }
 
         // foreach (Transform child in transform){
@@ -140,5 +156,21 @@ public class DisappearOnCollision : MonoBehaviour
         //         renderer.material.color = newColor;
         //     }
         // }
+    }
+
+    private void SetGoodHeartsActive(bool isActive)
+    {
+        foreach (GameObject heart in goodHearts)
+        {
+            heart.SetActive(isActive);
+        }
+    }
+
+    private void SetPoisonHeartsActive(bool isActive)
+    {
+        foreach (GameObject heart in poisonHearts)
+        {
+            heart.SetActive(isActive);
+        }
     }
 }
