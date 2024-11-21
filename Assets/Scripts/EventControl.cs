@@ -21,6 +21,7 @@ public class EventControl : MonoBehaviour
     // Pause-related UI elements
     public Button pauseButton;
     public Button resumeButton;
+    public Button quitButton;
     public float pauseSpeed = 2.0f;
     public float minScale = 0.9f;
     public float maxScale = 1.1f;
@@ -132,6 +133,7 @@ public class EventControl : MonoBehaviour
     {
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
     }

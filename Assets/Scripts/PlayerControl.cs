@@ -20,15 +20,15 @@ public class PlayerControl : MonoBehaviour
     private bool isRolling;
     private bool isTouchingPlatform;
     public Sprite rollingSprite;
-    public Sprite notRollingSprite;
+    private Sprite notRollingSprite;
     private SpriteRenderer spriteRenderer;
     private float rollingThreshold = 1f;
-    // public GameObject Fire;
     private float lastZRotation; 
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        notRollingSprite = spriteRenderer.sprite;
         rb = GetComponent<Rigidbody2D>();
         jumpHandler = GetComponent<JumpHandler>();
         spikeCollision = GetComponent<SpikeCollision>();
@@ -42,28 +42,15 @@ public class PlayerControl : MonoBehaviour
     {
         if (isGameStarted)
         {
-            // bool isRolling = Mathf.Abs(rb.angularVelocity) > rollingThreshold;
-            // print(isRolling);
             float currentZRotation = transform.rotation.eulerAngles.z;
-            // if (Mathf.Abs(currentZRotation - lastZRotation) > 10f && isTouchingPlatform) {
             if (isTouchingPlatform) {
                 spriteRenderer.sprite = rollingSprite;
-                // Fire.SetActive(false);
             }else{
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 spriteRenderer.sprite = notRollingSprite;
-                // Fire.SetActive(true);
             }
             lastZRotation = currentZRotation;
 
-            // if(isRolling){
-            //     spriteRenderer.sprite = rollingSprite;
-            //     Fire.SetActive(false);
-            // }else{
-            //     spriteRenderer.sprite = notRollingSprite;
-            //     Fire.SetActive(true);
-            // }
-            // spriteRenderer.sprite = isRolling ? rollingSprite : notRollingSprite;
             HandleMovement();
             jumpHandler.HandleJump();
         }

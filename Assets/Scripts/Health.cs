@@ -99,20 +99,11 @@ public class Health : MonoBehaviour
         //Update heart UI upon collision
         for (int i = 0; i < hearts.Length; i++)
         {
-            // RawImage heartImage = hearts[i].GetComponent<RawImage>();
             if (i < currentHealth){
                 hearts[i].sprite = fullHeart;
-                // hearts[i].GetComponent<RawImage>().color = new Color(1f, 0.4f, 0.7f); 
-                // foreach (Transform child in hearts[i].transform){
-                //     child.GetComponent<RawImage>().color = new Color(1f, 0.4f, 0.7f); 
-                // }
             }
             else{
                 hearts[i].sprite = emptyHeart;
-                // hearts[i].GetComponent<RawImage>().color = new Color(0.5f, 0.5f, 0.5f);
-                // foreach (Transform child in hearts[i].transform){
-                //     child.GetComponent<RawImage>().color = new Color(0.5f, 0.5f, 0.5f); 
-                // }
             }
         }
         // Log heart collection if a heart was collected
