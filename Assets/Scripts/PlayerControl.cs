@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(JumpHandler))]
 [RequireComponent(typeof(SpikeCollision))]
@@ -20,7 +21,9 @@ public class PlayerControl : MonoBehaviour
     private bool isRolling;
     private bool isTouchingPlatform;
     public bool isMoveAble = true;
+    public bool isSurprise = false;
     public Sprite rollingSprite;
+    public Sprite supriseSprite;
     private Sprite notRollingSprite;
     private SpriteRenderer spriteRenderer;
     private float rollingThreshold = 1f;
@@ -45,7 +48,10 @@ public class PlayerControl : MonoBehaviour
         if (isGameStarted)
         {
             float currentZRotation = transform.rotation.eulerAngles.z;
-            if (isTouchingPlatform) {
+            if(isSurprise){
+                spriteRenderer.sprite = supriseSprite;
+            }
+            else if (isTouchingPlatform) {
                 spriteRenderer.sprite = rollingSprite;
             }else{
                 transform.rotation = Quaternion.Euler(0, 0, 0);
