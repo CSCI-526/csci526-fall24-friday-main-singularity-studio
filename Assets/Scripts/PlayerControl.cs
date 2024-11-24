@@ -19,11 +19,13 @@ public class PlayerControl : MonoBehaviour
     private bool isGameStarted = false;
     private bool isRolling;
     private bool isTouchingPlatform;
+    public bool isMoveAble = true;
     public Sprite rollingSprite;
     private Sprite notRollingSprite;
     private SpriteRenderer spriteRenderer;
     private float rollingThreshold = 1f;
     private float lastZRotation; 
+
 
     private void Awake()
     {
@@ -80,7 +82,13 @@ public class PlayerControl : MonoBehaviour
 
     private void HandleMovement()
     {
-        float moveDirection = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+        if(isMoveAble){
+            float moveDirection = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+        }
+        else{
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        
     }
 }

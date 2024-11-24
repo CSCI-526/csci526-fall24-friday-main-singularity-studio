@@ -7,6 +7,7 @@ public class TutorialControl : MonoBehaviour
 {
     public CameraMovement cameraMovement;
     public SceneRotation sceneRotation; 
+    public PlayerControl playerMovement;
 
     private HashSet<GameObject> collidedTriggerList = new HashSet<GameObject>();
     void Start()
@@ -22,13 +23,15 @@ public class TutorialControl : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Flag Trigger"))
+        if (collision.gameObject.CompareTag("Flag Trigger")) // Player touch the first flag
         {
-            cameraMovement.MoveCamera();
+            StartCoroutine(DelayPlayerMovement());
+            // cameraMovement.MoveCamera();
             Debug.Log("Camera started moving due to Flag Trigger");
         }
-        else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject))
+        else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject)) // Player touch the flag other than the first one
         {
+            StartCoroutine(DelayPlayerMovement());
             StartCoroutine(DelayStopTime());
         }
         else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
@@ -42,6 +45,12 @@ public class TutorialControl : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision) {
         collidedTriggerList.Add(collision.gameObject);
+    }
+    IEnumerator DelayPlayerMovement()
+    {
+        playerMovement.isMoveAble = false;
+        yield return new WaitForSeconds(1.5f);
+        playerMovement.isMoveAble = true;
     }
 
     IEnumerator DelayMoveTime()
