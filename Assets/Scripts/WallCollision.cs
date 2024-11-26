@@ -7,7 +7,7 @@ public class WallCollision : MonoBehaviour
 {
     private float stayOnWallTime = 0.0f;
     private bool isWallDamage = false;
-    private const float damageCooldown = 0.5f;
+    private const float damageCooldown = 0.75f;
     private Health health;
 
     private void Start()
