@@ -66,7 +66,7 @@ public class PlayerControl : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Square" || collision.gameObject.name == "Platform Trap Art")
+        if (collision.gameObject.name == "Normal Art" || collision.gameObject.name == "Platform Trap Art")
         {
             isTouchingPlatform = true;
         }
@@ -74,7 +74,7 @@ public class PlayerControl : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Square" || collision.gameObject.name == "Platform Trap Art")
+        if (collision.gameObject.name == "Normal Art" || collision.gameObject.name == "Platform Trap Art")
         {
             isTouchingPlatform = false;
         }
