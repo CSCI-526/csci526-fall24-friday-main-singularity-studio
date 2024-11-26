@@ -110,6 +110,10 @@ public class DisappearOnCollision : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
+            else if(this.gameObject.name == "poison heart"){
+                health.TakeDamage(1, DamageCause.Hazard);
+                Destroy(gameObject);
+            }
         }
     }
     

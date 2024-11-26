@@ -63850,6 +63850,7 @@ GameObject:
   - component: {fileID: 1629949515}
   - component: {fileID: 1629949514}
   - component: {fileID: 1629949519}
+  - component: {fileID: 1629949520}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -64023,7 +64024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  rollingSprite: {fileID: 21300000, guid: 9b340207359c340ebafdb9ce88a431a7, type: 3}
+  isMoveAble: 1
 --- !u!114 &1629949515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64102,6 +64103,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraMovement: {fileID: 519420033}
   sceneRotation: {fileID: 291149386}
+  playerAppearance: {fileID: 1629949520}
+  playerControl: {fileID: 1629949514}
+--- !u!114 &1629949520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629949507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7529a38f32374510bc0e20dd8979522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSurprise: 0
+  supriseSprite: {fileID: 0}
+  rollingSprite: {fileID: 0}
 --- !u!1 &1635392004
 GameObject:
   m_ObjectHideFlags: 0
