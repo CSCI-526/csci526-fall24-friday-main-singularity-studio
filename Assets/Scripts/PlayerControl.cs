@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(JumpHandler))]
 [RequireComponent(typeof(SpikeCollision))]
 [RequireComponent(typeof(WallCollision))]
 [RequireComponent(typeof(LevelCompletion))]
 [RequireComponent(typeof(TutorialControl))]
+[RequireComponent(typeof(PlayerAppearance))]
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
@@ -16,7 +18,11 @@ public class PlayerControl : MonoBehaviour
     private WallCollision wallCollision;
     private LevelCompletion levelCompletion;
     private TutorialControl tutorialControl;
+    private PlayerAppearance playerAppearance;
     private bool isGameStarted = false;
+    public bool isMoveAble = true;
+    private float rollingThreshold = 1f;
+
 
     private void Awake()
     {
@@ -26,6 +32,7 @@ public class PlayerControl : MonoBehaviour
         wallCollision = GetComponent<WallCollision>();
         levelCompletion = GetComponent<LevelCompletion>();
         tutorialControl = GetComponent<TutorialControl>();
+        playerAppearance = GetComponent<PlayerAppearance>();
     }
 
     private void Update()
@@ -45,7 +52,12 @@ public class PlayerControl : MonoBehaviour
 
     private void HandleMovement()
     {
-        float moveDirection = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+        if(isMoveAble){
+            float moveDirection = Input.GetAxis("Horizontal");
+            rb.velocity = new Vector2(moveDirection * speed, rb.velocity.y);
+        }
+        else{
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
 }

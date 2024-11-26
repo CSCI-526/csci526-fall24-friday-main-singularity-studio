@@ -32,6 +32,7 @@ public class LevelCompletion : MonoBehaviour
     public Button pauseButton;
     public Button resumeButton;
     public Button quitButton;
+    // public Button backtoMain;
 
     private void Start()
     {
@@ -66,7 +67,7 @@ public class LevelCompletion : MonoBehaviour
             playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
             topLeftCorner = mapPosition + new Vector2(mapScale.x / 2 - 28, mapScale.y / 2);
         }else{
-            mapLength = 150f;
+            mapLength = 140f;
             topLeftCorner = mapPosition + new Vector2(mapScale.x / 2, mapScale.y / 2);
         }
     }
@@ -119,10 +120,10 @@ public class LevelCompletion : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("WinTrigger")){
-            GameObject cautionTape = GameObject.Find("Caution Tape");
-            if (cautionTape != null){
-                cautionTape.SetActive(false);
-            }
+            // GameObject cautionTape = GameObject.Find("Caution Tape");
+            // if (cautionTape != null){
+            //     cautionTape.SetActive(false);
+            // }
             GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
             if (wallDamage != null){
                 wallDamage.SetActive(false);
@@ -192,37 +193,43 @@ public class LevelCompletion : MonoBehaviour
 
         string sceneName = currentScene.name;
         if (sceneName == "Tutorial"){
-            cameraMovement.StopCamera();
-            //GameObject cautionTape = GameObject.Find("Caution Tape");
-            //if (cautionTape != null){
-            //    cautionTape.SetActive(false);
-            //}
-            //GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
-            //if (wallDamage != null){
-            //    wallDamage.SetActive(false);
-            //}
-            FindObjectOfType<EventControl>().ShowWinPanel();
-            pauseButton.gameObject.SetActive(false);
-            resumeButton.gameObject.SetActive(false);
-            quitButton.gameObject.SetActive(false);
-            StartCoroutine(LoadScene());
+            StartCoroutine(PauseForAnimationTutorial());
         }
         else
         {
-            FindObjectOfType<EventControl>().ShowWinPanel();
-            Debug.Log("Winner Winner Chicken Dinner!");
-            pauseButton.gameObject.SetActive(false);
-            resumeButton.gameObject.SetActive(false);
-
             float playTime = Time.time - startTime; // Calculate the play duration
             string timeCategory = CategorizePlayTime(playTime);
             AnalyticsManager.trackProgress(currentLevel, true, playTime, timeCategory); // Pass playtime to AnalyticsManager
-            
-            cameraMovement.StopCamera();
-            sceneRotation.StopRotation();
-            isGameStarted = false; // Reset the game state
+
+            StartCoroutine(PauseForAnimationGame());
         }
     }
+
+    private IEnumerator PauseForAnimationTutorial()
+    {
+        yield return new WaitForSeconds(2.5f); 
+        cameraMovement.StopCamera();
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(false);
+        FindObjectOfType<EventControl>().ShowWinPanel();
+        quitButton.gameObject.SetActive(false);
+        // StartCoroutine(LoadScene());
+    }
+
+    private IEnumerator PauseForAnimationGame()
+    {
+        yield return new WaitForSeconds(1.5f); 
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
+        FindObjectOfType<EventControl>().ShowWinPanel();
+        // backtoMain.gameObject.SetActive(true);
+        cameraMovement.StopCamera();
+        sceneRotation.StopRotation();
+        isGameStarted = false; // Reset the game state
+    }
+
+    //TODO: create a Coroutine for Pausing (GAME)
 
     private IEnumerator LoadScene()
     {

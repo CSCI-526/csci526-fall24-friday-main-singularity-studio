@@ -7,6 +7,8 @@ public class TutorialControl : MonoBehaviour
 {
     public CameraMovement cameraMovement;
     public SceneRotation sceneRotation; 
+    public PlayerAppearance playerAppearance;
+    public PlayerControl playerControl;
 
     private HashSet<GameObject> collidedTriggerList = new HashSet<GameObject>();
     void Start()
@@ -22,13 +24,17 @@ public class TutorialControl : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Flag Trigger"))
+        if (collision.gameObject.CompareTag("Flag Trigger")) // Player touch the first flag
         {
-            cameraMovement.MoveCamera();
+            playerAppearance.isSurprise = true;
+            StartCoroutine(DelayPlayerMovement(2.5f));
+            StartCoroutine(ShowWallCollideInstruction());
+            // cameraMovement.MoveCamera();
             Debug.Log("Camera started moving due to Flag Trigger");
         }
-        else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject))
+        else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject)) // Player touch the flag other than the first one
         {
+            StartCoroutine(DelayPlayerMovement(0.1f));
             StartCoroutine(DelayStopTime());
         }
         else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
@@ -44,6 +50,13 @@ public class TutorialControl : MonoBehaviour
         collidedTriggerList.Add(collision.gameObject);
     }
 
+    IEnumerator DelayPlayerMovement(float num)
+    {
+        playerControl.isMoveAble = false;
+        yield return new WaitForSeconds(num);
+        playerControl.isMoveAble = true;
+    }
+
     IEnumerator DelayMoveTime()
     {
         yield return new WaitForSeconds(1);
@@ -54,4 +67,13 @@ public class TutorialControl : MonoBehaviour
         yield return new WaitForSeconds(1);
         cameraMovement.StopCamera(); 
     }
+
+    IEnumerator ShowWallCollideInstruction()
+    {
+        cameraMovement.MoveCamera(); 
+        yield return new WaitForSeconds(2.5f);
+        cameraMovement.StopCamera(); 
+        playerAppearance.isSurprise = false;
+    }
+
 }

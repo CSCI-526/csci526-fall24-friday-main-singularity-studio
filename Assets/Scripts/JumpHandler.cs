@@ -6,44 +6,49 @@ public class JumpHandler : MonoBehaviour
 {
     [SerializeField] private float jumpForceLandscape = 6.0f;
     [SerializeField] private float jumpForcePortrait = 10.0f;
-    [SerializeField] private float jumpForceLowHealth = 1.0f; // New variable for low health jump force
     [SerializeField] private float normalFallSpeed = 0.05f;
     [SerializeField] private float fallSpeedLandscape = 0.09f;
-    [SerializeField] private AudioClip jumpSound; // Add reference for the jump sound
     private Rigidbody2D rb;
-    private AudioSource audioSource; // Audio source for playing sounds
     public SceneRotation sceneRotation;
-    private Health playerHealth;
+    private GameObject fireLeft;
+    private GameObject fireRight;
+    private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
-        playerHealth = FindObjectOfType<Health>(); // Reference to the Health script
+        fireLeft = GameObject.Find("Fire Left");
+        fireRight = GameObject.Find("Fire Right");
+        Debug.Log("inside the start jump handler");
+        if (fireLeft != null && fireRight != null){
+            fireLeft.SetActive(false);
+            fireRight.SetActive(false);
+        }
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void HandleJump()
     {
-        if (playerHealth != null && playerHealth.currentHealth == 1) // Check if health is 1
+        Debug.Log("inside handle jump function");
+        
+        if (sceneRotation.isVertical && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForceLowHealth); // Apply low-health jump force
-                PlayJumpSound(); // Play jump sound
+            rb.velocity = new Vector2(rb.velocity.x, jumpForcePortrait);
+            if (fireLeft != null && fireRight != null && spriteRenderer.sprite.name != "Player_Head"){
+                Debug.Log("found fire obj");
+                StartCoroutine(DelayStopTime());
             }
+            
         }
-        else
+
+        else if (!sceneRotation.isVertical && Input.GetKeyDown(KeyCode.Space))
         {
-            if (sceneRotation.isVertical && Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForcePortrait);
-                PlayJumpSound(); // Play jump sound
+            rb.velocity = new Vector2(rb.velocity.x, jumpForceLandscape);
+            if (fireLeft != null && fireRight != null && spriteRenderer.sprite.name != "Player_Head"){
+                Debug.Log("found fire obj");
+                StartCoroutine(DelayStopTime());
             }
-            else if (!sceneRotation.isVertical && Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForceLandscape);
-                PlayJumpSound(); // Play jump sound
-            }
+            
         }
     }
 
@@ -55,15 +60,17 @@ public class JumpHandler : MonoBehaviour
                 ? new Vector2(0, -normalFallSpeed) 
                 : new Vector2(0, -fallSpeedLandscape);
         }
-
-        HandleJump(); // Ensure jump logic is checked in every frame
     }
 
-    private void PlayJumpSound()
-    {
-        if (audioSource != null && jumpSound != null)
-        {
-            audioSource.PlayOneShot(jumpSound); // Play the jump sound effect
-        }
+    
+
+    IEnumerator DelayStopTime()
+    {   
+        Debug.Log("inside delay function");
+        fireLeft.SetActive(true);
+        fireRight.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        fireLeft.SetActive(false);
+        fireRight.SetActive(false);
     }
 }
