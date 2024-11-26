@@ -34,7 +34,7 @@ public class TutorialControl : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject)) // Player touch the flag other than the first one
         {
-            StartCoroutine(DelayPlayerMovement(0.2f));
+            StartCoroutine(DelayPlayerMovement(0.1f));
             StartCoroutine(DelayStopTime());
         }
         else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
@@ -48,8 +48,8 @@ public class TutorialControl : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision) {
         collidedTriggerList.Add(collision.gameObject);
-        playerAppearance.isSurprise = false;
     }
+
     IEnumerator DelayPlayerMovement(float num)
     {
         playerControl.isMoveAble = false;
@@ -73,6 +73,7 @@ public class TutorialControl : MonoBehaviour
         cameraMovement.MoveCamera(); 
         yield return new WaitForSeconds(2.5f);
         cameraMovement.StopCamera(); 
+        playerAppearance.isSurprise = false;
     }
 
 }
