@@ -64112,7 +64112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForceLandscape: 6
   jumpForcePortrait: 6
-  jumpForceLowHealth: 2
+  jumpForceLowHealth: 6
   normalFallSpeed: 0.05
   fallSpeedLandscape: 0.09
   jumpSound: {fileID: 8300000, guid: 55baa45a921a2334394e63cf1243d361, type: 3}
