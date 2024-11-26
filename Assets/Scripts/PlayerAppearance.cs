@@ -24,6 +24,7 @@ public class PlayerAppearance : MonoBehaviour
     {
         float currentZRotation = transform.rotation.eulerAngles.z;
         if(isSurprise){
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             spriteRenderer.sprite = supriseSprite;
         }
         else if (isTouchingPlatform) {

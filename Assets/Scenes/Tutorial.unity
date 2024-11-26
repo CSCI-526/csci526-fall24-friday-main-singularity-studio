@@ -4942,7 +4942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8217776006795145158, guid: decee8982a3584f78b5f79acd3adfbfe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.03
+      value: 2.13
       objectReference: {fileID: 0}
     - target: {fileID: 8217776006795145158, guid: decee8982a3584f78b5f79acd3adfbfe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34477,7 +34477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSurprise: 0
-  supriseSprite: {fileID: 21300000, guid: 1c02ec93c59504d9ea4ea2f93f382157, type: 3}
+  supriseSprite: {fileID: 21300000, guid: 154c1693eaa834190ba35d0821e64c96, type: 3}
   rollingSprite: {fileID: 21300000, guid: 9b340207359c340ebafdb9ce88a431a7, type: 3}
 --- !u!1 &1632342167
 GameObject:
