@@ -26,7 +26,10 @@ public class EventControl : MonoBehaviour
     public float minScale = 0.9f;
     public float maxScale = 1.1f;
     private bool isPulsing = false;
-    
+
+    private float menuStartTime; // To record when the main menu is loaded
+    private bool isTimerRunning=false; // To track if the timer is active
+
     private AnalyticsManager analyticsManager;
 
     void Start()
@@ -35,7 +38,19 @@ public class EventControl : MonoBehaviour
         if (this.gameObject.name == "EventSystemMenu")
         {
             mainMenuUI.SetActive(true);
-            Time.timeScale = 0f;  // Pause game at start
+            Time.timeScale = 0f;
+
+            if (!isTimerRunning)
+            {
+                analyticsManager = GameObject.FindObjectOfType<AnalyticsManager>();
+                menuStartTime = Time.time;
+                isTimerRunning = true;
+                Debug.Log($"Timer started at: {menuStartTime} seconds since game launch");
+            }
+            else
+            {
+                Debug.Log("Timer is already running, keeping the original start time.");
+            }
         }
         else if (this.gameObject.name == "EventSystemTutorial")
         {
@@ -50,7 +65,7 @@ public class EventControl : MonoBehaviour
         }
         else if (this.gameObject.name == "EventSystemGame")
         {
-            analyticsManager = GameObject.Find("AnalyticsManager").GetComponent<AnalyticsManager>();
+            analyticsManager = GameObject.FindObjectOfType<AnalyticsManager>();
             Time.timeScale = 1f;  // Make sure time is resumed here
 
             if (playerMovement != null)
@@ -65,6 +80,17 @@ public class EventControl : MonoBehaviour
             resumeButton.onClick.AddListener(StopPause);
             resumeButton.gameObject.SetActive(false);
         }
+        if (quitButton != null)
+        {
+            if (this.gameObject.name == "WinPanel")
+            {
+                quitButton.onClick.AddListener(ExitGameFinished); // For the win panel
+            }
+            else if (this.gameObject.name == "RestartPanel")
+            {
+                quitButton.onClick.AddListener(ExitGameUnfinished); // For the restart panel
+            }
+        }
     }
 
     void Update()
@@ -74,6 +100,7 @@ public class EventControl : MonoBehaviour
             float scale = Mathf.PingPong(Time.unscaledTime * pauseSpeed, maxScale - minScale) + minScale;
             transform.localScale = new Vector3(scale, scale, 1);
         }
+        isTimerRunning = true;
     }
 
     public void StartGame()
@@ -160,6 +187,41 @@ public class EventControl : MonoBehaviour
     {
         mainMenuUI.SetActive(false);
         levelsPanel.SetActive(true);
+    }
+
+    public void ExitGameUnfinished()
+    {
+        Debug.Log("ExitGameUnfinished called");
+        print(isTimerRunning);
+        if (isTimerRunning)
+        {
+            float sessionDuration = Time.time - menuStartTime; // Calculate session duration
+            AnalyticsManager.UploadSessionData(sessionDuration, "Failed"); // Upload session data
+            isTimerRunning = false; // Stop the timer
+        }
+        #if UNITY_WEBGL
+                Application.Quit();
+        #elif UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+    }
+
+    public void ExitGameFinished()
+    {
+        Debug.Log("ExitGameFinished called");
+        print(isTimerRunning);
+        if (isTimerRunning)
+        {
+            float sessionDuration = Time.time - menuStartTime; // Calculate session duration
+            AnalyticsManager.UploadSessionData(sessionDuration, "Complete"); // Upload session data
+            isTimerRunning = false; // Stop the timer
+        }
+
+        #if UNITY_WEBGL
+                Application.Quit();
+        #elif UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }
 

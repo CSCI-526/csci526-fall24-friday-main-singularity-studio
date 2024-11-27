@@ -5,6 +5,7 @@ using Unity.Services.Analytics;
 using Unity.Services.Core;
 using Unity.Services.Core.Analytics;
 using UnityEngine.SceneManagement;
+using System;
 
 public class AnalyticsManager : MonoBehaviour
 {
@@ -15,6 +16,46 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
         Debug.Log("AnalyticsManager Initialized");
     }
+
+    private static string CategorizeDuration(float sessionDuration)
+    {
+        if (sessionDuration <= 40) return "0-40s";
+        else if (sessionDuration <= 80) return "40-80s";
+        else if (sessionDuration <= 120) return "80-120s";
+        else if (sessionDuration <= 160) return "120-160s";
+        else if (sessionDuration <= 200) return "160-200s";
+        else return "200s+";
+    }
+
+    public static void UploadSessionData(float sessionDuration, string exitReason)
+    {
+        string durationCategory = CategorizeDuration(sessionDuration);
+        SessionDataTracker sessionData = new SessionDataTracker
+        {
+            SessionDuration = sessionDuration,
+            ExitReason = exitReason,
+            TimeStamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            DurationCategory = durationCategory
+        };
+
+        Debug.Log("SessionDataTracker created. Preparing to record event...");
+
+        try
+        {
+            AnalyticsService.Instance.RecordEvent(sessionData);
+            Debug.Log("RecordEvent called successfully.");
+
+            AnalyticsService.Instance.Flush(); // Flush the analytics data
+            Debug.Log("Analytics data flushed successfully.");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Error during analytics upload: {ex.Message}");
+        }
+
+        Debug.Log($"Session Data Recorded: Duration={sessionDuration}s, ExitReason={exitReason}, DurationCat={durationCategory}");
+    }
+
 
     public static void trackProgress(int levelCompleted, bool isGameWon, float playTime, string timeCategory)
     {
