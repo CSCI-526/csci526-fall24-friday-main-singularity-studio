@@ -34,7 +34,7 @@ public class TutorialControl : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Flag Trigger1") && !collidedTriggerList.Contains(collision.gameObject)) // Player touch the flag other than the first one
         {
-            StartCoroutine(DelayPlayerMovement(0.1f));
+            StartCoroutine(DelayPlayerMovement(1f));
             StartCoroutine(DelayStopTime());
         }
         else if(collision.gameObject.CompareTag("MoveCameraTrigger")){
