@@ -34,11 +34,11 @@ public class HeartMovement : MonoBehaviour
             if (spikeCollider != null)
             {
                 Physics2D.IgnoreCollision(thisCollider, spikeCollider);
-                Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
+                // Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
             }
             else
             {
-                Debug.LogWarning($"{spike.name} does not have a Collider2D.");
+                // Debug.LogWarning($"{spike.name} does not have a Collider2D.");
             }
         }
     }

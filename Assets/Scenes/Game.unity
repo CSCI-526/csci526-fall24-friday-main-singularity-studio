@@ -14769,6 +14769,7 @@ MonoBehaviour:
   isVertical: 0
   isRotating: 0
   rotationPeriod: 10
+  timeFlashBeforeRotation: 1
   cameraMovement: {fileID: 519420033}
   healthDisplay: {fileID: 1801789416}
   levelDisplay: {fileID: 108978958}
@@ -48866,6 +48867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1177985018}
   - component: {fileID: 1177985020}
+  - component: {fileID: 1177985021}
   m_Layer: 0
   m_Name: Walls Trigger
   m_TagString: Untagged
@@ -48912,6 +48914,21 @@ MonoBehaviour:
   rightBorder: {fileID: 692157652}
   topBorder: {fileID: 1316358989}
   bottomBorder: {fileID: 73423770}
+--- !u!114 &1177985021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177985017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b642ebef55e4c7396428bacc4bee71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 0.49056602, g: 0, b: 0, a: 1}
+  totalFlashDuration: 1
+  flashCount: 4
 --- !u!1001 &1179869215
 PrefabInstance:
   m_ObjectHideFlags: 0
