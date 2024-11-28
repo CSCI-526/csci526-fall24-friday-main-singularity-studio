@@ -48592,7 +48592,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9092840478090336328, guid: decee8982a3584f78b5f79acd3adfbfe, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9092840478090336328, guid: decee8982a3584f78b5f79acd3adfbfe, type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9221671107179145809, guid: decee8982a3584f78b5f79acd3adfbfe, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

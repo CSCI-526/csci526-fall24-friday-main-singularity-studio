@@ -63,7 +63,7 @@ public class LevelCompletion : MonoBehaviour
             {
                 Debug.LogError("Player object not found. Make sure the player is tagged 'Player' and has a Health component.");
             }
-            mapLength = 415f;
+            mapLength = 380f;//387
             confetti1.Stop();
             confetti2.Stop();
             // confetti3.Stop();
