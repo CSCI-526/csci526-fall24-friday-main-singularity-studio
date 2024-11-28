@@ -94,12 +94,14 @@ public class LevelCompletion : MonoBehaviour
             confetti1.Play();
             // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
             Debug.Log("Level 2");
+            playerHealth.Heal(3);
         }
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
             confetti2.Play();
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
             Debug.Log("Level 3");
+            playerHealth.Heal(3);
         }
         else if (collision.gameObject.CompareTag("WinTrigger"))
         {
