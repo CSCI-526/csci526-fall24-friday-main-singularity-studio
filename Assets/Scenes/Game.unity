@@ -11037,6 +11037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2
@@ -12557,6 +12561,10 @@ PrefabInstance:
     - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_Name
       value: Spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16892,6 +16900,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2
@@ -18688,6 +18700,10 @@ PrefabInstance:
     - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_Name
       value: Spikes (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25478,8 +25494,8 @@ Transform:
   m_GameObject: {fileID: 451825975}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.366933, y: 372.14133, z: 0.42859095}
-  m_LocalScale: {x: 22.444998, y: 1, z: 1}
+  m_LocalPosition: {x: -8.6848, y: 372.1413, z: 0.42859095}
+  m_LocalScale: {x: 23.809652, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 817228245}
@@ -41424,8 +41440,8 @@ Transform:
   m_GameObject: {fileID: 873040164}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.19, y: -188.9, z: -2.2222223}
-  m_LocalScale: {x: 21.94, y: 0.7, z: 1}
+  m_LocalPosition: {x: -0.322, y: -188.9, z: -2.2222223}
+  m_LocalScale: {x: 26.49374, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1251320358}
@@ -46512,6 +46528,10 @@ PrefabInstance:
     - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_Name
       value: Spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53985,6 +54005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2
@@ -54691,6 +54715,10 @@ PrefabInstance:
     - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_Name
       value: Spikes (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55680,8 +55708,8 @@ Transform:
   m_GameObject: {fileID: 1328479378}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.87, y: -136.5, z: -2.2222223}
-  m_LocalScale: {x: 21.94, y: 0.7, z: 1}
+  m_LocalPosition: {x: -0.224, y: -136.3431, z: -2.2222223}
+  m_LocalScale: {x: 27.190605, y: 0.5892633, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 839239013}
@@ -59964,8 +59992,8 @@ Transform:
   m_GameObject: {fileID: 1443112391}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.14, y: 183.29, z: 0.42859095}
-  m_LocalScale: {x: 22.444998, y: 1, z: 1}
+  m_LocalPosition: {x: -8.5294, y: 183.29, z: 0.42859095}
+  m_LocalScale: {x: 23.666195, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 817228245}
@@ -64643,8 +64671,8 @@ Transform:
   m_GameObject: {fileID: 1576362949}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.37, y: -22, z: 0.42859095}
-  m_LocalScale: {x: 22.444998, y: 1, z: 1}
+  m_LocalPosition: {x: -8.93, y: -22, z: 0.42859095}
+  m_LocalScale: {x: 23.32484, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 817228245}
@@ -66260,7 +66288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1649549563
 Transform:
   m_ObjectHideFlags: 0
@@ -80350,6 +80378,10 @@ PrefabInstance:
     - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_Name
       value: Spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: 556478518035706139, guid: be5890522f633c54f943da1fa88784b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1130955110144881347, guid: be5890522f633c54f943da1fa88784b8, type: 3}
       propertyPath: m_LocalPosition.x
