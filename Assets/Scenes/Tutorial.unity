@@ -22374,7 +22374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.71, y: -102.91}
+  m_AnchoredPosition: {x: 12.71, y: -102.02}
   m_SizeDelta: {x: 10.908, y: 2.7518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &714918833
@@ -22847,7 +22847,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723734415}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22855,7 +22855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.81, y: -84.92}
+  m_AnchoredPosition: {x: 16.07, y: -85.86}
   m_SizeDelta: {x: 10.9729, y: 2.7518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723734417
@@ -22941,7 +22941,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 6.803713, w: 3.7251213}
+  m_margin: {x: 0, y: 0, z: 7.0390415, w: 3.7251213}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -30169,7 +30169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +1
+  m_text: -1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -38004,7 +38004,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 6.803713, w: 3.7251213}
+  m_margin: {x: 0, y: 0, z: 7.4802723, w: 3.7251213}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -43564,7 +43564,7 @@ Transform:
   m_GameObject: {fileID: 1475589798}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 11.599992, y: -92.19256, z: 4}
+  m_LocalPosition: {x: 11.599992, y: -92.19256, z: 1}
   m_LocalScale: {x: 5.4999986, y: 5.4999986, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47079,10 +47079,14 @@ MonoBehaviour:
   confetti2: {fileID: 358116036}
   confetti3: {fileID: 358116036}
   distanceFromStart: 0
+  Nspeed: 4
   playerHealth: {fileID: 1629949513}
+  play: {fileID: 0}
+  scene: {fileID: 0}
   pauseButton: {fileID: 93973257}
   resumeButton: {fileID: 1263714153}
   quitButton: {fileID: 733830001}
+  cam: {fileID: 0}
 --- !u!114 &1629949516
 MonoBehaviour:
   m_ObjectHideFlags: 0
