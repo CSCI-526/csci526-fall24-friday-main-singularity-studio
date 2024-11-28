@@ -24,18 +24,14 @@ public class LevelCompletion : MonoBehaviour
     public float distanceFromStart;
     private float mapLength;
     private Scene currentScene;
-    [SerializeField] private float Nspeed = 4f;
     
     private float startTime; // Track the game start time
     private bool isGameStarted = false; // Track if the game has started
 
     public Health playerHealth;
-    public PlayerControl play;
-    public SceneRotation scene;
     public Button pauseButton;
     public Button resumeButton;
     public Button quitButton;
-    public CameraMovement cam;
     // public Button backtoMain;
 
     private void Start()
@@ -99,9 +95,6 @@ public class LevelCompletion : MonoBehaviour
             // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
             Debug.Log("Level 2");
             playerHealth.Heal(3);
-            //play.speed= 8.5f;
-            cam.speed= 4f;
-            scene.rotationPeriod = 8.75f;
         }
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
@@ -109,9 +102,6 @@ public class LevelCompletion : MonoBehaviour
             // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
             Debug.Log("Level 3");
             playerHealth.Heal(3);
-            play.speed= 8.5f;
-            cam.speed= 4.5f;
-            scene.rotationPeriod = 7.78f;
         }
         else if (collision.gameObject.CompareTag("WinTrigger"))
         {

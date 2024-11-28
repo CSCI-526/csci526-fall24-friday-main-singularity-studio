@@ -11,7 +11,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(PlayerAppearance))]
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] public float speed = 5f;
+    [SerializeField] private float speed = 5f;
     private Rigidbody2D rb;
     private JumpHandler jumpHandler;
     private SpikeCollision spikeCollision;
