@@ -65742,10 +65742,14 @@ MonoBehaviour:
   confetti2: {fileID: 449875663}
   confetti3: {fileID: 148945524}
   distanceFromStart: 0
+  Nspeed: 4
   playerHealth: {fileID: 1629949513}
+  play: {fileID: 1629949514}
+  scene: {fileID: 291149386}
   pauseButton: {fileID: 172111385}
   resumeButton: {fileID: 42882166}
   quitButton: {fileID: 1989992643}
+  cam: {fileID: 519420033}
 --- !u!114 &1629949516
 MonoBehaviour:
   m_ObjectHideFlags: 0
