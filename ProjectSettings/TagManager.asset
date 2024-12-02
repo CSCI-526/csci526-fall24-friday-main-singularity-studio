@@ -19,6 +19,8 @@ TagManager:
   - FireEffect
   - GoodHeart
   - PoisonHeart
+  - EndPhase
+  - EndPhase1
   layers:
   - Default
   - TransparentFX

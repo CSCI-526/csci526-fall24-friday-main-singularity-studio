@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.VFX;
 using UnityEngine.Analytics;
 
-
 public class LevelCompletion : MonoBehaviour
 {
     private int currentLevel = 0;
@@ -24,8 +23,7 @@ public class LevelCompletion : MonoBehaviour
     public float distanceFromStart;
     private float mapLength;
     private Scene currentScene;
-    [SerializeField] private float Nspeed = 4f;
-    
+
     private float startTime; // Track the game start time
     private bool isGameStarted = false; // Track if the game has started
 
@@ -36,7 +34,9 @@ public class LevelCompletion : MonoBehaviour
     public Button resumeButton;
     public Button quitButton;
     public CameraMovement cam;
-    // public Button backtoMain;
+
+    [SerializeField] private AudioClip checkpointSound; // Checkpoint sound
+    private AudioSource audioSource;                   // Reference to AudioSource
 
     private void Start()
     {
@@ -52,7 +52,8 @@ public class LevelCompletion : MonoBehaviour
 
         currentScene = SceneManager.GetActiveScene();
 
-        if (currentScene.name != "Tutorial"){
+        if (currentScene.name != "Tutorial")
+        {
             GameObject player = GameObject.FindWithTag("Player");
             if (player != null)
             {
@@ -63,24 +64,33 @@ public class LevelCompletion : MonoBehaviour
             {
                 Debug.LogError("Player object not found. Make sure the player is tagged 'Player' and has a Health component.");
             }
-            mapLength = 380f;//387
+            mapLength = 380f; // 387
             confetti1.Stop();
             confetti2.Stop();
-            // confetti3.Stop();
             playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
             playerHealth.OnPlayerDied += HandlePlayerDeath; // Subscribe to the event
             topLeftCorner = mapPosition + new Vector2(mapScale.x / 2 - 28, mapScale.y / 2);
-        }else{
+        }
+        else
+        {
             mapLength = 140f;
             topLeftCorner = mapPosition + new Vector2(mapScale.x / 2, mapScale.y / 2);
         }
+
+        // Initialize AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
-    private void Update(){
+    private void Update()
+    {
         // Calculate the distance from the player to the top-left corner
         distanceFromStart = Vector2.Distance(transform.position, topLeftCorner);
-        float progress = (mapLength - distanceFromStart)*100 / mapLength;
-        rt.sizeDelta = new Vector2(ProgressBarWidth * (100 - progress)/100, rt.sizeDelta.y);
+        float progress = (mapLength - distanceFromStart) * 100 / mapLength;
+        rt.sizeDelta = new Vector2(ProgressBarWidth * (100 - progress) / 100, rt.sizeDelta.y);
     }
 
     // Method to start tracking playtime
@@ -92,31 +102,29 @@ public class LevelCompletion : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         if (collision.gameObject.name == "EndPhase1" && currentScene.name != "Tutorial")
         {
             confetti1.Play();
-            // rt.sizeDelta = new Vector2(ProgressBarWidth / 3, rt.sizeDelta.y);
+            PlayCheckpointSound(); // Play checkpoint sound
             Debug.Log("Level 2");
             playerHealth.Heal(3);
-            //play.speed= 8.5f;
-            cam.speed= 4f;
+            cam.speed = 4f;
             scene.rotationPeriod = 8.75f;
         }
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
             confetti2.Play();
-            // rt.sizeDelta = new Vector2(2 * ProgressBarWidth / 3, rt.sizeDelta.y);
+            PlayCheckpointSound(); // Play checkpoint sound
             Debug.Log("Level 3");
             playerHealth.Heal(3);
-            play.speed= 8.5f;
-            cam.speed= 4.5f;
+            play.speed = 8.5f;
+            cam.speed = 4.5f;
             scene.rotationPeriod = 7.78f;
         }
         else if (collision.gameObject.CompareTag("WinTrigger"))
         {
-            // rt.sizeDelta = new Vector2(ProgressBarWidth, rt.sizeDelta.y);
             confetti3.Play();
+            PlayCheckpointSound(); // Play checkpoint sound
             Win();
         }
         else if (collision.gameObject.CompareTag("LevelTrigger"))
@@ -127,18 +135,26 @@ public class LevelCompletion : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.CompareTag("WinTrigger")){
-            // GameObject cautionTape = GameObject.Find("Caution Tape");
-            // if (cautionTape != null){
-            //     cautionTape.SetActive(false);
-            // }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("WinTrigger"))
+        {
             GameObject wallDamage = GameObject.Find("Wall Damage Trigger");
-            if (wallDamage != null){
+            if (wallDamage != null)
+            {
                 wallDamage.SetActive(false);
             }
         }
     }
+
+    private void PlayCheckpointSound()
+    {
+        if (checkpointSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(checkpointSound);
+        }
+    }
+
     private void HandlePlayerDeath()
     {
         Debug.Log("Player has died. Game Over.");
@@ -147,8 +163,6 @@ public class LevelCompletion : MonoBehaviour
         if (eventControl != null)
         {
             eventControl.ShowGameOverPanel();
-            // eventControl.ShowMessage();
-            // StartCoroutine(LoadScene());
         }
         else
         {
@@ -189,6 +203,7 @@ public class LevelCompletion : MonoBehaviour
         string timeCategory = CategorizePlayTime(playTime);
         AnalyticsManager.trackProgress(currentLevel, false, playTime, timeCategory); // Upload data indicating game over
     }
+
     private void OnDestroy()
     {
         // Unsubscribe from the event to prevent potential memory leaks
@@ -201,7 +216,8 @@ public class LevelCompletion : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
 
         string sceneName = currentScene.name;
-        if (sceneName == "Tutorial"){
+        if (sceneName == "Tutorial")
+        {
             StartCoroutine(PauseForAnimationTutorial());
         }
         else
@@ -216,33 +232,29 @@ public class LevelCompletion : MonoBehaviour
 
     private IEnumerator PauseForAnimationTutorial()
     {
-        yield return new WaitForSeconds(2.5f); 
+        yield return new WaitForSeconds(2.5f);
         cameraMovement.StopCamera();
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         FindObjectOfType<EventControl>().ShowWinPanel();
         quitButton.gameObject.SetActive(false);
-        // StartCoroutine(LoadScene());
     }
 
     private IEnumerator PauseForAnimationGame()
     {
-        yield return new WaitForSeconds(1.5f); 
+        yield return new WaitForSeconds(1.5f);
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
         FindObjectOfType<EventControl>().ShowWinPanel();
-        // backtoMain.gameObject.SetActive(true);
         cameraMovement.StopCamera();
         sceneRotation.StopRotation();
         isGameStarted = false; // Reset the game state
     }
 
-    //TODO: create a Coroutine for Pausing (GAME)
-
     private IEnumerator LoadScene()
     {
-        yield return new WaitForSeconds(1.5f); 
+        yield return new WaitForSeconds(1.5f);
         FindObjectOfType<EventControl>().StartGame();
     }
 }
