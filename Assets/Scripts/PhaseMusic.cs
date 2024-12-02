@@ -4,41 +4,69 @@ using UnityEngine;
 
 public class PhaseMusic : MonoBehaviour
 {
-    [SerializeField] private AudioSource phaseMusic; // AudioSource for Phase 1 music
-    [SerializeField] private float fadeDuration = 2f; // Duration of the fade-out in seconds
+    public AudioClip phase1Music; // AudioClip for Phase 1 music
+    public AudioClip phase2Music; // AudioClip for Phase 2 music
+    public AudioClip phase3Music; // AudioClip for Phase 3 music
+    public float fadeDuration = 2f; // Duration of the fade-out and fade-in in seconds
+    private AudioSource audioSource;
 
     private void Start()
     {
-        // Start playing music at the beginning of Phase 1
-        if (phaseMusic != null)
+        // Ensure there is an AudioSource component attached to this GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
         {
-            phaseMusic.Play();
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // Start playing Phase 1 music
+        if (phase1Music != null)
+        {
+            audioSource.clip = phase1Music;
+            audioSource.Play();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Check if the object is the player and is colliding with the EndPhase1 trigger
-        if (collision.CompareTag("Player"))
+        // Transition to Phase 2
+        if (collision.gameObject.name == "EndPhase1")
         {
-            if (phaseMusic != null && phaseMusic.isPlaying)
+            if (audioSource.isPlaying && phase2Music != null)
             {
-                StartCoroutine(FadeOutMusic());
+                StartCoroutine(TransitionMusic(phase2Music));
+            }
+        }
+
+        // Transition to Phase 3
+        if (collision.gameObject.name == "EndPhase2")
+        {
+            if (audioSource.isPlaying && phase3Music != null)
+            {
+                StartCoroutine(TransitionMusic(phase3Music));
             }
         }
     }
 
-    private IEnumerator FadeOutMusic()
+    private IEnumerator TransitionMusic(AudioClip newMusic)
     {
-        float startVolume = phaseMusic.volume;
-
-        while (phaseMusic.volume > 0)
+        // Fade out current music
+        float startVolume = audioSource.volume;
+        while (audioSource.volume > 0)
         {
-            phaseMusic.volume -= startVolume * Time.deltaTime / fadeDuration;
+            audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
             yield return null;
         }
 
-        phaseMusic.Stop();
-        phaseMusic.volume = startVolume; // Reset volume for next use
+        audioSource.Stop();
+        audioSource.clip = newMusic;
+
+        // Fade in new music
+        audioSource.Play();
+        while (audioSource.volume < startVolume)
+        {
+            audioSource.volume += startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
     }
 }

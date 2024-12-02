@@ -109041,6 +109041,7 @@ GameObject:
   - component: {fileID: 1629949519}
   - component: {fileID: 1629949520}
   - component: {fileID: 1629949521}
+  - component: {fileID: 1629949522}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -109414,6 +109415,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1629949522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629949507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b46b69fc93fcf654b84d27d3cdce1d4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phase1Music: {fileID: 8300000, guid: 34508411f96875748b107da2535abb98, type: 3}
+  phase2Music: {fileID: 8300000, guid: 5872a49d343f9ca4f94dffb95df6bf1c, type: 3}
+  phase3Music: {fileID: 8300000, guid: d5f7427f38bfcd34caa1ed0f06667fe6, type: 3}
+  fadeDuration: 5
 --- !u!1 &1635392004
 GameObject:
   m_ObjectHideFlags: 0
@@ -129210,7 +129227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46b69fc93fcf654b84d27d3cdce1d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phaseMusic: {fileID: 1927943038}
+  phase1Music: {fileID: 0}
+  phase2Music: {fileID: 0}
+  phase3Music: {fileID: 0}
   fadeDuration: 2
 --- !u!82 &1927943038
 AudioSource:
