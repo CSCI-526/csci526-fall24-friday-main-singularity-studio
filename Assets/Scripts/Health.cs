@@ -20,7 +20,13 @@ public class Health : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
-    //Analytic HeartCollection
+    // Sound Effects
+    [SerializeField] private AudioClip damageSound; // Sound when taking damage
+    [SerializeField] private AudioClip healSound;   // Sound when healing
+    [SerializeField] private AudioClip deathSound;  // Sound when dying
+    private AudioSource audioSource;
+
+    // Analytic HeartCollection
     private HeartTracker currentHeart; 
     private int previousHealth; 
     private bool isCollectingHeart = false;
@@ -30,20 +36,28 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
+        // Initialize health
         if (currentHealth == 0)
         {
             ResetHealth();
             print("We either just started/restarted the game");
         }
         UpdateHearts();
+
+        // Initialize audio source
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
+
     public void CollectHeart(HeartTracker heart)
     {
         currentHeart = heart;
         previousHealth = currentHealth;
         isCollectingHeart = true;
     }
-
 
     public void Heal(int healAmount)
     {
@@ -52,33 +66,47 @@ public class Health : MonoBehaviour
         {
             Debug.Log($"Healing from Collected Heart - ID: {currentHeart.heartID}, Name: {currentHeart.heartName}");
         }
+        
         currentHealth += healAmount;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
 
         UpdateHearts();
+        PlayHealSound(); // Play the heal sound
     }
 
     public void TakeDamage(int damage, DamageCause cause)
     {
         var eventControl = FindObjectOfType<EventControl>();
+
         // Log the damage cause for debugging
         if (cause == DamageCause.FortuneHeart && currentHeart != null)
         {
             Debug.Log($"Lost health due to fortune heart - ID: {currentHeart.heartID}, Name: {currentHeart.heartName}");
         }
-        StartCoroutine(ShowDamage());
+
         currentHealth -= damage;
+
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
+            UpdateHearts();
+
+            // If player dies, play death sound and invoke death event
+            PlayDeathSound();
+            OnPlayerDied?.Invoke();
+
             if (SceneManager.GetActiveScene().name == "Tutorial")
             {
                 eventControl.ShowGameOverPanel();
             }
-            currentHealth = 0;
-            OnPlayerDied?.Invoke();
+
+            return; // Exit early to prevent playing damage sound
         }
+
         UpdateHearts();
+        StartCoroutine(ShowDamage());
+        PlayDamageSound(); // Play the damage sound
     }
 
     IEnumerator ShowDamage()
@@ -88,24 +116,27 @@ public class Health : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-
     private void UpdateHearts()
     {
-        //Ensure the player has the maximum of (3) hearts
-        if(maxHealth > numOfHearts){
+        // Ensure the player has the maximum of (3) hearts
+        if (maxHealth > numOfHearts)
+        {
             maxHealth = numOfHearts;
         }
 
-        //Update heart UI upon collision
+        // Update heart UI upon collision
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (i < currentHealth){
+            if (i < currentHealth)
+            {
                 hearts[i].sprite = fullHeart;
             }
-            else{
+            else
+            {
                 hearts[i].sprite = emptyHeart;
             }
         }
+
         // Log heart collection if a heart was collected
         if (isCollectingHeart && currentHeart != null)
         {
@@ -123,5 +154,29 @@ public class Health : MonoBehaviour
     public void ResetHealth()
     {
         currentHealth = maxHealth;
+    }
+
+    private void PlayDamageSound()
+    {
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
+    }
+
+    private void PlayHealSound()
+    {
+        if (healSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(healSound);
+        }
+    }
+
+    private void PlayDeathSound()
+    {
+        if (deathSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
     }
 }
