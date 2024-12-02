@@ -73,7 +73,7 @@ public class LevelCompletion : MonoBehaviour
         }
         else
         {
-            mapLength = 140f;
+            mapLength = 180f;
             topLeftCorner = mapPosition + new Vector2(mapScale.x / 2, mapScale.y / 2);
         }
 
