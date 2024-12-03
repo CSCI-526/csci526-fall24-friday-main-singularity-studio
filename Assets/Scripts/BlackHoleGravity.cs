@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class BlackHoleGravity : MonoBehaviour
 {
@@ -8,6 +9,15 @@ public class BlackHoleGravity : MonoBehaviour
     public float maxGravityForce = 150f;      // Maximum gravitational force applied
 
     private Rigidbody2D targetRb;             // Reference to the target's Rigidbody2D
+    private Transform player;       // Reference to the player's Transform
+    // public Transform targetObject; // Reference to the target object's Transform
+    private float previousDistance;
+    private float affectiveDistance = 13f;
+    public  AudioClip blackholeSound;
+    private AudioSource audioSource;
+    public float fadeDuration = 3f; 
+    public float playDuration = 5f;
+    private bool isPlaying = false;
 
     void Start()
     {
@@ -15,12 +25,61 @@ public class BlackHoleGravity : MonoBehaviour
         {
             targetRb = targetTransform.GetComponent<Rigidbody2D>();
         }
+        player = GameObject.FindWithTag("Player").transform;
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = blackholeSound;
+        audioSource.loop = true; 
+        audioSource.volume = 0f;
 
     }
 
     void Update()
     {
-        
+        // Calculate the current distance to player
+        float currentDistance = Vector3.Distance(player.position, this.transform.position);
+
+        // Check if the player is approaching
+        if (currentDistance < affectiveDistance && !isPlaying)
+        {
+            Debug.Log("Player is approaching the target.");
+            // audioSource.Play();
+            StartCoroutine(FadeIn());
+            isPlaying = true;
+        }
+        else if (currentDistance > affectiveDistance)
+        {
+            Debug.Log("Player is moving away from the target.");
+            // audioSource.Stop();
+            StartCoroutine(FadeOut());
+            isPlaying = false;
+        }  
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float startVolume = 1;
+        audioSource.Play();
+        while (audioSource.volume < startVolume)
+        {
+            audioSource.volume += startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float startVolume = audioSource.volume;
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeDuration;
+            yield return null;
+        }
+
+        audioSource.Stop();
     }
 
     void FixedUpdate()

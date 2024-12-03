@@ -19,7 +19,7 @@ public class DisappearOnCollision : MonoBehaviour
     private List<GameObject> goodHearts = new List<GameObject>();
     private List<GameObject> poisonHearts = new List<GameObject>();
 
-    public  AudioClip glassBreakingSound;  // Sound when dying
+    public  AudioClip glassBreakingSound;
     public AudioSource audioSource;
 
     private void Start()

@@ -81,7 +81,7 @@ public class JumpHandler : MonoBehaviour
 
     private void PlayJumpSound()
     {
-        if (jumpSound != null && audioSource != null)
+        if (jumpSound != null && audioSource != null && spriteRenderer.sprite.name != "Player_Head")
         {
             audioSource.PlayOneShot(jumpSound);
         }
