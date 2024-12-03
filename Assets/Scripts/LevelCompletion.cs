@@ -34,12 +34,14 @@ public class LevelCompletion : MonoBehaviour
     public Button resumeButton;
     public Button quitButton;
     public CameraMovement cam;
+    public GameObject checkpointMessage;
 
     [SerializeField] private AudioClip checkpointSound; // Checkpoint sound
     private AudioSource audioSource;                   // Reference to AudioSource
 
     private void Start()
     {
+        checkpointMessage.SetActive(false);
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
         rt = ProgressBarImg.GetComponent<RectTransform>();
         ProgressBarWidth = rt.rect.width;
@@ -105,6 +107,7 @@ public class LevelCompletion : MonoBehaviour
         if (collision.gameObject.name == "EndPhase1" && currentScene.name != "Tutorial")
         {
             confetti1.Play();
+            StartCoroutine(DisplayMessage());
             PlayCheckpointSound(); // Play checkpoint sound
             Debug.Log("Level 2");
             playerHealth.Heal(3);
@@ -114,6 +117,7 @@ public class LevelCompletion : MonoBehaviour
         else if (collision.gameObject.name == "EndPhase2" && currentScene.name != "Tutorial")
         {
             confetti2.Play();
+            StartCoroutine(DisplayMessage());
             PlayCheckpointSound(); // Play checkpoint sound
             Debug.Log("Level 3");
             playerHealth.Heal(3);
@@ -134,6 +138,14 @@ public class LevelCompletion : MonoBehaviour
             currentLevel++;
         }
     }
+
+    private IEnumerator DisplayMessage()
+    {
+        checkpointMessage.SetActive(true);
+        yield return new WaitForSeconds(3f); 
+        checkpointMessage.SetActive(false);
+    }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
