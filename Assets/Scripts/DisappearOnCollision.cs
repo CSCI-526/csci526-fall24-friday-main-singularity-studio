@@ -19,6 +19,9 @@ public class DisappearOnCollision : MonoBehaviour
     private List<GameObject> goodHearts = new List<GameObject>();
     private List<GameObject> poisonHearts = new List<GameObject>();
 
+    public  AudioClip glassBreakingSound;  // Sound when dying
+    public AudioSource audioSource;
+
     private void Start()
     {
         Player = GameObject.Find("Player");
@@ -27,22 +30,6 @@ public class DisappearOnCollision : MonoBehaviour
         {
             Debug.LogError("Player  not found in the scene!");
         }
-
-        // Collider2D thisCollider = GetComponent<Collider2D>(); // Get the current object's 2D collider
-        // GameObject[] spikes = GameObject.FindGameObjectsWithTag("Wall");
-        // print(spikes.Length);
-
-        // // Loop through each spike and ignore collision with the current object
-        // foreach (GameObject spike in spikes)
-        // {
-        //     Collider2D spikeCollider = spike.GetComponent<Collider2D>();
-
-        //     if (spikeCollider != null)
-        //     {
-        //         Physics2D.IgnoreCollision(thisCollider, spikeCollider);
-        //         Debug.Log($"Ignoring collision between {this.gameObject.name} and {spike.name}");
-        //     }
-        // }
 
         foreach (Transform child in transform.GetComponentsInChildren<Transform>(true))
         {
@@ -55,17 +42,20 @@ public class DisappearOnCollision : MonoBehaviour
                 poisonHearts.Add(child.gameObject);
             }
         }
-        // if (goodHearts.Count > 0 && poisonHearts.Count > 0)
-        // {
-        //     SetGoodHeartsActive(true);
-        //     SetPoisonHeartsActive(false);
-        //     StartCoroutine(ChangeColorAfterDelay());
-        // }
 
         if(gameObject.name == "fortuneHeart"){
             StartCoroutine(ChangeColorAfterDelay());
         }
+        if(gameObject.name == "Platform Trap Art"){
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
     }
+
+    
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -120,8 +110,24 @@ public class DisappearOnCollision : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(.5f); 
-        Destroy(gameObject); 
+        yield return new WaitForSeconds(.4f);
+        PlayAudio();
+        if (glassBreakingSound != null)
+        {
+            yield return new WaitForSeconds(.25f); 
+        }
+        Destroy(gameObject);
+        // yield return new WaitForSeconds(.5f); 
+        // PlayAudio();
+        // Destroy(gameObject); 
+    }
+    private void PlayAudio()
+    {
+        print("play glass breaking sound");
+        if (glassBreakingSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(glassBreakingSound);
+        }
     }
 
     private IEnumerator ChangeColorAfterDelay(){
@@ -142,24 +148,6 @@ public class DisappearOnCollision : MonoBehaviour
             SetGoodHeartsActive(false);
             SetPoisonHeartsActive(true);
         }
-
-        // foreach (Transform child in transform){
-        //     Color newColor = isOriginalColor ? healColor : damageColor;
-
-        //     SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
-
-        //     if (spriteRenderer != null)
-        //     {
-        //         spriteRenderer.color = newColor;
-        //     }
-
-        //     Renderer renderer = child.GetComponent<Renderer>();
-
-        //     if (renderer != null)
-        //     {
-        //         renderer.material.color = newColor;
-        //     }
-        // }
     }
 
     private void SetGoodHeartsActive(bool isActive)
