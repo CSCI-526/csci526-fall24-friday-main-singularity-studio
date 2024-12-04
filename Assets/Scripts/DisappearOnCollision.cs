@@ -52,7 +52,7 @@ public class DisappearOnCollision : MonoBehaviour
             {
                 audioSource = gameObject.AddComponent<AudioSource>();
             }
-            audioSource.volume= 0.05f;
+            audioSource.volume= 0.2f;
         }
     }
 
@@ -111,11 +111,11 @@ public class DisappearOnCollision : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(.2f);
         PlayAudio();
         if (glassBreakingSound != null)
         {
-            yield return new WaitForSeconds(.25f); 
+            yield return new WaitForSeconds(1.5f); 
         }
         Destroy(gameObject);
         // yield return new WaitForSeconds(.5f); 
