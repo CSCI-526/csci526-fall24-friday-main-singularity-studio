@@ -111,7 +111,7 @@ public class DisappearOnCollision : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        yield return new WaitForSeconds(.2f);
+        //yield return new WaitForSeconds(.2f);
         PlayAudio();
         if (glassBreakingSound != null)
         {
