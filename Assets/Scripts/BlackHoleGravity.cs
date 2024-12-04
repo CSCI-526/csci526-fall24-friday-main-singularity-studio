@@ -60,7 +60,7 @@ public class BlackHoleGravity : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        float startVolume = 1;
+        float startVolume = 0.8f;
         audioSource.Play();
         while (audioSource.volume < startVolume)
         {

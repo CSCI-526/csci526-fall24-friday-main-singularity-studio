@@ -105804,7 +105804,8 @@ PrefabInstance:
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 1629949510}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1678488256312549442, guid: 3d8e9d8d662ba4363b56cf744e4423e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -110905,7 +110906,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -111001,8 +111002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46b69fc93fcf654b84d27d3cdce1d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phase1Music: {fileID: 8300000, guid: 34508411f96875748b107da2535abb98, type: 3}
-  phase2Music: {fileID: 8300000, guid: 5872a49d343f9ca4f94dffb95df6bf1c, type: 3}
+  phase1Music: {fileID: 8300000, guid: 4f9317cf8f09c76438bb6b57b006da59, type: 3}
+  phase2Music: {fileID: 8300000, guid: 34508411f96875748b107da2535abb98, type: 3}
   phase3Music: {fileID: 8300000, guid: d5f7427f38bfcd34caa1ed0f06667fe6, type: 3}
   fadeDuration: 5
 --- !u!1 &1635392004
@@ -131155,7 +131156,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.896
   m_Pitch: 1
   Loop: 0
   Mute: 0
