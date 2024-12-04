@@ -60656,7 +60656,7 @@ GameObject:
   - component: {fileID: 825046347}
   - component: {fileID: 825046348}
   m_Layer: 0
-  m_Name: Bottom Trigger
+  m_Name: Wall Damage Trigger
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62626,7 +62626,7 @@ GameObject:
   - component: {fileID: 844423252}
   - component: {fileID: 844423254}
   m_Layer: 0
-  m_Name: Left Trigger
+  m_Name: Wall Damage Trigger
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78175,7 +78175,7 @@ GameObject:
   - component: {fileID: 1113499649}
   - component: {fileID: 1113499651}
   m_Layer: 0
-  m_Name: Right Trigger
+  m_Name: Wall Damage Trigger
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101010,7 +101010,7 @@ GameObject:
   - component: {fileID: 1470974448}
   - component: {fileID: 1470974449}
   m_Layer: 0
-  m_Name: Top Trigger
+  m_Name: Wall Damage Trigger
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
