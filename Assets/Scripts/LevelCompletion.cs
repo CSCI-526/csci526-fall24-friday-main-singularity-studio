@@ -41,7 +41,6 @@ public class LevelCompletion : MonoBehaviour
 
     private void Start()
     {
-        checkpointMessage.SetActive(false);
         ProgressBarImg = GameObject.Find("Progress").GetComponent<Image>();
         rt = ProgressBarImg.GetComponent<RectTransform>();
         ProgressBarWidth = rt.rect.width;
