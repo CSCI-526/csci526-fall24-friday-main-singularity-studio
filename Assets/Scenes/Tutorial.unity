@@ -51168,7 +51168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a984510755fc6e469fef57b09d226d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProgressBarImg: {fileID: 0}
+  ProgressBarImg: {fileID: 1435843275}
   cameraMovement: {fileID: 519420033}
   sceneRotation: {fileID: 291149386}
   confetti1: {fileID: 358116036}
@@ -51182,6 +51182,7 @@ MonoBehaviour:
   resumeButton: {fileID: 1263714153}
   quitButton: {fileID: 733830001}
   cam: {fileID: 0}
+  checkpointMessage: {fileID: 0}
   checkpointSound: {fileID: 0}
 --- !u!114 &1629949516
 MonoBehaviour:
