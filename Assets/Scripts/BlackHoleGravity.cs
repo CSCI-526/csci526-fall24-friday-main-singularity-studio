@@ -16,7 +16,6 @@ public class BlackHoleGravity : MonoBehaviour
     public  AudioClip blackholeSound;
     private AudioSource audioSource;
     public float fadeDuration = 3f; 
-    public float playDuration = 5f;
     private bool isPlaying = false;
 
     void Start()

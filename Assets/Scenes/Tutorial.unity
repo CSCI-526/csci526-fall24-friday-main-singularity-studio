@@ -51558,6 +51558,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   checkpointMessage: {fileID: 0}
   checkpointSound: {fileID: 0}
+  winningSound: {fileID: 8300000, guid: da4b169340bbd704abf7f7f9ffe292f4, type: 3}
 --- !u!114 &1629949516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51598,7 +51599,7 @@ MonoBehaviour:
   jumpForcePortrait: 6
   normalFallSpeed: 0.05
   fallSpeedLandscape: 0.09
-  jumpSound: {fileID: 8300000, guid: 7ab98f6363e330e4c94a0bfcd1afa751, type: 3}
+  jumpSound: {fileID: 8300000, guid: e858a1449cadb46fcb18fae5c626c87d, type: 3}
   sceneRotation: {fileID: 291149386}
 --- !u!114 &1629949519
 MonoBehaviour:
@@ -51711,6 +51712,7 @@ MonoBehaviour:
   isSurprise: 0
   supriseSprite: {fileID: 21300000, guid: 154c1693eaa834190ba35d0821e64c96, type: 3}
   rollingSprite: {fileID: 21300000, guid: 9b340207359c340ebafdb9ce88a431a7, type: 3}
+  rollingSound: {fileID: 8300000, guid: 4c754eef4d9a145d89def121425ebf6f, type: 3}
 --- !u!82 &1629949523
 AudioSource:
   m_ObjectHideFlags: 0

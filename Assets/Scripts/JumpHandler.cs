@@ -36,6 +36,7 @@ public class JumpHandler : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+        audioSource.volume= 0.3f;
     }
 
     public void HandleJump()

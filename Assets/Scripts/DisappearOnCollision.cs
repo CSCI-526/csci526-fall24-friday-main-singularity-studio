@@ -52,6 +52,7 @@ public class DisappearOnCollision : MonoBehaviour
             {
                 audioSource = gameObject.AddComponent<AudioSource>();
             }
+            audioSource.volume= 0.05f;
         }
     }
 

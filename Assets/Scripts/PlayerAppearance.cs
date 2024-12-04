@@ -11,6 +11,12 @@ public class PlayerAppearance : MonoBehaviour
     private Sprite notRollingSprite;
     public Sprite supriseSprite;
     public Sprite rollingSprite;
+    [SerializeField] private AudioClip rollingSound; 
+    private AudioSource audioSource;
+
+    private bool isRolling = false; 
+    private float movementThreshold = 0.1f;
+    private Rigidbody2D playerRigidbody;  
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +24,12 @@ public class PlayerAppearance : MonoBehaviour
         lastZRotation = transform.rotation.eulerAngles.z;
         spriteRenderer = GetComponent<SpriteRenderer>();
         notRollingSprite = spriteRenderer.sprite;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.clip = rollingSound;
+        audioSource.loop = true;
+        playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -35,6 +47,36 @@ public class PlayerAppearance : MonoBehaviour
         }
         lastZRotation = currentZRotation;
         
+        if (isTouchingPlatform && IsPlayerMoving())
+        {
+            StartRollingSound();
+        }
+        else
+        {
+            StopRollingSound();
+        }
+    }
+
+    private void StartRollingSound()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+    }
+
+    private void StopRollingSound()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
+
+    private bool IsPlayerMoving()
+    {
+        // Check if the player's velocity is above the movement threshold
+        return playerRigidbody.velocity.magnitude > movementThreshold;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

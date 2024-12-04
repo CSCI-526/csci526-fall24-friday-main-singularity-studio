@@ -37,6 +37,7 @@ public class LevelCompletion : MonoBehaviour
     public GameObject checkpointMessage;
 
     [SerializeField] private AudioClip checkpointSound; // Checkpoint sound
+    [SerializeField] private AudioClip winningSound; // Checkpoint sound
     private AudioSource audioSource;                   // Reference to AudioSource
 
     private void Start()
@@ -127,7 +128,8 @@ public class LevelCompletion : MonoBehaviour
         else if (collision.gameObject.CompareTag("WinTrigger"))
         {
             confetti3.Play();
-            PlayCheckpointSound(); // Play checkpoint sound
+            // PlayCheckpointSound(); // Play checkpoint sound
+            PlayWinningSound();
             Win();
         }
         else if (collision.gameObject.CompareTag("LevelTrigger"))
@@ -166,6 +168,13 @@ public class LevelCompletion : MonoBehaviour
         }
     }
 
+    private void PlayWinningSound()
+    {
+        if (winningSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(winningSound);
+        }
+    }
     private void HandlePlayerDeath()
     {
         Debug.Log("Player has died. Game Over.");

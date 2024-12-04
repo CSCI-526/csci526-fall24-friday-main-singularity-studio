@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glassBreakingSound: {fileID: 8300000, guid: 80c45a73ccacb154e88a52a0628c11fd, type: 3}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 4960448540096472600}
 --- !u!82 &4960448540096472600
 AudioSource:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.141
+  m_Volume: 0.082
   m_Pitch: 1
   Loop: 0
   Mute: 0
