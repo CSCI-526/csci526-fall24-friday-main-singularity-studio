@@ -4989,7 +4989,7 @@ GameObject:
   - component: {fileID: 4673476085566891753}
   - component: {fileID: 1302140381817266443}
   m_Layer: 0
-  m_Name: BLACKHOLE
+  m_Name: BlackHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5204,6 +5204,8 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   gravityFieldRadius: 5
   maxGravityForce: 150
+  blackholeSound: {fileID: 0}
+  fadeDuration: 3
 --- !u!122 &4673476085566891753
 Halo:
   m_ObjectHideFlags: 0

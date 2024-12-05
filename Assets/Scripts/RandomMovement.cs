@@ -13,8 +13,8 @@ public class RandomMovement : MonoBehaviour
     private void Start()
     {
         Random.InitState(System.DateTime.Now.Millisecond + GetInstanceID());
-        startPosition = transform.position;
-        StartCoroutine(MoveRandomly());
+        // startPosition = transform.position;
+        // StartCoroutine(MoveRandomly());
         GameObject player = GameObject.FindWithTag("Player");
         levelCompletion = player.GetComponent<LevelCompletion>();
     }
