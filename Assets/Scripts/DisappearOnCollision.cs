@@ -52,7 +52,7 @@ public class DisappearOnCollision : MonoBehaviour
             {
                 audioSource = gameObject.AddComponent<AudioSource>();
             }
-            audioSource.volume= 0.2f;
+            audioSource.volume= 0.05f;
         }
     }
 
@@ -63,6 +63,7 @@ public class DisappearOnCollision : MonoBehaviour
         if (other.gameObject == Player){
             if (this.gameObject.name == "Platform Trap" || this.gameObject.name == "Platform Trap Art")
             {
+                PlayAudio();
                 StartCoroutine(DestroyAfterDelay());
             }
             else if (this.gameObject.name == "fortuneHeart")
@@ -111,16 +112,9 @@ public class DisappearOnCollision : MonoBehaviour
 
     private IEnumerator DestroyAfterDelay()
     {
-        //yield return new WaitForSeconds(.2f);
-        PlayAudio();
-        if (glassBreakingSound != null)
-        {
-            yield return new WaitForSeconds(0.75f); 
-        }
+        yield return new WaitForSeconds(0.75f); 
+        // yield return new WaitForSeconds(2f); 
         Destroy(gameObject);
-        // yield return new WaitForSeconds(.5f); 
-        // PlayAudio();
-        // Destroy(gameObject); 
     }
     private void PlayAudio()
     {

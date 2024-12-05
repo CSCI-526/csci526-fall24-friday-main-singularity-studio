@@ -38,7 +38,8 @@ public class LevelCompletion : MonoBehaviour
 
     [SerializeField] private AudioClip checkpointSound; // Checkpoint sound
     [SerializeField] private AudioClip winningSound; // Checkpoint sound
-    private AudioSource audioSource;                   // Reference to AudioSource
+    private AudioSource audioSource; 
+    public bool isWon = false;
 
     private void Start()
     {
@@ -66,7 +67,7 @@ public class LevelCompletion : MonoBehaviour
             {
                 Debug.LogError("Player object not found. Make sure the player is tagged 'Player' and has a Health component.");
             }
-            mapLength = 380f; // 387
+            mapLength = 385f; 
             confetti1.Stop();
             confetti2.Stop();
             playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
@@ -242,6 +243,7 @@ public class LevelCompletion : MonoBehaviour
         }
         else
         {
+            isWon = true;
             float playTime = Time.time - startTime; // Calculate the play duration
             string timeCategory = CategorizePlayTime(playTime);
             AnalyticsManager.trackProgress(currentLevel, true, playTime, timeCategory); // Pass playtime to AnalyticsManager
@@ -262,13 +264,14 @@ public class LevelCompletion : MonoBehaviour
 
     private IEnumerator PauseForAnimationGame()
     {
-        yield return new WaitForSeconds(1.5f);
+        sceneRotation.StopRotation();
+        yield return new WaitForSeconds(4f);
         pauseButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
         FindObjectOfType<EventControl>().ShowWinPanel();
         cameraMovement.StopCamera();
-        sceneRotation.StopRotation();
+        // sceneRotation.StopRotation();
         isGameStarted = false; // Reset the game state
     }
 
